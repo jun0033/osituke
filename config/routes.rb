@@ -1,39 +1,29 @@
 Rails.application.routes.draw do
+
+  # 管理者側のルーティング設定
   namespace :admin do
-    get 'hobby_comments/index'
+    resources :hobby_comments, only:[:index, :destroy]
+    resources :hobbies, only:[:index, :destroy]
+    resources :users, only:[:show, :edit, :update]
+    root to: 'homes#top'
+    get 'admin/tags/:id' =>'tags#index'
   end
-  namespace :admin do
-    get 'tags/index'
+
+  # 会員側のルーティング設定
+  scope module: :public do
+    resources :hobby_comments, only:[:index, :create, :destroy]
+    resources :hobbies, only:[:show, :edit, :index, :create, :destroy]
+    get 'users/mypage' => 'customers#show'
+    resources :users, only:[:update, :edit] do
+      collection do
+        get 'confirm'
+        patch 'withdraw'
+      end
+    end
+    root to: 'homes#top'
+    get '/tags/:id' =>'tags#index'
   end
-  namespace :admin do
-    get 'hobbies/index'
-  end
-  namespace :admin do
-    get 'users/show'
-    get 'users/edit'
-  end
-  namespace :admin do
-    get 'homes/top'
-  end
-  namespace :public do
-    get 'tags/index'
-  end
-  namespace :public do
-    get 'hobby_comments/index'
-  end
-  namespace :public do
-    get 'users/show'
-    get 'users/edit'
-    get 'users/confirm'
-  end
-  namespace :public do
-    get 'hobbies/show'
-    get 'hobbies/index'
-    get 'hobbies/edit'
-  end
-  namespace :public do
-    get 'homes/top'
-  end
+
 # 顧客用
 # URL /users/sign_in ...
 devise_for :users,skip: [:passwords], controllers: {
