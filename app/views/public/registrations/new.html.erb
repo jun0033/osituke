@@ -1,0 +1,60 @@
+  <!--フラッシュ表示-->
+  <%= flash[:notice] %>
+<div class=container>
+  <%= form_with model: resource, url: user_registration_path, id: 'new_public', class: 'new_public' do |f| %>
+    <%= render "public/shared/error_messages", resource: resource %>
+  <h2>ユーザー登録</h2>
+  <style>table,td {width: 70%;}</style>
+    <table>
+      <tr>
+        <td>ユーザーネーム</td>
+        <td>
+          <div class="field", style="ime-mode:active">
+            <% f.label :name %>
+            <%= f.text_field :name, autofocus: true, placeholder: "name" %>
+          </div>
+        </td>
+      </tr>
+        <td>メールアドレス</td>
+        <td>
+          <div class="field">
+            <% f.label :email %>
+            <%= f.email_field :email, placeholder: "sample@example.com" %>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>パスワード（６文字以上）</td>
+        <td>
+          <div class="field">
+            <% f.label :password %>
+            <%= f.password_field :password, autocomplete: "new-password" %>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>パスワード（確認用）</td>
+        <td>
+          <div class="field">
+            <% f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= f.submit "登録", class:"btn-success" %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h2>既に登録済みの方</h2>
+      <%= link_to new_user_session_path do %>
+      こちら
+      <% end %>
+      からログインしてください。
+    </div>
+  </div>
+</div>
