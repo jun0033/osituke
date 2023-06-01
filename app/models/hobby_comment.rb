@@ -1,0 +1,2 @@
+class HobbyComment < ApplicationRecord
+end
