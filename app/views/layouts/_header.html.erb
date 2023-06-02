@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg", style="background-color: #001A43;">
+  <div class="navbar-collapse" >
+    <div class = "header_inner">
+      <% if admin_signed_in? %>
+      <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),admin_root_path %>
+      <% else %>
+      <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),root_path %>
+      <% end %>
+    </div>
+    <ul class="navbar-nav ml-auto justify-content-center">
+      <!--管理者がログインしていたら-->
+      <% if admin_signed_in? %>
+       <li>
+        <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link mt-3" do %>
+          ログアウト
+        <% end %>
+      </li>
+      <!--ユーザーがログインしていたら-->
+      <% elsif user_signed_in? %>
+        <li>
+          <%= link_to user_path(current_user), class: "nav-link mt-3" do %>
+            マイページ
+          <% end %>
+        </li>
+        <li>
+          <%= link_to destroy_user_session_path, method: :delete, class: "nav-link mt-3" do %>
+            ログアウト
+          <% end %>
+        </li>
+      <!--ログイン前画面-->
+      <% else %>
+        <li>
+          <%= link_to new_user_registration_path, class: "nav-link mt-3" do %>
+            新規登録
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_user_session_path, class: "nav-link mt-3" do %>
+            ログイン
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>

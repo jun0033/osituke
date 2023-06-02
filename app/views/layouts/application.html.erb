@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>OsitukeApp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/09744899be.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="d-flex flex-column vh-100">
+    <header><%= render 'layouts/header' %></header>
+    <main class= "mb-auto"><%= yield %></main>
+    <footer><%= render 'layouts/footer' %></footer>
   </body>
+
 </html>

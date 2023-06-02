@@ -1,18 +1,19 @@
+<%= flash[:notice] %>
 <div class=container>
-    <div class="ml-5 pl-5 mt-2 mb-2">
-    <h2>ログイン</h2>
-    <p>登録済の方はこちらからログイン</p>
-    <%= form_with model: resource, url: new_user_session_path, id: 'new_session_public', class: 'new_session_public' do |f| %>
-    <%= render "public/shared/error_messages", resource: resource %>
+  <div class="row">
+    <div class="col-9 mx-auto">
+      <%= form_with model: resource, url: new_user_session_path, id: 'new_session_public', class: 'new_session_public' do |f| %>
+      <%= render "public/shared/error_messages", resource: resource %>
+      <h2 class="mt-5">ログイン</h2>
+      <p>登録済の方はこちらからログイン</p>
       <style>table,td {width: 70%;}</style>
-      <div class="ml-5">
         <table>
           <tr>
-            <td>メールアドレス</td>
+            <td>アカウント名</td>
             <td>
               <div class="field">
-                <% f.label :email %>
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", size:60 %>
+                <% f.label :name %>
+                <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "name", size:30 %>
               </div>
             </td>
           </tr>
@@ -21,29 +22,27 @@
             <td>
               <div class="field">
                 <% f.label :password %>
-                <%= f.password_field :password, autocomplete: "current-password", size:60 %>
+                <%= f.password_field :password, autocomplete: "current-password", size:30 %>
               </div>
             </td>
           </tr>
           <tr>
             <td></td>
             <td>
-            <div class="actions text-center">
+            <div class="text-center my-3">
             <%= f.submit "ログイン" %>
             </div>
             </td>
           </tr>
         </table>
+      <% end %>
       </div>
-    <% end %>
-        <p>会員登録がお済みでない方</p>
+      <div class="col-md-12 text-center my-5">
+      <h2>会員登録がお済みでない方</h2>
+      <%= link_to new_user_registration_path do %>
+      こちら
+      <% end %>
+      から新規登録を行ってください。
       </div>
-          <div class="row">
-      <div class="col-md-12 text-center">
-        <%= link_to new_user_registration_path do %>
-        こちら
-        <% end %>
-        から新規登録を行ってください。
-      </div>
-    </div>
+  </div>
 </div>

@@ -23,14 +23,14 @@
 - 同じ趣味を持った仲間が欲しいと感じたとき。
 
 ## 設計書
-ER図
-https://drive.google.com/file/d/1a6xobrXnH9LkdWzC1CFvGFpWjhfu71fG/view?usp=sharing
-会員側UI
-https://drive.google.com/file/d/1Fh4pmhHC6s1W_HTtSQIzyN0ExcFvymuB/view?usp=sharing
-管理人側UI
-https://drive.google.com/file/d/1S5JGvEbfbRXVbCkiYKULfHelClbLMkUt/view?usp=drive_link
-アプリケーション詳細設計書
-https://docs.google.com/spreadsheets/d/1BKZPe_misbpYVnjxbPTveyb6w-CKh9QC2wzOgfxsceI/edit?usp=sharing
+- ER図
+- https://drive.google.com/file/d/1a6xobrXnH9LkdWzC1CFvGFpWjhfu71fG/view?usp=sharing
+- 会員側UI
+- https://drive.google.com/file/d/1Fh4pmhHC6s1W_HTtSQIzyN0ExcFvymuB/view?usp=sharing
+- 管理人側UI
+- https://drive.google.com/file/d/1S5JGvEbfbRXVbCkiYKULfHelClbLMkUt/view?usp=drive_link
+- アプリケーション詳細設計書
+- https://docs.google.com/spreadsheets/d/1BKZPe_misbpYVnjxbPTveyb6w-CKh9QC2wzOgfxsceI/edit?usp=sharing
 
 ## 開発環境
 - OS：Linux(CentOS)
