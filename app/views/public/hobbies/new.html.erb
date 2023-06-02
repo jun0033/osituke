@@ -1,0 +1,40 @@
+<div class="container">
+  <%= flash[:notice] %>
+  <div class="row">
+    <div class="col-8 px-5 mx-auto my-3" style="background-color: #d4ecea;">
+      <%= form_with model: @hobby, url: hobbies_path, metod: :create, local: true do |f| %>
+      <div class="form-group">
+        <h4>画像を追加</h4>
+        <!--imageをクリックで発火するようにラベルで包む-->
+        <%= f.label :hobby_image do %>
+        <img id="preview" style="width:40%;">
+        <%= f.file_field :hobby_image, accept: "image/*", style: 'display:none;' %>
+        <% end %>
+      </div>
+      <div class="form-group">
+        <h4>タイトル</h4>
+        <%= f.text_field :title, placeholder: "趣味名", class:"form-control" %>
+      </div>
+      <div class="form-group">
+        <h4>詳細</h4>
+        <%= f.text_area :body, placeholder: "内容の詳細", class:"form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit '押し付ける', class:"btn btn-secondary" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  // アイコンに変更があったら即実行
+  $('#hobby_image').on('change', function (e) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+    // imgタグであるidがpreviewになっている場所を探し、画像表示のためのsrcを書き換える
+      $("#preview").attr('src', e.target.result);
+    }
+    reader.readAsDataURL(e.target.files[0]);
+});
+</script>

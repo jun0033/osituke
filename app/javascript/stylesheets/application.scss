@@ -1,7 +1,21 @@
 @use '~bootstrap/scss/bootstrap';
 
-.header_inner {
-position: absolute;
-top: 15px;
-margin-right: 5%;
+.navbar {
+    position:  relative;
 }
+
+.header_inner {
+    position: absolute;
+    top: 15px;
+    }
+
+.create_btn {
+    position: fixed;
+    bottom: 15%;
+    right: 50px;
+    }
+
+#preview{
+    height: 130px;
+    width: auto;
+    }

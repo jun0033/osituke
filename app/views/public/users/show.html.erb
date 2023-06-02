@@ -1,11 +1,11 @@
-<%= flash[:notice] %>
-<div class=container>
-  <div class="row">
+<div class="container text-center">
+  <%= flash[:notice] %>
+  <div class="row my-3" style="background-color: #d4ecea;">
     <div class="col-4 text-right my-5">
       <%= image_tag @user.get_profile_image(100,100) %>
     </div>
     <div class="col-5 ml-0 my-5">
-      <table class="table">
+      <table class="table table-border">
         <tr><h3><%= @user.name %></h3>
           <% unless @user == current_user %>
             <% if current_user.active_follow?(@user) %>
@@ -23,15 +23,6 @@
     <table class="table">
       <tr>
         <td class="col-3"></td>
-        <td>
-          <% unless @user.name == "guestuser" %>
-            <% if @user == current_user %>
-              <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block col-3" do %>
-              <i class="fas fa-user-cog"></i>
-              <% end %>
-            <% end %>
-          <% end %>
-        </td>
         <td class="pull-right">
         <%= link_to active_follow_path(@user.id) do %>
         <%= @user.active_follows.count %>
@@ -42,7 +33,33 @@
         <% end %>
         フォロワー
         </td>
+        <td>
+          <% unless @user.name == "guestuser" %>
+            <% if @user == current_user %>
+              <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block col-3" do %>
+              <i class="fas fa-user-cog"></i>
+              <% end %>
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     </table>
+  </div>
+  <div class="row">
+    <div class="col-9">
+      <% if @hobbies.count == 0 %>
+      <strong>まだ趣味の投稿がありません。乞うご期待！</strong>
+      <% else %>
+      <%= render "public/hobbies/hobby_index", hobbies: @hobbies %>
+      <% end %>
+    </div>
+    <div class="btn create_btn" style="background-color: #38b6ff;">
+      <%= link_to new_hobby_path, class: "col-3", style: "text-decoration: none;" do %>
+      <i class="fas fa-plus-circle"></i>
+      <span class="text-light">
+        趣味投稿
+      </span>
+      <% end %>
+    </div>
   </div>
 </div>
