@@ -1,2 +1,48 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<%= flash[:notice] %>
+<div class=container>
+  <div class="row">
+    <div class="col-4 text-right my-5">
+      <%= image_tag @user.get_profile_image(100,100) %>
+    </div>
+    <div class="col-5 ml-0 my-5">
+      <table class="table">
+        <tr><h3><%= @user.name %></h3>
+          <% unless @user == current_user %>
+            <% if current_user.active_follow?(@user) %>
+              <%= link_to "フォロー外す", user_relationships_path(@user.id), method: :delete, class:"btn btn-sm btn-danger" %>
+            <% else %>
+              <%= link_to "フォローする", user_relationships_path(@user.id), method: :post, class:"btn btn-sm btn-success" %>
+            <% end %>
+          <% end %>
+        </tr>
+        <tr>
+          <td><%= @user.introduction %></td>
+        </tr>
+      </table>
+    </div>
+    <table class="table">
+      <tr>
+        <td class="col-3"></td>
+        <td>
+          <% unless @user.name == "guestuser" %>
+            <% if @user == current_user %>
+              <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block col-3" do %>
+              <i class="fas fa-user-cog"></i>
+              <% end %>
+            <% end %>
+          <% end %>
+        </td>
+        <td class="pull-right">
+        <%= link_to active_follow_path(@user.id) do %>
+        <%= @user.active_follows.count %>
+        <% end %>
+        フォロー中
+        <%= link_to passive_follow_path(@user.id) do %>
+        <%= @user.passive_follows.count %>
+        <% end %>
+        フォロワー
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
