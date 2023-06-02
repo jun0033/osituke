@@ -1,0 +1,6 @@
+ja:
+  enums:
+    user:
+      user_status:
+        exist: "有効"
+        withdraw: "退会"
