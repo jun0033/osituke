@@ -1,0 +1,4 @@
+$("#new-tag-form").fadeOut(300);
+$("#tag_tag_name").val("");
+$("#tag-select").append('<option value="<%= @tag.id %>"><%= @tag.tag_name %></option>');
+$("#tag-select").val("<%= @tag.id %>");

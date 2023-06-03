@@ -35,8 +35,7 @@ Rails.application.routes.draw do
       end
     end
     root to: 'homes#top'
-    resources :tag, only:[:create]
-    get '/tags' =>'tags#index'
+    resources :tags, only:[:create, :index]
   end
     get "active_follow" => "relationships#active_follow", as: "active_follow"
     get "passive_follow" => "relationships#passive_follow", as: "passive_follow"

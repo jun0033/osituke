@@ -12,6 +12,11 @@
     <td>
       <%= hobby.body %>
     </td>
+    <td>
+      <% hobby.hobby_images.each do |hobby_image| %>
+      <%= image_tag(hobby_image, width:100, height:100 )%>
+      <% end %>
+    </td>
     <td><%= link_to user_hobby_path(hobby.user_id, hobby.id) do %>
     <%= hobby.hobby_comments.count %> コメント
     <% end %></td>
