@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <% hobbies.each do |hobby| %>
+    <td>
+      <%= link_to user_path(hobby.user_id) do %>
+      <%= image_tag hobby.user.get_profile_image(80,80)%>
+      <% end %>
+    </td>
+    <td>
+      <%= link_to "#{hobby.title}", user_hobby_path(hobby.user_id, hobby.id) %>
+    </td>
+    <td>
+      <%= hobby.body %>
+    </td>
+    <td><%= link_to user_hobby_path(hobby.user_id, hobby.id) do %>
+    <%= hobby.hobby_comments.count %> コメント
+    <% end %></td>
+  </tr>
+    <% end %>
+</table>
