@@ -3,19 +3,19 @@ class Public::HobbyCommentsController < ApplicationController
   end
 
   def create
-    @comment = HobbyComment.new(params[:id])
+    @comment = HobbyComment.new(comment_params)
     if @comment.save
       redirect_to request.referer
       flash[:notice] = "コメントを送信しました"
     else
-      flash[:alert] = "コメントの送信に失敗しました"
       redirect_to request.referer
+      flash[:alert] = "コメントの送信に失敗しました"
     end
   end
 
   private
 
-  def hobby_params
-    params.require(:hobby).permit(:comment)
+  def comment_params
+    params.require(:hobby_comment).permit(:comment, :hobby_id, :user_id)
   end
 end

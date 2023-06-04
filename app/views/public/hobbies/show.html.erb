@@ -34,7 +34,7 @@
   <%= link_to user_hobby_path(@hobby.user_id, @hobby.id) do %>
     <%= @hobby.hobby_comments.count %> コメント
   <% end %>
-  <%= form_with model: [@hobby, @comment], url: user_hobby_hobby_comments_path, class: "form-inline", local: true do |f| %>
+  <%= form_with model: @comment, url: user_hobby_hobby_comments_path(hobby_id: @hobby.id), class: "form-inline", local: true do |f| %>
     <%= f.text_field :comment, placeholder: "コメント", class: "form-control mr-2", style: "width: 70%" %>
     <%= f.submit "コメントする", class:"btn btn-primary", style: "width: 25%" %><br>
   <% end %>
