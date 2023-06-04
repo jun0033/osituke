@@ -7,14 +7,14 @@ class Public::HobbyCommentsController < ApplicationController
     @hobby = @comment.hobby
     @user = @hobby.user
     if @comment.save
-      redirect_to user_hobby_path(@user, @hobby)
+      redirect_to hobby_path(@hobby)
       flash[:notice] = "コメントを送信しました"
     else
       render 'public/hobbies/show'
       flash.now[:alert] = "コメントの送信に失敗しました"
     end
   end
-  
+
   def destroy
     @comment = HobbyComment.find(params[:id])
     @comment.delete

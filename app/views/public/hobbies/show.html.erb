@@ -14,7 +14,7 @@
         </div>
         <div class="col-2">
           <% if @hobby.user.id == current_user.id %>
-            <%= link_to user_hobby_path(@hobby.user_id, @hobby.id), method: :delete, style: "right: 5px;" do %>
+            <%= link_to hobby_path(@hobby.id), method: :delete, style: "right: 5px;" do %>
             <i class="fas fa-trash fa-lg"></i>
             <% end %>
           <% end %>
@@ -30,6 +30,9 @@
         <% end %>
       </div>
     </div>
+  </div>
+  <div id="favorite_buttons_<%= @hobby.id %>">
+    <%= render "public/favorites/favorite", hobby: @hobby %>
   </div>
   <%= @hobby.hobby_comments.count %> コメント
   <% @comments.each do |comment| %>
@@ -51,7 +54,7 @@
           </div>
           <div class="col-2 col-sm-2">
           <% if comment.user.id == current_user.id %>
-            <%= link_to user_hobby_hobby_comment_path(comment.user_id, comment.hobby_id, comment.id), method: :delete, style: "right: 5px;" do %>
+            <%= link_to hobby_hobby_comment_path(comment.hobby_id, comment.id), method: :delete, style: "right: 5px;" do %>
             <i class="fas fa-trash fa-sm"></i>
             <% end %>
           <% end %>
@@ -61,7 +64,7 @@
     </div>
   <% end %>
   <div class="comment_btn">
-  <%= form_with model: @comment, url: user_hobby_hobby_comments_path(@user, @hobby), class: "form-inline", local: true do |f| %>
+  <%= form_with model: @comment, url: hobby_hobby_comments_path(@hobby), class: "form-inline", local: true do |f| %>
     <%= f.hidden_field :user_id %>
     <%= f.hidden_field :hobby_id %>
     <%= f.text_area :comment, placeholder: "コメント", class: "form-control mr-2", rows: 3, cols: 60 %>
