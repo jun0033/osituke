@@ -33,10 +33,12 @@ Rails.application.routes.draw do
       resources :hobbies, only:[:show, :edit, :index, :create, :destroy, :new] do
         resources :hobby_comments, only:[:index, :create, :destroy]
       end
+      resource :relationships, only: [:create, :destroy] do
+        get "active_follow" => "relationships#active_follow", as: "active_follow"
+        get "passive_follow" => "relationships#passive_follow", as: "passive_follow"
+      end
     end
     root to: 'homes#top'
     resources :tags, only:[:create, :index]
   end
-    get "active_follow" => "relationships#active_follow", as: "active_follow"
-    get "passive_follow" => "relationships#passive_follow", as: "passive_follow"
 end

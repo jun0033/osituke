@@ -4,18 +4,26 @@
     position:  relative;
 }
 
+// ロゴはみ出し
 .header_inner {
     position: absolute;
     top: 15px;
     }
 
+// 投稿ボタン固定
 .create_btn {
     position: fixed;
     bottom: 15%;
     right: 50px;
     }
 
+// プレビューサイズ指定
 #preview{
     height: 130px;
     width: auto;
     }
+
+// 投稿内容がはみ出さないように指定
+.wrap {
+  word-break: break-all;
+}

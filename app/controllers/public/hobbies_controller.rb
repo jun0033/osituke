@@ -1,5 +1,7 @@
 class Public::HobbiesController < ApplicationController
   def show
+    @hobby = Hobby.find(params[:id])
+    @user = @hobby.user
   end
 
   def new
@@ -26,9 +28,16 @@ class Public::HobbiesController < ApplicationController
   def edit
   end
 
+  def destroy
+    @hobby = Hobby.find(params[:id])
+    @hobby.delete
+    redirect_to user_path(current_user)
+  end
+
   private
 
   def hobby_params
+    # 画像をハッシュで保存
     params.require(:hobby).permit(:title, :body, :tag_id, :user_id, hobby_images:[])
   end
 end

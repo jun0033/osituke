@@ -1,4 +1,8 @@
+<!--ポップアップを消す-->
 $("#new-tag-form").fadeOut(300);
+<!--フォームの内容を削除-->
 $("#tag_tag_name").val("");
+<!--作成したタグを追加-->
 $("#tag-select").append('<option value="<%= @tag.id %>"><%= @tag.tag_name %></option>');
+<!--作成したタグを選択した状態にする-->
 $("#tag-select").val("<%= @tag.id %>");

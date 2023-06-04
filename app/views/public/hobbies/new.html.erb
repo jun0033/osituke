@@ -6,8 +6,8 @@
             <tr>
               <td>
                 <%= form_with model: @tag, class: "form-inline", local: false do |f| %>
-                  <%= f.text_field :tag_name, placeholder: "新規ジャンル名", class: "form-control mr-2", style: "width: 70%" %>
-                  <%= f.submit "ジャンル作成", class:"btn btn-primary", style: "width: 25%" %><br>
+                  <%= f.text_field :tag_name, placeholder: "新規タグ名", class: "form-control mr-2", style: "width: 70%" %>
+                  <%= f.submit "タグ作成", class:"btn btn-primary", style: "width: 25%" %><br>
                 <% end %>
                 <p class="text-white pt-3"> ※作成をやめる場合、以下より再度ジャンルをお選びください</p>
               </td>
@@ -16,7 +16,7 @@
       </div>
 
     <div class="col-8 px-5 mx-auto my-3" style="background-color: #d4ecea;">
-      <%= form_with model: [@user, @hobby], url: user_hobbies_path, metod: :post, local: true do |f| %>
+      <%= form_with model: [@user, @hobby], url: user_hobbies_path, local: true do |f| %>
       <div class="form-group mt-3">
         <h4>タイトル</h4>
         <%= f.text_field :title, placeholder: "趣味名", required: true, autofocus: true, class:"form-control" %>
@@ -26,7 +26,7 @@
         <%= f.text_area :body, placeholder: "内容の詳細", rows: "4", required: true, class:"form-control" %>
       </div>
       <div>
-        <%= f.select :tag_id, options_for_select([["新しくジャンルを作成する", "new"]].concat(Tag.all.map { |tag| [tag.tag_name, tag.id] })),
+        <%= f.select :tag_id, options_for_select([["新しくタグを作成する", "new"]].concat(Tag.all.map { |tag| [tag.tag_name, tag.id] })),
         { include_blank: "-- 選択してください --" }, {required: true, class: "form-control", id: "tag-select" } %>
       </div>
       <div class="form-group">
