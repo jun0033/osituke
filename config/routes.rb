@@ -31,6 +31,7 @@ Rails.application.routes.draw do
         patch 'withdraw'
       end
       resources :hobbies, only:[:show, :edit, :index, :create, :destroy, :new] do
+        resource :favorite, only: [:create, :destroy]
         resources :hobby_comments, only:[:index, :create, :destroy]
       end
       resource :relationships, only: [:create, :destroy] do

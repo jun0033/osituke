@@ -1,6 +1,6 @@
 <div class="container text-center wrap">
   <%= flash[:notice] %>
-  <div class="row my-3 mx-5" style="background-color: #d4ecea;">
+  <div class="row my-3 mx-5 p-1" style="background-color: #d4ecea;">
     <div class="col-2 text-right mt-1">
       <%= image_tag @user.get_profile_image(80,80) %>
     </div>
@@ -31,11 +31,41 @@
       </div>
     </div>
   </div>
-  <%= link_to user_hobby_path(@hobby.user_id, @hobby.id) do %>
-    <%= @hobby.hobby_comments.count %> コメント
+  <%= @hobby.hobby_comments.count %> コメント
+  <% @comments.each do |comment| %>
+    <div class="row my-1 mx-5 p-1" style="background-color: #b4e6df;">
+      <div class="col-sm-2 text-right">
+        <%= link_to user_path(comment.user_id) do %>
+        <%= image_tag comment.user.get_profile_image(80,80)%>
+        <% end %>
+      </div>
+      <div class="col-sm-10 wrap">
+        <div class="row">
+          <div class="col-2 col-sm-2 text-left">
+           <h4><%= comment.user.name %></h4>
+          </div>
+          <div class="col-8 col-sm-8 text-left">
+            <div class="row" style="width: 100%;">
+              <%= safe_join(comment.comment.split("\n"),tag(:br)) %>
+            </div>
+          </div>
+          <div class="col-2 col-sm-2">
+          <% if comment.user.id == current_user.id %>
+            <%= link_to user_hobby_hobby_comment_path(comment.user_id, comment.hobby_id, comment.id), method: :delete, style: "right: 5px;" do %>
+            <i class="fas fa-trash fa-sm"></i>
+            <% end %>
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   <% end %>
-  <%= form_with model: @comment, url: user_hobby_hobby_comments_path(hobby_id: @hobby.id), class: "form-inline", local: true do |f| %>
-    <%= f.text_field :comment, placeholder: "コメント", class: "form-control mr-2", style: "width: 70%" %>
-    <%= f.submit "コメントする", class:"btn btn-primary", style: "width: 25%" %><br>
+  <div class="comment_btn">
+  <%= form_with model: @comment, url: user_hobby_hobby_comments_path(@user, @hobby), class: "form-inline", local: true do |f| %>
+    <%= f.hidden_field :user_id %>
+    <%= f.hidden_field :hobby_id %>
+    <%= f.text_area :comment, placeholder: "コメント", class: "form-control mr-2", rows: 3, cols: 60 %>
+    <%= f.submit "コメントする", class:"btn btn-primary", size:30 %><br>
   <% end %>
+  </div>
 </div>

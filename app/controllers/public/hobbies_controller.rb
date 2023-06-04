@@ -2,6 +2,8 @@ class Public::HobbiesController < ApplicationController
   def show
     @hobby = Hobby.find(params[:id])
     @user = @hobby.user
+    @comment = current_user.hobby_comments.new(hobby_id: @hobby.id)
+    @comments = @hobby.hobby_comments.all
   end
 
   def new

@@ -27,3 +27,11 @@
 .wrap {
   word-break: break-all;
 }
+
+// コメントボタン固定
+.comment_btn {
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+    transform:translate(-50%,0)
+    }
