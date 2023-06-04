@@ -1,19 +1,22 @@
 <div class="container">
-  <%= flash[:notice] %>
   <div class="row">
-    <div class="col-8 mx-auto form-group" id="new-genre-form"
+    <div class="col-8 mx-auto form-group" id="new-tag-form"
            style="display: none; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.6); padding: 30px; z-index: 9999;">
         <table class="table table-borderless">
             <tr>
               <td>
-
+                <%= form_with model: @tag, class: "form-inline", local: false do |f| %>
+                  <%= f.text_field :tag_name, placeholder: "新規タグ名", class: "form-control mr-2", style: "width: 70%" %>
+                  <%= f.submit "タグ作成", class:"btn btn-primary", style: "width: 25%" %><br>
+                <% end %>
+                <p class="text-white pt-3"> ※作成をやめる場合、以下より再度ジャンルをお選びください</p>
               </td>
             </tr>
         </table>
       </div>
 
     <div class="col-8 px-5 mx-auto my-3" style="background-color: #d4ecea;">
-      <%= form_with model: [@user, @hobby], url: user_hobbies_path, metod: :post, local: true do |f| %>
+      <%= form_with model: @hobby, url: hobbies_path, local: true do |f| %>
       <div class="form-group mt-3">
         <h4>タイトル</h4>
         <%= f.text_field :title, placeholder: "趣味名", required: true, autofocus: true, class:"form-control" %>
@@ -23,12 +26,12 @@
         <%= f.text_area :body, placeholder: "内容の詳細", rows: "4", required: true, class:"form-control" %>
       </div>
       <div>
-        <%= f.select :tag_id, options_from_collection_for_select(Tag.all, :id, :tag_name),
+        <%= f.select :tag_id, options_for_select([["新しくタグを作成する", "new"]].concat(Tag.all.map { |tag| [tag.tag_name, tag.id] })),
         { include_blank: "-- 選択してください --" }, {required: true, class: "form-control", id: "tag-select" } %>
       </div>
       <div class="form-group">
         <h4>画像を5枚まで追加</h4>
-        <%= f.file_field :hobby_image, accept: "image/*", multiple: true %>
+        <%= f.file_field :hobby_images, accept: "image/*", multiple: true %>
       </div>
       <img id="preview_0" style="width:15%;">
       <img id="preview_1" style="width:15%;">
@@ -43,6 +46,7 @@
     </div>
   </div>
 </div>
+<%= flash[:notice] %>
 
 <script>
   // HTMLドキュメントが読み込まれた後に実行される関数
@@ -50,7 +54,7 @@
     var tagSelect = $("#tag-select");
     var newTagForm = $("#new-tag-form");
 
-    // ジャンル選択の内容がチェンジされたときに実行する処理
+    // tag選択の内容がチェンジされたときに実行する処理
     tagSelect.on("change", function() {
       if (tagSelect.val() === "new") {
         slideDown(newTagForm);
@@ -71,13 +75,13 @@
   });
 </script>
 <script>
-$('#hobby_hobby_image').on('change', function (e) {
+$('#hobby_hobby_images').on('change', function (e) {
 
     if(e.target.files.length > 5){
 
       alert('一度に投稿できるのは五枚までです。');
       // 五枚以上の画像を選択していた場合、選択したファイルをリセット。
-      $('#hobby_hobby_image').val = "";
+      $('#hobby_hobby_images').val = "";
 
       // 以前の画像のプレビューが残っていた場合は、
       // まだ画像選択できていると勘違いを誘発するため初期化。

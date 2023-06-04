@@ -11,11 +11,11 @@ class User < ApplicationRecord
   has_many :hobby_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   # フォローする、されるのアソシエーション
-  has_many :relationships, class_name: "Relationship", foreign_key: "follow_id", dependent: :destroy
-  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :active_relationships,  class_name: "Relationship", foreign_key: "follow_id", dependent: :destroy
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   # フォロー一覧、フォロワー一覧を持ってくるアソシエーション
-  has_many :active_follows, through: :relationships, source: :follower
-  has_many :passive_follows, through: :reverse_of_relationships, source: :follow
+  has_many :active_follows,  through: :active_relationships, source: :follower
+  has_many :passive_follows, through: :passive_relationships, source: :follow
 
   def get_profile_image(width, height)
     unless profile_image.attached?
@@ -26,14 +26,14 @@ class User < ApplicationRecord
   end
 
   def follow(user_id)
-    relationships.create(follow_id: user_id)
+    active_relationships.create(follower_id: user_id)
   end
 
   def unfollow(user_id)
-    relationships.find_by(follow_id: user_id).destroy
+    active_relationships.find_by(follower_id: user_id).destroy
   end
 
   def active_follow?(user)
-    active_follow.include?(user)
+    active_follows.include?(user)
   end
 end

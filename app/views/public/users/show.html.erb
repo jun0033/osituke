@@ -24,11 +24,11 @@
       <tr>
         <td class="col-3"></td>
         <td class="pull-right">
-        <%= link_to active_follow_path(@user.id) do %>
+        <%= link_to active_follow_user_relationships_path(@user.id) do %>
         <%= @user.active_follows.count %>
         <% end %>
         フォロー中
-        <%= link_to passive_follow_path(@user.id) do %>
+        <%= link_to passive_follow_user_relationships_path(@user.id) do %>
         <%= @user.passive_follows.count %>
         <% end %>
         フォロワー
@@ -45,21 +45,17 @@
       </tr>
     </table>
   </div>
-  <div class="row">
-    <div class="col-9">
-      <% if @hobbies.count == 0 %>
-      <strong>まだ趣味の投稿がありません。乞うご期待！</strong>
-      <% else %>
-      <%= render "public/hobbies/hobby_index", hobbies: @hobbies %>
-      <% end %>
-    </div>
-    <div class="btn create_btn" style="background-color: #38b6ff;">
-      <%= link_to new_user_hobby_path(current_user), class: "col-3", style: "text-decoration: none;" do %>
-      <i class="fas fa-plus-circle"></i>
-      <span class="text-light">
-        趣味投稿
-      </span>
-      <% end %>
-    </div>
+  <% if @hobbies.count == 0 %>
+  <strong>まだ趣味の投稿がありません。乞うご期待！</strong>
+  <% else %>
+  <%= render "public/hobbies/hobby_index", hobbies: @hobbies %>
+  <% end %>
+  <div class="btn create_btn" style="background-color: #38b6ff;">
+    <%= link_to new_hobby_path(current_user), class: "col-3", style: "text-decoration: none;" do %>
+    <i class="fas fa-plus-circle"></i>
+    <span class="text-light">
+      趣味投稿
+    </span>
+    <% end %>
   </div>
 </div>

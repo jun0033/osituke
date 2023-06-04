@@ -26,18 +26,20 @@ Rails.application.routes.draw do
   # 会員側のルーティング設定
   scope module: :public do
     resources :users, only:[:update, :edit, :show] do
+      resource :relationships, only: [:create, :destroy] do
+        get "active_follow" => "relationships#active_follow", as: "active_follow"
+        get "passive_follow" => "relationships#passive_follow", as: "passive_follow"
+      end
       collection do
         get 'confirm'
         patch 'withdraw'
       end
-      resources :hobbies, only:[:show, :edit, :index, :create, :destroy, :new] do
-        resources :hobby_comments, only:[:index, :create, :destroy]
-      end
+    end
+    resources :hobbies, only:[:show, :edit, :index, :create, :destroy, :new] do
+      resource :favorite, only: [:create, :destroy]
+      resources :hobby_comments, only:[:index, :create, :destroy]
     end
     root to: 'homes#top'
-    resources :tag, only:[:create]
-    get '/tags' =>'tags#index'
+    resources :tags, only:[:create, :index]
   end
-    get "active_follow" => "relationships#active_follow", as: "active_follow"
-    get "passive_follow" => "relationships#passive_follow", as: "passive_follow"
 end
