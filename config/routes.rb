@@ -34,12 +34,16 @@ Rails.application.routes.draw do
         get 'confirm'
         patch 'withdraw'
       end
+      member do
+        get 'favorites' =>'favorites#index'
+      end
     end
     resources :hobbies, only:[:show, :edit, :index, :create, :destroy, :new] do
-      resource :favorite, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
       resources :hobby_comments, only:[:index, :create, :destroy]
     end
     root to: 'homes#top'
     resources :tags, only:[:create, :index]
   end
+  post '/guests/guest_sign_in', to: 'guests#new_guest'
 end

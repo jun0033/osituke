@@ -4,6 +4,7 @@ class Public::HobbiesController < ApplicationController
     @user = @hobby.user
     @comment = current_user.hobby_comments.new(hobby_id: @hobby.id)
     @comments = @hobby.hobby_comments.all
+    @favorite = Favorite.find_by(hobby_id: @hobby.id)
   end
 
   def new
@@ -25,6 +26,7 @@ class Public::HobbiesController < ApplicationController
   end
 
   def index
+    @hobbies = Hobby.all
   end
 
   def edit

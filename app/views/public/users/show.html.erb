@@ -34,6 +34,9 @@
         フォロワー
         </td>
         <td>
+        <%= link_to "ナイス趣味一覧",favorites_user_path(@user.id) %>
+        </td>
+        <td>
           <% unless @user.name == "guestuser" %>
             <% if @user == current_user %>
               <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block col-3" do %>
@@ -48,7 +51,7 @@
   <% if @hobbies.count == 0 %>
   <strong>まだ趣味の投稿がありません。乞うご期待！</strong>
   <% else %>
-  <%= render "public/hobbies/hobby_index", hobbies: @hobbies %>
+  <%= render "public/hobbies/hobby_index", hobbies: @hobbies, favorite: @favorite %>
   <% end %>
   <div class="btn create_btn" style="background-color: #38b6ff;">
     <%= link_to new_hobby_path(current_user), class: "col-3", style: "text-decoration: none;" do %>

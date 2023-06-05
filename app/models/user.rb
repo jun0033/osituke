@@ -36,4 +36,10 @@ class User < ApplicationRecord
   def active_follow?(user)
     active_follows.include?(user)
   end
+
+  def self.guest
+    find_or_create_by!(name: 'guestuser', email: 'guest@example.com', user_status: false, introduction: ゲストでログイン中です) do |user|
+      user.password = SecureRandom.urlsafe_base64
+    end
+  end
 end

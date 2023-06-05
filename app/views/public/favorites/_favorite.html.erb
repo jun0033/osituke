@@ -1,10 +1,10 @@
 <% if hobby.favorited_by?(current_user) %>
-  <%= link_to hobby_favorite_path(hobby), method: :delete, remote: true do %>
+  <%= link_to hobby_favorites_path(hobby), method: :delete, remote: true do %>
    <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
   <%= hobby.favorites.count %>ナイス趣味
   <% end %>
 <% else %>
-  <%= link_to hobby_favorite_path(hobby), method: :post, remote: true do %>
+  <%= link_to hobby_favorites_path(hobby), method: :post, remote: true do %>
   ♡<%= hobby.favorites.count %>ナイス趣味
   <% end %>
 <% end %>
