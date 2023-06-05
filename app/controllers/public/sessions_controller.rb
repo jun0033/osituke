@@ -33,6 +33,11 @@ class Public::SessionsController < Devise::SessionsController
     end
   end
 
+  # 新規登録後マイページへ遷移
+  def after_sign_in_path_for(resource)
+    hobbies_path
+  end
+
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])

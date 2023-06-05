@@ -1,4 +1,12 @@
 <div class="container text-center my-3">
   <%= flash[:notice] %>
-　<%= render "public/hobbies/hobby_index", hobbies: @hobbies %>
+  <div class="row">
+  <%= link_to 'ゲストログイン（閲覧用）', guests_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in btnripple3", method: :post %>
+  </div>
+  <div class="row">
+    <%= link_to "ログイン", new_user_session_path, class: "btn btn-info byn-sm btn-block mb-3 sign_in btnripple3" %>
+  </div>
+  <div class="row">
+    <%= link_to "新規登録", new_user_registration_path, class: "btn btn-success byn-sm btn-block sign_up btnripple3" %>
+  </div>
 </div>

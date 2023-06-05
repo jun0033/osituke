@@ -24,13 +24,17 @@
           <% end %>
         </div>
         <div class="row">
+          <div class="col-3" id="favorite_buttons_<%= hobby.id %>">
+            <%= render "public/favorites/favorite", hobby: hobby %>
+          </div>
+          <div class=col-3>
           <%= link_to hobby_path(hobby.id) do %>
           <%= hobby.hobby_comments.count %> コメント
           <% end %>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 <% end %>
-
