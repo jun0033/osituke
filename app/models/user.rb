@@ -22,7 +22,7 @@ class User < ApplicationRecord
     name = warden_conditions[:name].to_s
     find_by(name: name)
   end
-  
+
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -41,6 +41,10 @@ class User < ApplicationRecord
 
   def active_follow?(user)
     active_follows.include?(user)
+  end
+
+  def self.looks(word)
+    User.where("name LIKE? OR introduction LIKE?", "%#{word}%","%#{word}%")
   end
 
   def self.guest

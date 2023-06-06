@@ -1,5 +1,11 @@
 class Public::TagsController < ApplicationController
   def index
+    @tags = Tag.all
+  end
+
+  def show
+    tag = Tag.find(params[:id])
+    @hobbies = tag.hobbies
   end
 
   def create
