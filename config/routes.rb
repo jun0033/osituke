@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'searches/search'
 
   # 顧客用
   # URL /users/sign_in ...
@@ -43,7 +44,7 @@ Rails.application.routes.draw do
       resources :hobby_comments, only:[:index, :create, :destroy]
     end
     root to: 'homes#top'
-    resources :tags, only:[:create, :index]
+    resources :tags, only:[:create, :index, :show]
   end
   post '/guests/guest_sign_in', to: 'guests#new_guest'
 end

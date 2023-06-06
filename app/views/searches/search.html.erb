@@ -1,0 +1,9 @@
+<div class="container px-5">
+  <% if @range == "ユーザー" %>
+    <h2 class="text-center">"<%=@word %>"のユーザー検索結果</h2>
+    <%= render "public/users/index", users: @users %>
+  <% else %>
+    <h2 class="text-center">"<%=@word %>"の趣味検索結果</h2>
+    <%= render "public/hobbies/hobby_index", hobbies: @hobbies %>
+  <% end %>
+</div>

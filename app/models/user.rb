@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, authentication_keys: [:name]
 
   enum user_status: { exist: false, withdraw: true }
   has_one_attached :profile_image
@@ -16,6 +16,12 @@ class User < ApplicationRecord
   # フォロー一覧、フォロワー一覧を持ってくるアソシエーション
   has_many :active_follows,  through: :active_relationships, source: :follower
   has_many :passive_follows, through: :passive_relationships, source: :follow
+
+  # 名前でのログインを許可
+  def self.find_for_database_authentication(warden_conditions)
+    name = warden_conditions[:name].to_s
+    find_by(name: name)
+  end
 
   def get_profile_image(width, height)
     unless profile_image.attached?
@@ -35,6 +41,10 @@ class User < ApplicationRecord
 
   def active_follow?(user)
     active_follows.include?(user)
+  end
+
+  def self.looks(word)
+    User.where("name LIKE? OR introduction LIKE?", "%#{word}%","%#{word}%")
   end
 
   def self.guest

@@ -1,2 +1,5 @@
-<h1>Public::Tags#index</h1>
-<p>Find me in app/views/public/tags/index.html.erb</p>
+<div class="container px-5">
+  <% @tags.each do |tag|%>
+    <%= link_to "#{tag.tag_name}", tag_path(tag), class: "btn btn-outline-info rounded-pill" %>
+  <% end %>
+</div>

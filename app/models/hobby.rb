@@ -9,8 +9,12 @@ class Hobby < ApplicationRecord
   def get_hobby_image(width, height)
     hobby_image.variant(resize_to_limit: [width, height]).processed
   end
-  
+
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
+  end
+
+  def self.looks(word)
+    Hobby.where("title LIKE? OR body LIKE?", "%#{word}%","%#{word}%")
   end
 end

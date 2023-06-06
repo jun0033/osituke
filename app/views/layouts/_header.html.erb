@@ -4,7 +4,7 @@
       <% if admin_signed_in? %>
       <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),admin_root_path %>
       <% else %>
-      <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),root_path %>
+      <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),hobbies_path %>
       <% end %>
     </div>
     <ul class="navbar-nav ml-auto justify-content-center">
@@ -17,6 +17,23 @@
       </li>
       <!--ユーザーがログインしていたら-->
       <% elsif user_signed_in? %>
+        <div class="search_form">
+          <%= form_with url: searches_search_path, local: true, method: :get do |f| %>
+            <%= f.select :range, options_for_select([['ユーザー'], ['趣味']]) %>
+            <%= f.text_field :word %>
+            <%= f.submit "検索" %>
+          <% end %>
+        </div>
+        <li>
+          <%= link_to tags_path, class: "nav-link mt-3" do %>
+          タグ一覧
+          <% end %>
+        </li>
+        <li>
+          <%= link_to hobbies_path, class: "nav-link mt-3" do %>
+          趣味一覧
+          <% end %>
+        </li>
         <li>
           <%= link_to user_path(current_user), class: "nav-link mt-3" do %>
             マイページ
