@@ -5,6 +5,6 @@ class GuestsController < ApplicationController
      # user.confirmed_at = Time.now  # Confirmable を使用している場合は必要
     end
   sign_in user
-  redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
+  redirect_to hobbies_path, notice: 'ゲストユーザーとしてログインしました。'
   end
 end

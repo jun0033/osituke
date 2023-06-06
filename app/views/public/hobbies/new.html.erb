@@ -1,19 +1,19 @@
 <div class="container">
   <div class="row">
+    <%= flash[:notice] %>
     <div class="col-8 mx-auto form-group" id="new-tag-form"
            style="display: none; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.6); padding: 30px; z-index: 9999;">
-        <table class="table table-borderless">
-            <tr>
-              <td>
-                <%= form_with model: @tag, class: "form-inline", local: false do |f| %>
-                  <%= f.text_field :tag_name, placeholder: "新規タグ名", class: "form-control mr-2", style: "width: 70%" %>
-                  <%= f.submit "タグ作成", class:"btn btn-primary", style: "width: 25%" %><br>
-                <% end %>
-                <p class="text-white pt-3"> ※作成をやめる場合、以下より再度ジャンルをお選びください</p>
-              </td>
-            </tr>
-        </table>
-      </div>
+      <table class="table table-borderless">
+          <tr>
+            <td>
+              <%= form_with model: @tag, class: "form-inline", local: false do |f| %>
+                <%= f.text_field :tag_name, placeholder: "新規タグ名", class: "form-control mr-2", style: "width: 70%" %>
+                <%= f.submit "作成", class:"btn btn-primary", style: "width: 25%" %><br>
+              <% end %>
+            </td>
+          </tr>
+      </table>
+    </div>
 
     <div class="col-8 px-5 mx-auto my-3" style="background-color: #d4ecea;">
       <%= form_with model: @hobby, url: hobbies_path, local: true do |f| %>
@@ -46,8 +46,6 @@
     </div>
   </div>
 </div>
-<%= flash[:notice] %>
-
 <script>
   // HTMLドキュメントが読み込まれた後に実行される関数
   $(document).ready(function() {

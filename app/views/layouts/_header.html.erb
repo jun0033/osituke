@@ -4,7 +4,7 @@
       <% if admin_signed_in? %>
       <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),admin_root_path %>
       <% else %>
-      <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),root_path %>
+      <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),hobbies_path %>
       <% end %>
     </div>
     <ul class="navbar-nav ml-auto justify-content-center">
@@ -17,6 +17,11 @@
       </li>
       <!--ユーザーがログインしていたら-->
       <% elsif user_signed_in? %>
+        <li>
+          <%= link_to hobbies_path, class: "nav-link mt-3" do %>
+          一覧
+          <% end %>
+        </li>
         <li>
           <%= link_to user_path(current_user), class: "nav-link mt-3" do %>
             マイページ

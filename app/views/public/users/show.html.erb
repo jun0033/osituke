@@ -22,7 +22,6 @@
     </div>
     <table class="table">
       <tr>
-        <td class="col-3"></td>
         <td class="pull-right">
         <%= link_to active_follow_user_relationships_path(@user.id) do %>
         <%= @user.active_follows.count %>
@@ -39,7 +38,7 @@
         <td>
           <% unless @user.name == "guestuser" %>
             <% if @user == current_user %>
-              <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block col-3" do %>
+              <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block col-4" do %>
               <i class="fas fa-user-cog"></i>
               <% end %>
             <% end %>

@@ -17,11 +17,11 @@ class Public::HobbiesController < ApplicationController
     @hobby = Hobby.new(hobby_params)
     @user = current_user
     if @hobby.save
-      redirect_to root_path
+      redirect_to hobbies_path
       flash[:notice] = "#{@hobby.title}が誰かの元へ飛んでいきました"
     else
+      redirect_to hobbies_path
       flash[:alert] = "押し付けに失敗しました"
-      redirect_to user_path(current_user)
     end
   end
 
