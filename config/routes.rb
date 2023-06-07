@@ -37,11 +37,12 @@ Rails.application.routes.draw do
       end
       member do
         get 'favorites' =>'favorites#index'
+        get 'hobby_comments' =>'hobby_comments#index'
       end
     end
-    resources :hobbies, only:[:show, :edit, :index, :create, :destroy, :new] do
+    resources :hobbies, only:[:show, :index, :create, :destroy, :new] do
       resource :favorites, only: [:create, :destroy]
-      resources :hobby_comments, only:[:index, :create, :destroy]
+      resources :hobby_comments, only:[:create, :destroy]
     end
     root to: 'homes#top'
     resources :tags, only:[:create, :index, :show]

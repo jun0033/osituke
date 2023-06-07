@@ -1,10 +1,12 @@
-<nav class="navbar navbar-expand-lg", style="background-color: #001A43;">
+<nav class="navbar navbar-expand-lg color1">
   <div class="navbar-collapse" >
     <div class = "header_inner">
       <% if admin_signed_in? %>
       <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),admin_root_path %>
-      <% else %>
+      <% elsif user_signed_in? %>
       <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),hobbies_path %>
+      <% else %>
+      <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),root_path %>
       <% end %>
     </div>
     <ul class="navbar-nav ml-auto justify-content-center">

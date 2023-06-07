@@ -29,9 +29,6 @@ class Public::HobbiesController < ApplicationController
     @hobbies = Hobby.all
   end
 
-  def edit
-  end
-
   def destroy
     @hobby = Hobby.find(params[:id])
     @hobby.delete

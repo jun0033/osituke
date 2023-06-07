@@ -19,11 +19,11 @@
       <%= form_with model: @hobby, url: hobbies_path, local: true do |f| %>
       <div class="form-group mt-3">
         <h4>タイトル</h4>
-        <%= f.text_field :title, placeholder: "趣味名", required: true, autofocus: true, class:"form-control" %>
+        <%= f.text_field :title, placeholder: "趣味名(30文字以内)", required: true, autofocus: true, class:"form-control" %>
       </div>
       <div class="form-group">
         <h4>詳細</h4>
-        <%= f.text_area :body, placeholder: "内容の詳細", rows: "4", required: true, class:"form-control" %>
+        <%= f.text_area :body, placeholder: "内容の詳細(500文字以内)", rows: "4", required: true, class:"form-control" %>
       </div>
       <div>
         <%= f.select :tag_id, options_for_select([["新しくタグを作成する", "new"]].concat(Tag.all.map { |tag| [tag.tag_name, tag.id] })),

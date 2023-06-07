@@ -17,6 +17,9 @@ class User < ApplicationRecord
   has_many :active_follows,  through: :active_relationships, source: :follower
   has_many :passive_follows, through: :passive_relationships, source: :follow
 
+  validates :name, presence: true, uniqueness: true, length: { minimum: 2, maximum: 15 }
+  validates :introduction, length: { maximum: 100 }
+
   # 名前でのログインを許可
   def self.find_for_database_authentication(warden_conditions)
     name = warden_conditions[:name].to_s
