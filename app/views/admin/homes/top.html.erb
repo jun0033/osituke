@@ -1,2 +1,9 @@
-<h1>Admin::Homes#top</h1>
-<p>Find me in app/views/admin/homes/top.html.erb</p>
+<div class="container text-center my-3">
+  <%= flash[:notice] %>
+  <div class="row">
+  <%= link_to 'ゲストログイン（閲覧用）', guests_admin_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in btnripple3", method: :post %>
+  </div>
+  <div class="row">
+    <%= link_to "ログイン", new_admin_session_path, class: "btn btn-info byn-sm btn-block mb-3 sign_in btnripple3" %>
+  </div>
+</div>

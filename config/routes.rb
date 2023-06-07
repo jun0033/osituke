@@ -48,4 +48,5 @@ Rails.application.routes.draw do
     resources :tags, only:[:create, :index, :show]
   end
   post '/guests/guest_sign_in', to: 'guests#new_guest'
+  post '/guests/admin_sign_in', to: 'guests#admin_guest'
 end

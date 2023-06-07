@@ -2,11 +2,13 @@
   <div class="navbar-collapse" >
     <div class = "header_inner">
       <% if admin_signed_in? %>
-      <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),admin_root_path %>
+        <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),admin_hobbies_path %>
       <% elsif user_signed_in? %>
-      <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),hobbies_path %>
+        <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),hobbies_path %>
+      <% elsif request.fullpath.include? ("/admin") %>
+        <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),admin_root_path %>
       <% else %>
-      <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),root_path %>
+        <%= link_to image_tag("osituke_logo.png", size: '100x100', alt: "ositukeロゴ"),root_path %>
       <% end %>
     </div>
     <ul class="navbar-nav ml-auto justify-content-center">
