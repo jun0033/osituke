@@ -11,9 +11,9 @@ class Public::TagsController < ApplicationController
   def create
     @tag = Tag.new(tag_params)
     if @tag.save
-      flash[:notice] = "#{@tag.tag_name}が追加されました"
+      render :create
     else
-      flash[:alert] = "タグ作成に失敗しました"
+      render :error
     end
   end
 
