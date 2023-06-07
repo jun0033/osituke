@@ -5,7 +5,7 @@
       <%= image_tag @user.get_profile_image(80,80) %>
     </div>
     <div class="col-2 col-sm-2 text-left">
-     <h4><%= link_to @user.name, user_path(@user.id) %></h4>
+     <h4><%= link_to @user.name, admin_user_path(@user.id) %></h4>
     </div>
     <div class="col-8 col-sm-8 text-left p-2">
       <div class="row">
@@ -13,10 +13,8 @@
         <h5><%= @hobby.title %></h5>
         </div>
         <div class="col-2">
-          <% if @hobby.user.id == current_user.id %>
-            <%= link_to hobby_path(@hobby.id), method: :delete, style: "right: 5px;" do %>
-            <i class="fas fa-trash fa-lg"></i>
-            <% end %>
+          <%= link_to admin_hobby_path(@hobby.id), method: :delete, style: "right: 5px;" do %>
+          <i class="fas fa-trash fa-lg"></i>
           <% end %>
         </div>
       </div>
@@ -31,17 +29,7 @@
       </div>
     </div>
   </div>
-  <div id="favorite_buttons_<%= @hobby.id %>">
-    <%= render "public/favorites/favorite", hobby: @hobby %>
-  </div>
+  <%= @hobby.favorites.count %> ナイス趣味
   <%= @hobby.hobby_comments.count %> コメント
-  <%= render "public/hobby_comments/comments_index", comments: @comments %>
-  <div class="bottom_btn">
-  <%= form_with model: @comment, url: hobby_hobby_comments_path(@hobby), class: "form-inline", local: true do |f| %>
-    <%= f.hidden_field :user_id %>
-    <%= f.hidden_field :hobby_id %>
-    <%= f.text_area :comment, placeholder: "コメント", class: "form-control mr-2", rows: 3, cols: 60 %>
-    <%= f.submit "コメントする", class:"btn btn-primary", size:30 %><br>
-  <% end %>
-  </div>
+  <%= render "admin/hobby_comments/comments_index", comments: @comments %>
 </div>

@@ -17,11 +17,15 @@ Rails.application.routes.draw do
 
   # 管理者側のルーティング設定
   namespace :admin do
-    resources :hobby_comments, only:[:index, :destroy]
-    resources :hobbies, only:[:index, :destroy]
-    resources :users, only:[:show, :edit, :update]
+    resources :hobbies, only:[:index, :destroy, :show]
+    resources :users, only:[:show, :edit, :update] do
+      member do
+        get 'favorites' =>'favorites#index'
+        get 'hobby_comments' =>'hobby_comments#index'
+      end
+    end
     root to: 'homes#top'
-    get 'admin/tags' =>'tags#index'
+    resources :tags, only:[:create, :index, :show, :destroy]
   end
 
   # 会員側のルーティング設定

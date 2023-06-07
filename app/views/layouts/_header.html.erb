@@ -14,6 +14,16 @@
     <ul class="navbar-nav ml-auto justify-content-center">
       <!--管理者がログインしていたら-->
       <% if admin_signed_in? %>
+        <li>
+          <%= link_to admin_tags_path, class: "nav-link mt-3" do %>
+          タグ一覧
+          <% end %>
+        </li>
+        <li>
+          <%= link_to admin_hobbies_path, class: "nav-link mt-3" do %>
+          趣味一覧
+          <% end %>
+        </li>
        <li>
         <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link mt-3" do %>
           ログアウト
