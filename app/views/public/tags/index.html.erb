@@ -1,5 +1,8 @@
 <div class="container px-5">
   <% @tags.each do |tag|%>
-    <%= link_to "#{tag.tag_name}", tag_path(tag), class: "btn btn-outline-info rounded-pill" %>
+    <%= link_to tag_path(tag), class: "btn btn-outline-info rounded-pill" do %>
+    <i class="fas fa-tag"></i>
+    <%= tag.tag_name %>
+    <% end %>
   <% end %>
 </div>

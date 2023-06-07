@@ -6,6 +6,9 @@ class Hobby < ApplicationRecord
 
   has_many_attached :hobby_images
 
+  validates :title, presence: true, length: { minimum: 1,maximum: 30 }
+  validates :body, presence: true, length: { minimum: 1,maximum: 500 }
+
   def get_hobby_image(width, height)
     hobby_image.variant(resize_to_limit: [width, height]).processed
   end

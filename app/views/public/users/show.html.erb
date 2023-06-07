@@ -32,9 +32,8 @@
         <% end %>
         フォロワー
         </td>
-        <td>
-        <%= link_to "ナイス趣味一覧",favorites_user_path(@user.id) %>
-        </td>
+        <td><%= link_to "コメント一覧",hobby_comments_user_path(@user.id) %></td>
+        <td><%= link_to "ナイス趣味一覧",favorites_user_path(@user.id) %></td>
         <td>
           <% unless @user.name == "guestuser" %>
             <% if @user == current_user %>
