@@ -5,9 +5,9 @@ class Public::HobbyCommentsController < ApplicationController
   end
 
   def create
-    @comment = HobbyComment.new(comment_params)
-    @hobby = @comment.hobby
-    @user = @hobby.user
+    @hobby = Hobby.find(params[:hobby_id])
+    @comment = @hobby.hobby_comments.new(comment_params)
+    @comment.user_id = current_user.id
     if @comment.save
       redirect_to hobby_path(@hobby)
       flash[:notice] = "コメントを送信しました"
@@ -26,6 +26,6 @@ class Public::HobbyCommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:hobby_comment).permit(:comment, :hobby_id, :user_id)
+    params.require(:hobby_comment).permit(:comment)
   end
 end
