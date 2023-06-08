@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container text-center">
   <%= flash[:notice] %>
   <div class="row">
     <div class="col-8 px-5 mx-auto my-3" style="background-color: #d4ecea;">
@@ -27,6 +27,7 @@
         <%= f.submit '更新する', class:"btn btn-secondary" %>
       </div>
       <% end %>
+      <%= link_to "退会する", confirm_users_path, data: { confirm: '退会しますか?' } , class:"btn btn-danger" %>
     </div>
   </div>
 </div>

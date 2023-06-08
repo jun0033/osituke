@@ -24,6 +24,18 @@ class Public::UsersController < ApplicationController
   def confirm
   end
 
+  def withdraw
+    @user = current_user
+    if @user.update(user_status: true)
+      reset_session
+      flash[:notice] = "退会しました。"
+      redirect_to root_path
+    else
+      flash[:alert] = "編集に失敗しました"
+      render :edit
+    end
+  end
+
   private
 
   def user_params

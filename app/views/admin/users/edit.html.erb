@@ -24,6 +24,15 @@
         <%= f.email_field :email, placeholder: @user.email, class:"form-control" %>
       </div>
       <div class="form-group">
+        <td>会員ステータス</td>
+        <td>
+        　<%= f.radio_button :user_status, User.user_statuses.key(false) %>
+          <%= f.label :user_status_exist, User.user_statuses_i18n[:exist] %>
+          <%= f.radio_button :user_status, User.user_statuses.key(true) %>
+          <%= f.label :user_status_withdraw, User.user_statuses_i18n[:withdraw] %>
+        </td>
+      </div>
+      <div class="form-group">
         <%= f.submit '更新する', class:"btn btn-secondary" %>
       </div>
       <% end %>
