@@ -14,11 +14,10 @@ class Public::HobbiesController < ApplicationController
   end
 
   def create
-    @hobby = Hobby.new(hobby_params)
-    @user = current_user
-    if @hobby.save
+    hobby = current_user.hobbies.new(hobby_params)
+    if hobby.save
       redirect_to hobbies_path
-      flash[:notice] = "#{@hobby.title}が誰かの元へ飛んでいきました"
+      flash[:notice] = "#{hobby.title}が誰かの元へ飛んでいきました"
     else
       redirect_to hobbies_path
       flash[:alert] = "押し付けに失敗しました"
@@ -39,6 +38,6 @@ class Public::HobbiesController < ApplicationController
 
   def hobby_params
     # 画像をハッシュで保存
-    params.require(:hobby).permit(:title, :body, :tag_id, :user_id, hobby_images:[])
+    params.require(:hobby).permit(:title, :body, :tag_id, hobby_images:[])
   end
 end
