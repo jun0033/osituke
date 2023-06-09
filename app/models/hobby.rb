@@ -1,8 +1,9 @@
 class Hobby < ApplicationRecord
   belongs_to :user, optional: true
-  belongs_to :tag, optional: true
+  belongs_to :tag,  optional: true
   has_many :hobby_comments, dependent: :destroy
-  has_many :favorites, dependent: :destroy
+  has_many :favorites,      dependent: :destroy
+  has_many :notifications,  dependent: :destroy
 
   has_many_attached :hobby_images
 
@@ -20,4 +21,5 @@ class Hobby < ApplicationRecord
   def self.looks(word)
     Hobby.where("title LIKE? OR body LIKE?", "%#{word}%","%#{word}%")
   end
+  
 end

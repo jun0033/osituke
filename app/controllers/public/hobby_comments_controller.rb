@@ -9,6 +9,7 @@ class Public::HobbyCommentsController < ApplicationController
     @comment = @hobby.hobby_comments.new(comment_params)
     @comment.user_id = current_user.id
     if @comment.save
+      @comment.create_notification_comment(current_user, @hobby.id)
       redirect_to hobby_path(@hobby)
       flash[:notice] = "コメントを送信しました"
     else

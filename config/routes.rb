@@ -53,4 +53,5 @@ Rails.application.routes.draw do
   end
   post '/guests/guest_sign_in', to: 'guests#new_guest'
   post '/guests/admin_sign_in', to: 'guests#admin_guest'
+  resources :notifications, only:[:index]
 end

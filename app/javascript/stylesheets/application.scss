@@ -69,6 +69,16 @@ a {
   color: #0097b0;
 }
 
-.nav-link {
+.white {
   color: #fff;
+}
+
+.white:hover {
+  color: #000;
+}
+.n-circle {
+  position: absolute;
+  padding-left: 1rem;
+  padding-top: 0rem;
+  color: #efa04c;
 }
