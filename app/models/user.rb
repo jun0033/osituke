@@ -7,15 +7,18 @@ class User < ApplicationRecord
   enum user_status: { exist: false, withdraw: true }
   has_one_attached :profile_image
 
-  has_many :hobbies, dependent: :destroy
+  has_many :hobbies,        dependent: :destroy
   has_many :hobby_comments, dependent: :destroy
-  has_many :favorites, dependent: :destroy
+  has_many :favorites,      dependent: :destroy
   # フォローする、されるのアソシエーション
-  has_many :active_relationships,  class_name: "Relationship", foreign_key: "follow_id", dependent: :destroy
+  has_many :active_relationships,  class_name: "Relationship", foreign_key: "follow_id",   dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   # フォロー一覧、フォロワー一覧を持ってくるアソシエーション
-  has_many :active_follows,  through: :active_relationships, source: :follower
+  has_many :active_follows,  through: :active_relationships,  source: :follower
   has_many :passive_follows, through: :passive_relationships, source: :follow
+  # 自分からの通知、相手からの通知のアソシエーション
+  has_many :active_notifications,  class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 2, maximum: 15 }
   validates :introduction, length: { maximum: 100 }
@@ -55,4 +58,13 @@ class User < ApplicationRecord
       user.password = SecureRandom.urlsafe_base64
     end
   end
+
+  def create_notification_follow(current_user)
+    notification = current_user.active_notifications.new(
+      visited_id: id,
+      action: 'follow'
+    )
+    notification.save if notification.valid?
+  end
+
 end

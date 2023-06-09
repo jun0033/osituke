@@ -1,0 +1,36 @@
+<div class="col">
+<% notifications_index.each do |notification| %>
+  <table class="table">
+    <tr>
+      <%= link_to user_path(notification.visitor_id) do %>
+        <%= image_tag notification.visitor.get_profile_image(80,80) %>
+        <strong><%= notification.visitor.name %></strong>
+      <% end %>さんが
+    <% case notification.action %>
+    <% when 'follow' %>
+      あなたをフォローしました
+    <% when 'favorite' %>
+      <%= link_to 'あなたの投稿', notification.hobby, style: "font-weight: bold;" %>
+      にいいねしました
+    <% when 'comment' %>
+      <% if notification.hobby.user_id == notification.visited.id %>
+        <%= link_to "あなたの投稿", notification.hobby, style: "font-weight: bold;" %>
+      <% else %>
+        <%= link_to hobby_path(notification.hobby) do %>
+          <%= image_tag notification.hobby.user.get_profile_image(80,80) %>
+          <strong><%= notification.hobby.user.name + 'さんの投稿' %></strong>
+        <% end %>
+      <% end %>にコメントしました
+      <p style="backgroud-color: #000; opacity: 0.5;">
+        <%= notification.hobby_comment.comment %>
+      </p>
+    <% end %>
+    </tr>
+    <tr>
+    <div style="opacity: 0.5;">
+      <%= notification.how_long_ago %>
+    </div>
+    </tr>
+  </table>
+<% end %>
+</div>

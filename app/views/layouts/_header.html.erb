@@ -10,9 +10,7 @@
       <% end %>
     </div>
     <div class="col">
-    <%= link_to destroy_admin_session_path, method: :delete do %>
-      ログアウト
-    <% end %>
+    <%= link_to "ログアウト",destroy_admin_session_path, method: :delete %>
     </div>
   </div>
   <% elsif user_signed_in? %>
@@ -26,21 +24,17 @@
       <% end %>
     </div>
     <div class="col">
-    <%= link_to destroy_user_session_path, method: :delete do %>
-      ログアウト
-    <% end %>
+    <%= link_to "ログアウト",destroy_user_session_path, method: :delete %>
     </div>
   </div>
+  <% elsif request.fullpath.include? ("/admin") %>
+
   <% else %>
   <div class="row text-center">
     <div class="col"></div>
     <div class="col">
-      <%= link_to new_user_session_path do %>
-        ログイン
-      <% end %>
-      <%= link_to new_user_registration_path do %>
-        新規登録
-      <% end %>
+      <%= link_to "ログイン",new_user_session_path %>
+      <%= link_to "新規登録",new_user_registration_path %>
     </div>
   </div>
   <% end %>
@@ -61,31 +55,23 @@
     <ul class="navbar-nav mx-auto">
       <!--管理者がログインしていたら-->
       <% if admin_signed_in? %>
-        <li>
-          <%= link_to admin_tags_path, class: "nav-link" do %>
-          タグ一覧
-          <% end %>
-        </li>
-        <li>
-          <%= link_to admin_hobbies_path, class: "nav-link" do %>
-          趣味一覧
-          <% end %>
-        </li>
+        <li><%= link_to "タグ一覧",admin_tags_path, class: "nav-link white" %></li>
+        <li><%= link_to "趣味一覧",admin_hobbies_path, class: "nav-link white" %></li>
       <!--ユーザーがログインしていたら-->
       <% elsif user_signed_in? %>
-        <li>
-          <%= link_to tags_path, class: "nav-link" do %>
-          タグ一覧
-          <% end %>
-        </li>
-        <li>
-          <%= link_to hobbies_path, class: "nav-link" do %>
-          趣味一覧
-          <% end %>
-        </li>
-        <li>
-          <%= link_to user_path(current_user), class: "nav-link" do %>
-            マイページ
+        <li><%= link_to "タグ一覧",tags_path, class: "nav-link white" %></li>
+        <li><%= link_to "趣味一覧",hobbies_path, class: "nav-link white" %></li>
+        <li><%= link_to "マイページ",user_path(current_user), class: "nav-link white" %></li>
+        <li class= "my-auto">
+          <%= link_to notifications_path do %>
+            <% if unchecked_notifications.any? %>
+            <span class="fa-stack">
+              <i class="fa-regular fa-bell fa-stack-2x white"></i>
+              <i class="fas fa-circle n-circle fa-stack-1x"></i>
+            </span>
+            <% else %>
+              <i class="fa-regular fa-bell white"></i>
+            <% end %>
           <% end %>
         </li>
       <!--ログイン前画面-->
