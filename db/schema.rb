@@ -59,15 +59,6 @@ ActiveRecord::Schema.define(version: 2023_06_09_052407) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "hobbies", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "tag_id", null: false
-    t.string "title", null: false
-    t.text "body", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "hobby_comments", force: :cascade do |t|
     t.integer "hobby_id", null: false
     t.integer "user_id", null: false
