@@ -1,15 +1,131 @@
-<%= form_with model: @hobby, local:true do |f| %>
-  <div class="row mt-4">
-    <div class="form-inline mx-auto">
-      <% if @hobby.is_draft == true %>
-        <%= f.submit "趣味を公開", :name => 'publicize_draft', class:'mr-5 btn btn-sm btn-warning' %>
-        <%= f.submit "下書きを更新", :name => 'update_draft', class:'mr-5 btn btn-sm btn-outline-secondary' %>
-      <% else %>
-        <%= f.submit "趣味を更新", :name => 'update_hobby', class:'btn btn-sm btn-warning text-light' %>
-      <% end %>
+<div class="container">
+  <div class="row">
+    <%= flash[:notice] %>
+    <div class="col-8 mx-auto form-group" id="new-tag-form"
+           style="display: none; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.6); padding: 30px; z-index: 9999;">
+      <table class="table table-borderless">
+          <tr>
+            <td>
+              <%= form_with model: @tag, class: "form-inline", local: false do |f| %>
+                <%= f.text_field :tag_name, placeholder: "新規タグ名", class: "form-control mr-2", style: "width: 70%" %>
+                <%= f.submit "作成", class:"btn btn-primary", style: "width: 25%" %><br>
+              <% end %>
+            </td>
+          </tr>
+      </table>
     </div>
+
+    <div class="col-8 px-5 mx-auto my-3" style="background-color: #d4ecea;">
+      <%= form_with model: @hobby, local:true do |f| %>
+        <div class="form-group mt-3">
+          <h4>タイトル</h4>
+          <%= f.text_field :title, placeholder: "趣味名(30文字以内)", required: true, class:"form-control" %>
+        </div>
+        <div class="form-group">
+          <h4>詳細</h4>
+          <%= f.text_area :body, placeholder: "内容の詳細(500文字以内)", rows: "4", required: true, class:"form-control" %>
+        </div>
+        <div>
+          <%= f.select :tag_id, options_for_select([["新しくタグを作成する", "new"]].concat(Tag.all.map { |tag| [tag.tag_name, tag.id] })),
+          { include_blank: "-- 選択してください --" }, {required: true, class: "form-control", id: "tag-select" } %>
+        </div>
+        <div class="form-group">
+          <h4>画像を5枚まで追加</h4>
+          <% if @hobby.hobby_images.present? %>
+            <%= f.file_field :hobby_images, accept: "image/*", multiple: true %><br>
+            <%= f.label :hobby_image do %>
+              <% @hobby.hobby_images.each do |hobby_image| %>
+              <%= image_tag(hobby_image, width:100, height:100 ) %>
+              <% end %>
+            <% end %>
+          <% else %>
+          <%= f.file_field :hobby_images, accept: "image/*", multiple: true %>
+          <% end %>
+        </div>
+        =>
+        <img id="preview_0" style="width:15%;">
+        <img id="preview_1" style="width:15%;">
+        <img id="preview_2" style="width:15%;">
+        <img id="preview_3" style="width:15%;">
+        <img id="preview_4" style="width:15%;">
+        <div class="row mt-4">
+          <div class="form-inline mx-auto">
+            <% if @hobby.is_draft %>
+              <%= f.submit "趣味を公開", :name => 'publicize_draft', class:'mr-5 btn btn-sm btn-warning' %>
+              <%= f.submit "下書きを更新", :name => 'update_draft', class:'mr-5 btn btn-sm btn-outline-secondary' %>
+            <% else %>
+              <%= f.submit "趣味を更新", :name => 'update_hobby', class:'btn btn-sm btn-warning text-light' %>
+            <% end %>
+          </div>
+        </div>
+        <div class="mt-4 pb-3 text-center">
+          <u><%= link_to "趣味を削除", hobby_path(@hobby), method: :delete, data: {confirm: "#{@hobby.title}を削除しますか？"}, class:'text-danger' %></u>
+        </div>
+      <% end %>
+      </div>
   </div>
-  <div class="mt-4 pb-3 text-center">
-    <u><%= link_to "趣味を削除", hobby_path(@), method: :delete, data: {confirm: "#{hobby.title}を削除しますか？"}, class:'text-danger' %></u>
-  </div>
-<% end %>
+</div>
+<script>
+  // HTMLドキュメントが読み込まれた後に実行される関数
+  $(document).ready(function() {
+    var tagSelect = $("#tag-select");
+    var newTagForm = $("#new-tag-form");
+
+    // tag選択の内容がチェンジされたときに実行する処理
+    tagSelect.on("change", function() {
+      if (tagSelect.val() === "new") {
+        slideDown(newTagForm);
+      } else {
+        slideUp(newTagForm);
+      }
+    });
+
+    // 引数で指定された要素をスライドダウンさせる処理
+    function slideDown(element) {
+      element.fadeIn(300);
+    }
+
+    //引数で指定された要素をスライドアップさせる処理
+    function slideUp(element) {
+      element.fadeOut(300);
+    }
+  });
+</script>
+<script>
+$('#hobby_hobby_images').on('change', function (e) {
+
+    if(e.target.files.length > 5){
+
+      alert('一度に投稿できるのは五枚までです。');
+      // 五枚以上の画像を選択していた場合、選択したファイルをリセット。
+      $('#hobby_hobby_images').val = "";
+
+      // 以前の画像のプレビューが残っていた場合は、
+      // まだ画像選択できていると勘違いを誘発するため初期化。
+      for( let i = 0; i < 5; i++) {
+        $(`#preview_${i}`).attr('src', "");
+      }
+
+    }else{
+      let reader = new Array(5);
+
+      // 画像選択を二回した時、一回目より数が少なかったりすると画面上に残るので初期化
+      for( let i = 0; i < 5; i++) {
+        $(`#preview_${i}`).attr('src', "");
+      }
+
+      for(let i = 0; i < e.target.files.length; i++) {
+        reader[i] = new FileReader();
+        reader[i].onload = finisher(i,e);
+        reader[i].readAsDataURL(e.target.files[i]);
+
+        // onloadは別関数で準備しないとfor文内では使用できないので、関数を準備。
+        function finisher(i,e){
+          return function(e){
+          $(`#preview_${i}`).attr('src', e.target.result);
+          }
+        }
+      }
+   }
+});
+</script>

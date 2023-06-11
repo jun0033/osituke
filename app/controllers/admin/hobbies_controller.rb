@@ -1,6 +1,6 @@
 class Admin::HobbiesController < ApplicationController
   def index
-    @hobbies = Hobby.all
+    @hobbies = Hobby.where(is_draft: false)
   end
 
   def show
