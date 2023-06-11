@@ -12,6 +12,27 @@
     <div class="row">
       <div class="col-8">
       <h5><%= link_to "#{hobby.title}", hobby_path(hobby.id) %></h5>
+      <div class="d-flex">
+        <div id="star-rate<%= hobby.id %>"></div>
+        (<%= hobby.hobby_comments.average(:star).to_f.round(1) %>)
+      </div>
+      <script>
+      $(document).on('turbolinks:load', function() {
+        let elem = document.querySelector('#star-rate<%= hobby.id %>');
+        if (elem == null) return;
+
+        elem.innerHTML = "";
+        let opt = {
+          starOn: "<%= asset_path('star-on.png') %>",
+          starOff: "<%= asset_path('star-off.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          score: "<%= hobby.hobby_comments.average(:star).to_f.round(1) %>",
+          readOnly: true,
+          half: true
+        };
+        raty(elem, opt);
+      });
+      </script>
       </div>
       <div class="col-4 text-right">
         <%= link_to tag_path(hobby.tag.id), class: "btn btn-outline-info rounded-pill" do %>

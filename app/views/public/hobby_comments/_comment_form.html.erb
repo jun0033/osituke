@@ -12,17 +12,17 @@
   <% end %>
 </div>
 <script>
-  $(document).on('turbolinks:load', function() {
-        let elem = document.querySelector('#post_raty');
-        if (elem == null) return;
+$(document).on('turbolinks:load', function() {
+      let elem = document.querySelector('#post_raty');
+      if (elem == null) return;
 
-        elem.innerHTML = ""
-        let opt = {
-          starOn: "<%= asset_path('star-on.png') %>",
-          starOff: "<%= asset_path('star-off.png') %>",
-          starHalf: "<%= asset_path('star-half.png') %>",
-          scoreName: 'hobby_comment[star]',
-        };
-        raty(elem, opt);
-      });
+      elem.innerHTML = ""
+      let opt = {
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        scoreName: 'hobby_comment[star]',
+      };
+      raty(elem, opt);
+    });
 </script>

@@ -10,7 +10,10 @@
     <div class="col-8 col-sm-8 text-left p-2">
       <div class="row">
         <div class="col-8">
-          <div id="star_<%= @hobby.id %>"></div>
+          <div class="d-flex">
+            <div id="star-rate<%= @hobby.id %>"></div>
+            (<%= @hobby.hobby_comments.average(:star).to_f.round(1) %>)
+          </div>
         <h5><%= @hobby.title %></h5>
         </div>
         <% if @hobby.user.id == current_user.id %>
@@ -44,7 +47,7 @@
 <%= render "public/hobby_comments/comment_form", comment: @comment,hobby: @hobby %>
 <script>
 $(document).on('turbolinks:load', function() {
-  let elem = document.querySelector('#star_<%= @hobby.id %>');
+  let elem = document.querySelector('#star-rate<%= @hobby.id %>');
   if (elem == null) return;
 
   elem.innerHTML = "";
@@ -52,8 +55,9 @@ $(document).on('turbolinks:load', function() {
     starOn: "<%= asset_path('star-on.png') %>",
     starOff: "<%= asset_path('star-off.png') %>",
     starHalf: "<%= asset_path('star-half.png') %>",
-    score: 'hobby_comment[star]',
+    score: "<%= @hobby.hobby_comments.average(:star).to_f.round(1) %>",
     readOnly: true,
+    half: true
   };
   raty(elem, opt);
 });
