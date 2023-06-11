@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       resources :hobby_comments, only:[:create, :destroy]
       collection do
         get 'draft_index'
+        get 'rank_index'
       end
     end
     root to: 'homes#top'

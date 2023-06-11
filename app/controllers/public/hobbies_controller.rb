@@ -37,7 +37,12 @@ class Public::HobbiesController < ApplicationController
   end
 
   def draft_index
-  @draft_hobbies = Hobby.where(is_draft: true,user_id: current_user.id)
+    @draft_hobbies = Hobby.where(is_draft: true,user_id: current_user.id)
+  end
+
+  def rank_index
+    @rank_hobbies = Hobby.find(Favorite.group(:hobby_id).where(created_at: Time.current.all_month)
+                         .order('count(hobby_id) desc').limit(10).pluck(:hobby_id))
   end
 
   def destroy
