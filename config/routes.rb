@@ -44,9 +44,12 @@ Rails.application.routes.draw do
         get 'hobby_comments' =>'hobby_comments#index'
       end
     end
-    resources :hobbies, only:[:show, :index, :create, :destroy, :new] do
+    resources :hobbies, only:[:show, :index, :create, :destroy, :new, :edit, :update] do
       resource :favorites, only: [:create, :destroy]
       resources :hobby_comments, only:[:create, :destroy]
+      collection do
+        get 'draft_index'
+      end
     end
     root to: 'homes#top'
     resources :tags, only:[:create, :index, :show]
