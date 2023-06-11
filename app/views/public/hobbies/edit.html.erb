@@ -1,0 +1,15 @@
+<%= form_with model: @hobby, local:true do |f| %>
+  <div class="row mt-4">
+    <div class="form-inline mx-auto">
+      <% if @hobby.is_draft == true %>
+        <%= f.submit "趣味を公開", :name => 'publicize_draft', class:'mr-5 btn btn-sm btn-warning' %>
+        <%= f.submit "下書きを更新", :name => 'update_draft', class:'mr-5 btn btn-sm btn-outline-secondary' %>
+      <% else %>
+        <%= f.submit "趣味を更新", :name => 'update_hobby', class:'btn btn-sm btn-warning text-light' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="mt-4 pb-3 text-center">
+    <u><%= link_to "趣味を削除", hobby_path(@), method: :delete, data: {confirm: "#{hobby.title}を削除しますか？"}, class:'text-danger' %></u>
+  </div>
+<% end %>

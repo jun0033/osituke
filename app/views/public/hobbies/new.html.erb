@@ -39,7 +39,8 @@
       <img id="preview_3" style="width:15%;">
       <img id="preview_4" style="width:15%;">
       <div class="form-group">
-        <%= f.submit '押し付ける', class:"btn btn-secondary" %>
+        <%= f.submit '押し付ける', :name => 'post', class: 'mr-5 btn btn-sm btn-warning text-white' %>
+        <%= f.submit '下書きに保存', :name => 'draft', class: 'mr-5 btn btn-sm btn-outline-secondary' %>
       </div>
       <% end %>
     </div>
