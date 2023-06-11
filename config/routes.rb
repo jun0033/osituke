@@ -17,7 +17,11 @@ Rails.application.routes.draw do
 
   # 管理者側のルーティング設定
   namespace :admin do
-    resources :hobbies, only:[:index, :destroy, :show]
+    resources :hobbies, only:[:index, :destroy, :show] do
+      collection do
+        get 'rank_index'
+      end
+    end
     resources :users, only:[:show, :edit, :update] do
       member do
         get 'favorites' =>'favorites#index'
