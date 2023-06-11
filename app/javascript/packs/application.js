@@ -8,10 +8,20 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
-import "jquery";
+import jQuery from "jquery";
 import "popper.js";
 import "bootstrap";
-import "../stylesheets/application"; 
+import "../stylesheets/application";
+import Raty from "raty.js"
+
+global.$ = jQuery;
+window.$ = jQuery;
+
+window.raty = function(elem,opt) {
+let raty = new Raty(elem,opt)
+raty.init();
+return raty;
+}
 
 Rails.start()
 Turbolinks.start()

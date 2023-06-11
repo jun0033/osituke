@@ -27,6 +27,6 @@ class Public::HobbyCommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:hobby_comment).permit(:comment)
+    params.require(:hobby_comment).permit(:comment, :star)
   end
 end
