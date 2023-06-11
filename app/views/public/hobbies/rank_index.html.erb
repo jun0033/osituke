@@ -1,0 +1,49 @@
+<div class="container text-center">
+  <%= flash[:notice] %>
+  <h2>ナイス趣味(月間)ランキング</h2>
+　<% @rank_hobbies.each.with_index(1) do |hobby, i| %>
+  第<%= i %>位
+   <div class="row py-1 my-1 wrap mx-5 border-color">
+  <div class="col-4 media">
+    <%= link_to user_path(hobby.user_id) do %>
+    <%= image_tag hobby.user.get_profile_image(80,80)%>
+    <% end %>
+    <div class="media-body text-left pl-2">
+      <h4><%= link_to hobby.user.name, user_path(hobby.user_id) %></h4>
+    </div>
+  </div>
+  <div class="col-8 text-left">
+    <div class="row">
+      <div class="col-8">
+      <h5><%= link_to "#{hobby.title}", hobby_path(hobby.id) %></h5>
+      </div>
+      <div class="col-4 text-right">
+        <%= link_to tag_path(hobby.tag.id), class: "btn btn-outline-info rounded-pill" do %>
+        <i class="fas fa-tag"></i>
+        <%= hobby.tag.tag_name %>
+        <% end %>
+      </div>
+    </div>
+    <div class="row" style="width: 100%;">
+      <!--ユーザーのつけた段落を反映-->
+      <%= safe_join(hobby.body.split("\n"),tag(:br)) %>
+    </div>
+    <div class="row">
+      <% hobby.hobby_images.each do |hobby_image| %>
+      <%= image_tag(hobby_image, width:100, height:100 )%>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="col-3" id="favorite_buttons_<%= hobby.id %>">
+        <%= render "public/favorites/favorite", hobby: hobby %>
+      </div>
+      <div class=col-3>
+      <%= link_to hobby_path(hobby.id) do %>
+      <%= hobby.hobby_comments.count %> コメント
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+  <% end %>
+</div>
