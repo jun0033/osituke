@@ -1,0 +1,28 @@
+<div class="bottom_btn row">
+  <%= form_with model: comment, url: hobby_hobby_comments_path(hobby), class: "form-inline", local: true do |f| %>
+    <div class="form-group col" id="star">
+      <% f.label :star %>
+      <%= f.hidden_field :star, id: :review_star, class: 'form-control' %>
+      <div id="post_raty"></div>
+    </div>
+    <div class= "col">
+    <%= f.text_area :comment, placeholder: "コメント", class: "form-control mr-2", rows: 3, cols: 60 %>
+    <%= f.submit "コメントする", class:"btn btn-primary", size:30 %>
+    </div>
+  <% end %>
+</div>
+<script>
+$(document).on('turbolinks:load', function() {
+      let elem = document.querySelector('#post_raty');
+      if (elem == null) return;
+
+      elem.innerHTML = ""
+      let opt = {
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        scoreName: 'hobby_comment[star]',
+      };
+      raty(elem, opt);
+    });
+</script>
