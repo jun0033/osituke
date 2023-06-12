@@ -9,23 +9,17 @@
     </div>
     <div class="col-8 col-sm-8 text-left p-2">
       <div class="row">
-        <div class="col-8">
-          <div class="d-flex">
-            <div id="star-rate<%= @hobby.id %>"></div>
-            (<%= @hobby.hobby_comments.average(:star).to_f.round(1) %>)
-          </div>
-        <h5><%= @hobby.title %></h5>
+        <h5 class="col-5"><%= @hobby.title %></h5>
+        <div class="col-5 d-flex">
+          <div id="star-rate<%= @hobby.id %>"></div>
+          (<%= @hobby.hobby_comments.average(:star).to_f.round(1) %>)
         </div>
-        <% if @hobby.user.id == current_user.id %>
-        <div class="col-2">
-          <%= link_to "編集", edit_hobby_path(@hobby.id), style: "right: 5px;" %>
-        </div>
-        <div class="col-2">
-          <%= link_to hobby_path(@hobby.id), method: :delete, style: "right: 5px;" do %>
-          <i class="fas fa-trash fa-lg"></i>
+        <div class="col-2 text-right">
+          <%= link_to tag_path(@hobby.tag.id), class: "btn btn-outline-info rounded-pill" do %>
+          <i class="fas fa-tag"></i>
+          <%= @hobby.tag.tag_name %>
           <% end %>
         </div>
-        <% end %>
       </div>
       <div class="row" style="width: 100%;">
         <!--ユーザーのつけた段落を反映-->
@@ -36,13 +30,27 @@
         <%= image_tag(hobby_image, width:100, height:100 )%>
         <% end %>
       </div>
+      <div class="row mt-1">
+        <div class="col-4" id="favorite_buttons_<%= @hobby.id %>">
+          <%= render "public/favorites/favorite", hobby: @hobby %>
+        </div>
+        <div class="col-4" id="todo_buttons_<%= @hobby.id %>">
+        <%= render "public/to_does/to_do", hobby: @hobby %>
+        </div>
+        <% if @hobby.user.id == current_user.id %>
+        <div class="col-1">
+          <%= link_to edit_hobby_path(@hobby.id), style: "right: 5px;" do %>
+          <i class="fas fa-cogs"></i>
+          <% end %>
+        </div>
+        <div class="col-1">
+          <%= link_to hobby_path(@hobby.id), method: :delete, style: "right: 5px;", data: { confirm: "【確認】趣味を削除してもよろしいですか？" } do %>
+          <i class="fas fa-trash fa-lg"></i>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <div id="favorite_buttons_<%= @hobby.id %>">
-    <%= render "public/favorites/favorite", hobby: @hobby %>
-  </div>
-  <div id="todo_buttons_<%= @hobby.id %>">
-  <%= render "public/to_does/to_do", hobby: @hobby %>
   </div>
   <%= @hobby.hobby_comments.count %> コメント
   <%= render "public/hobby_comments/comments_index", comments: @comments %>

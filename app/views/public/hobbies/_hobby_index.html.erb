@@ -10,9 +10,8 @@
   </div>
   <div class="col-8 text-left">
     <div class="row">
-      <div class="col-8">
-      <h5><%= link_to "#{hobby.title}", hobby_path(hobby.id) %></h5>
-      <div class="d-flex">
+      <h5 class="col-5"><%= link_to "#{hobby.title}", hobby_path(hobby.id) %></h5>
+      <div class="col-5 d-flex">
         <div id="star-rate<%= hobby.id %>"></div>
         (<%= hobby.hobby_comments.average(:star).to_f.round(1) %>)
       </div>
@@ -33,8 +32,7 @@
         raty(elem, opt);
       });
       </script>
-      </div>
-      <div class="col-4 text-right">
+      <div class="col-2 text-right">
         <%= link_to tag_path(hobby.tag.id), class: "btn btn-outline-info rounded-pill" do %>
         <i class="fas fa-tag"></i>
         <%= hobby.tag.tag_name %>
@@ -58,6 +56,9 @@
       <%= link_to hobby_path(hobby.id) do %>
       <%= hobby.hobby_comments.count %> コメント
       <% end %>
+      </div>
+      <div class="col-3" id="todo_buttons_<%= hobby.id %>">
+        <%= render "public/to_does/to_do", hobby: hobby %>
       </div>
     </div>
   </div>
