@@ -41,6 +41,9 @@
   <div id="favorite_buttons_<%= @hobby.id %>">
     <%= render "public/favorites/favorite", hobby: @hobby %>
   </div>
+  <div id="todo_buttons_<%= @hobby.id %>">
+  <%= render "public/to_does/to_do", hobby: @hobby %>
+  </div>
   <%= @hobby.hobby_comments.count %> コメント
   <%= render "public/hobby_comments/comments_index", comments: @comments %>
 </div>

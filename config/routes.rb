@@ -18,9 +18,7 @@ Rails.application.routes.draw do
   # 管理者側のルーティング設定
   namespace :admin do
     resources :hobbies, only:[:index, :destroy, :show] do
-      collection do
-        get 'rank_index'
-      end
+      get 'rank_index', on: :collection
     end
     resources :users, only:[:show, :edit, :update] do
       member do
@@ -50,6 +48,7 @@ Rails.application.routes.draw do
     end
     resources :hobbies, only:[:show, :index, :create, :destroy, :new, :edit, :update] do
       resource :favorites, only: [:create, :destroy]
+      resource :to_does, only: [:create, :destroy]
       resources :hobby_comments, only:[:create, :destroy]
       collection do
         get 'draft_index'

@@ -1,0 +1,11 @@
+<% if hobby.checked_by?(current_user) %>
+  <%= link_to hobby_to_does_path(hobby), method: :delete, remote: true do %>
+  <%= check_box_tag :check1, true, true %>
+  <%= label_tag :check1, "ToDoから削除" %>
+  <% end %>
+<% else %>
+  <%= link_to hobby_to_does_path(hobby), method: :post, remote: true do %>
+  <%= check_box_tag :check1, true, false %>
+  <%= label_tag :check1, "ToDoに追加" %>
+  <% end %>
+<% end %>
