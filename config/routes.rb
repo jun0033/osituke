@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       end
       member do
         get 'favorites' =>'favorites#index'
+        get 'to_does' =>'to_does#index'
         get 'hobby_comments' =>'hobby_comments#index'
       end
     end
