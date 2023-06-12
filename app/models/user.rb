@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :hobbies,        dependent: :destroy
   has_many :hobby_comments, dependent: :destroy
   has_many :favorites,      dependent: :destroy
+  has_many :to_does,        dependent: :destroy
   # フォローする、されるのアソシエーション
   has_many :active_relationships,  class_name: "Relationship", foreign_key: "follow_id",   dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
