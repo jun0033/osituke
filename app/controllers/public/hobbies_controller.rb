@@ -5,6 +5,7 @@ class Public::HobbiesController < ApplicationController
     @comment = current_user.hobby_comments.new(hobby_id: @hobby.id)
     @comments = @hobby.hobby_comments.all
     @favorite = Favorite.find_by(hobby_id: @hobby.id)
+    @already_comment = @comments.find_by(user_id: current_user.id, done_status: true)
   end
 
   def new
@@ -43,6 +44,12 @@ class Public::HobbiesController < ApplicationController
   def rank_index
     @rank_hobbies = Hobby.find(Favorite.group(:hobby_id).where(created_at: Time.current.all_month)
                          .order('count(hobby_id) desc').limit(10).pluck(:hobby_id))
+  end
+
+  def done_index
+    user = User.find(params[:id])
+    comments = HobbyComment.where(user_id: user.id).where(done_status: true)
+    @hobbies = Hobby.where(id: comments.pluck(:hobby_id))
   end
 
   def destroy

@@ -3,19 +3,13 @@ class HobbyComment < ApplicationRecord
   belongs_to :user
   has_many   :notifications, dependent: :destroy
 
+  enum done_status: { yet: false, done: true }
+
   validates :comment, presence: true, length: { minimum: 1,maximum: 500 }
 
   def create_notification_comment(visitor, hobby_id)
-    # 自分以外にコメントしている人をすべて取得し、全員に通知を送る
-    temp_ids = HobbyComment.select(:user_id).where(hobby_id: hobby_id).where.not(user_id: visitor.id).distinct
-    temp_ids.each do |temp_id|
-      save_notification_comment(visitor, hobby_id, temp_id['user_id'])
-    end
-    # まだ誰もコメントしていない場合は、投稿者だけに通知を送る
-    if temp_ids.blank?
-      user_id = Hobby.find(hobby_id).user.id
-      save_notification_comment(visitor, hobby_id, user_id)
-    end
+    user_id = Hobby.find(hobby_id).user.id
+    save_notification_comment(visitor, hobby_id, user_id)
   end
 
   def save_notification_comment(visitor, hobby_id, visited_id)

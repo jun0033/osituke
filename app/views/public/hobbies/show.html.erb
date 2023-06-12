@@ -55,7 +55,6 @@
   <%= @hobby.hobby_comments.count %> コメント
   <%= render "public/hobby_comments/comments_index", comments: @comments %>
 </div>
-<%= render "public/hobby_comments/comment_form", comment: @comment,hobby: @hobby %>
 <script>
 $(document).on('turbolinks:load', function() {
   let elem = document.querySelector('#star-rate<%= @hobby.id %>');
@@ -73,3 +72,9 @@ $(document).on('turbolinks:load', function() {
   raty(elem, opt);
 });
 </script>
+
+<!-- Button trigger modal -->
+<%= render "public/hobby_comments/comment_form" %>
+<% unless @already_comment.present? %>
+<%= render "public/hobby_comments/done_form" %>
+<% end %>

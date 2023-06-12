@@ -1,49 +1,56 @@
 <% comments.each do |comment| %>
-    <div class="row my-1 mx-5 p-1" style="background-color: #b4e6df;">
-      <div class="col-sm-2 text-right">
-        <%= link_to user_path(comment.user_id) do %>
-        <%= image_tag comment.user.get_profile_image(80,80)%>
-        <% end %>
-      </div>
-      <div class="col-sm-2">
-        <h4><%= link_to "#{comment.user.name}",user_path(comment.user_id) %></h4>
-      </div>
-      <div class="col-sm-8 wrap">
-        <div class="row">
-          <div class="col-4 col-sm-4 text-left">
-              <%= link_to hobby_path(comment.hobby_id) do %>
-              <i class="fas fa-reply"></i>
-              <%= comment.hobby.title %>
-              <% end %>
-          </div>
-          <div class= "col-6 col-sm-6 text-right", id="star_<%= comment.id %>"></div>
-          <script>
-          $(document).on('turbolinks:load', function() {
-            let elem = document.querySelector('#star_<%= comment.id %>');
-            if (elem == null) return;
-
-            elem.innerHTML = "";
-            let opt = {
-              starOn: "<%= asset_path('star-on.png') %>",
-              starOff: "<%= asset_path('star-off.png') %>",
-              starHalf: "<%= asset_path('star-half.png') %>",
-              score: "<%= comment.star %>",
-              readOnly: true,
-            };
-            raty(elem, opt);
-          });
-          </script>
-          <div class="col-2 col-sm-2">
-          <% if comment.user.id == current_user.id %>
-            <%= link_to hobby_hobby_comment_path(comment.hobby_id, comment.id), method: :delete, style: "right: 5px;" do %>
-            <i class="fas fa-trash fa-sm"></i>
+  <% if comment.done_status == "done" %>
+  <div class= "col-2 mx-5" style="background-color: #7cd857;">
+    [完了報告]
+  </div>
+  <% end %>
+  <div class="row my-1 mx-5 p-1" style="background-color: #b4e6df;">
+    <div class="col-sm-2 text-right">
+      <%= link_to user_path(comment.user_id) do %>
+      <%= image_tag comment.user.get_profile_image(80,80)%>
+      <% end %>
+    </div>
+    <div class="col-sm-2">
+      <h4><%= link_to "#{comment.user.name}",user_path(comment.user_id) %></h4>
+    </div>
+    <div class="col-sm-8 wrap">
+      <div class="row">
+        <div class="col-4 col-sm-4 text-left">
+            <%= link_to hobby_path(comment.hobby_id) do %>
+            <i class="fas fa-reply"></i>
+            <%= comment.hobby.title %>
             <% end %>
+        </div>
+        <% if comment.done_status == "done" %>
+        <div class= "col-6 col-sm-6 text-right", id="star_<%= comment.id %>"></div>
+        <% end %>
+        <script>
+        $(document).on('turbolinks:load', function() {
+          let elem = document.querySelector('#star_<%= comment.id %>');
+          if (elem == null) return;
+
+          elem.innerHTML = "";
+          let opt = {
+            starOn: "<%= asset_path('star-on.png') %>",
+            starOff: "<%= asset_path('star-off.png') %>",
+            starHalf: "<%= asset_path('star-half.png') %>",
+            score: "<%= comment.star %>",
+            readOnly: true,
+          };
+          raty(elem, opt);
+        });
+        </script>
+        <div class="col-2 col-sm-2">
+        <% if comment.user.id == current_user.id %>
+          <%= link_to hobby_hobby_comment_path(comment.hobby_id, comment.id), method: :delete, style: "right: 5px;" do %>
+          <i class="fas fa-trash fa-sm"></i>
           <% end %>
-          </div>
+        <% end %>
         </div>
-        <div class="row" style="width: 100%;">
-        <%= safe_join(comment.comment.split("\n"),tag(:br)) %>
-        </div>
+      </div>
+      <div class="row" style="width: 100%;">
+      <%= safe_join(comment.comment.split("\n"),tag(:br)) %>
       </div>
     </div>
-  <% end %>
+  </div>
+<% end %>

@@ -45,12 +45,17 @@ Rails.application.routes.draw do
         get 'favorites' =>'favorites#index'
         get 'to_does' =>'to_does#index'
         get 'hobby_comments' =>'hobby_comments#index'
+        get 'done_index' =>'hobbies#done_index'
       end
     end
     resources :hobbies, only:[:show, :index, :create, :destroy, :new, :edit, :update] do
       resource :favorites, only: [:create, :destroy]
       resource :to_does, only: [:create, :destroy]
-      resources :hobby_comments, only:[:create, :destroy]
+      resources :hobby_comments, only:[:create, :destroy] do
+        collection do
+        post 'report'
+        end
+      end
       collection do
         get 'draft_index'
         get 'rank_index'

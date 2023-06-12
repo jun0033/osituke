@@ -30,10 +30,17 @@
 }
 
 // ボタン固定
-.bottom_btn {
+.bottom_btn_right {
     position: fixed;
     bottom: 1%;
-    left: 50%;
+    left: 60%;
+    transform:translate(-50%,0)
+    }
+
+.bottom_btn_left {
+    position: fixed;
+    bottom: 1%;
+    left: 40%;
     transform:translate(-50%,0)
     }
 

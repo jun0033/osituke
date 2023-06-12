@@ -73,10 +73,10 @@ ActiveRecord::Schema.define(version: 2023_06_12_090104) do
     t.integer "hobby_id", null: false
     t.integer "user_id", null: false
     t.text "comment", null: false
+    t.string "star"
+    t.boolean "done_status", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "star"
-    t.string "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00007f76bc89a4b0>"
   end
 
   create_table "notifications", force: :cascade do |t|
