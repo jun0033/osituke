@@ -68,4 +68,8 @@ class User < ApplicationRecord
     notification.save if notification.valid?
   end
 
+  def can_display_random?
+    return true if last_random_displayed_at.nil?
+    last_random_displayed_at < 1.day.ago
+  end
 end

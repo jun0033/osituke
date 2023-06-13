@@ -1,4 +1,5 @@
 <div class="container text-center">
   <h2>ToDoリスト</h2>
+  <%= link_to "やってみた趣味一覧",done_index_user_path(@user) %>
   <%= render "public/hobbies/hobby_index", hobbies: @hobbies %>
 </div>

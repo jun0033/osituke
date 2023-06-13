@@ -27,4 +27,7 @@ class Hobby < ApplicationRecord
     Hobby.where("title LIKE? OR body LIKE?", "%#{word}%","%#{word}%")
   end
 
+  def self.random
+    order('RANDOM()').first
+  end
 end

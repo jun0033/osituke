@@ -12,8 +12,9 @@ class Public::ToDoesController < ApplicationController
   end
 
   def index
-    user = User.find(params[:id])
-    to_does = ToDo.where(user_id: user.id)
-    @hobbies = Hobby.where(id: to_does.pluck(:hobby_id))
+    @user = User.find(params[:id])
+    to_does = ToDo.where(user_id: @user.id)
+    comment = HobbyComment.where(user_id: @user.id).where(done_status: false)
+    @hobbies = Hobby.where(id: to_does.pluck(:hobby_id)).where(id: comment.pluck(:hobby_id))
   end
 end

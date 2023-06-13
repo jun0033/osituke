@@ -34,7 +34,8 @@ class Public::HobbiesController < ApplicationController
   end
 
   def index
-    @hobbies = Hobby.where(is_draft: false)
+    user = User.where(user_status: false)
+    @hobbies = Hobby.where(is_draft: false).where(user_id: user.pluck(:id))
   end
 
   def draft_index
@@ -47,8 +48,8 @@ class Public::HobbiesController < ApplicationController
   end
 
   def done_index
-    user = User.find(params[:id])
-    comments = HobbyComment.where(user_id: user.id).where(done_status: true)
+    @user = User.find(params[:id])
+    comments = HobbyComment.where(user_id: @user.id).where(done_status: true)
     @hobbies = Hobby.where(id: comments.pluck(:hobby_id))
   end
 
@@ -90,6 +91,22 @@ class Public::HobbiesController < ApplicationController
       else
         render :edit, alert: "更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
       end
+    end
+  end
+
+  def random
+    if current_user.can_display_random?
+      current_user.update(last_random_displayed_at: Time.now)
+      # ページの表示内容を設定
+      @comments = HobbyComment.where.not(user_id: current_user.id)
+      @hobbies = Hobby.where(is_draft: false).where.not(user_id: current_user.id).where.not(id: @comments.pluck(:hobby_id))
+      @hobby = @hobbies.random
+      unless @hobby == nil
+        to_does = current_user.to_does.new(hobby_id: @hobby.id)
+        to_does.save
+      end
+    else
+      redirect_to hobbies_path
     end
   end
 

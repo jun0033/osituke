@@ -5,7 +5,8 @@ class Public::TagsController < ApplicationController
 
   def show
     tag = Tag.find(params[:id])
-    @hobbies = tag.hobbies
+    user = User.where(user_status: false)
+    @hobbies = tag.hobbies.where(user_id: user.pluck(:id))
   end
 
   def create
