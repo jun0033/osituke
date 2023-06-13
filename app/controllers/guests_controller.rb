@@ -4,7 +4,7 @@ class GuestsController < ApplicationController
       user.password = SecureRandom.urlsafe_base64
     end
   sign_in user
-  redirect_to hobbies_path, notice: 'ゲストユーザーとしてログインしました。'
+  redirect_to random_hobby_path, notice: 'ゲストユーザーとしてログインしました。'
   end
 
   def admin_guest

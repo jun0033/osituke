@@ -1,5 +1,6 @@
 <div class="container text-center">
   <h2>やってみた趣味一覧</h2>
+  <%= link_to "ToDoリスト",to_does_user_path(@user) %>
   <% @hobbies.reverse.each do |hobby| %>
     <div class="row py-1 my-1 wrap mx-5 border-color">
       <div class="col-4 media">

@@ -3,8 +3,9 @@ class Public::UsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit]
 
   def show
+    user = User.where(user_status: false)
     @user = User.find(params[:id])
-    @hobbies = @user.hobbies.where(is_draft: false)
+    @hobbies = @user.hobbies.where(is_draft: false).where(user_id: user.pluck(:id))
   end
 
   def edit

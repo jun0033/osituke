@@ -8,7 +8,8 @@ class SearchesController < ApplicationController
     @users = User.looks(@word)
     render "/searches/search"
     else
-    @hobbies = Hobby.looks(@word)
+    user = User.where(user_status: false)
+    @hobbies = Hobby.looks(@word).where(user_id: user.pluck(:id))
     render "/searches/search"
     end
   end
