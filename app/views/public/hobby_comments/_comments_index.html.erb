@@ -21,14 +21,15 @@
             <%= comment.hobby.title %>
             <% end %>
         </div>
+        <div class= "col-6 col-sm-6 text-right">
         <% if comment.done_status == "done" %>
-        <div class= "col-6 col-sm-6 text-right", id="star_<%= comment.id %>"></div>
+        <div id="star_<%= comment.id %>"></div>
         <% end %>
+        </div>
         <script>
         $(document).on('turbolinks:load', function() {
           let elem = document.querySelector('#star_<%= comment.id %>');
           if (elem == null) return;
-
           elem.innerHTML = "";
           let opt = {
             starOn: "<%= asset_path('star-on.png') %>",
@@ -41,11 +42,16 @@
         });
         </script>
         <div class="col-2 col-sm-2">
-        <% if comment.user.id == current_user.id %>
-          <%= link_to hobby_hobby_comment_path(comment.hobby_id, comment.id), method: :delete, style: "right: 5px;" do %>
-          <i class="fas fa-trash fa-sm"></i>
-          <% end %>
-        <% end %>
+          <div class= "row">
+            <% if comment.user.id == current_user.id %>
+              <%= link_to hobby_hobby_comment_path(comment.hobby_id, comment.id), method: :delete, style: "right: 5px;" do %>
+              <i class="fas fa-trash fa-sm"></i>
+              <% end %>
+            <% end %>
+          </div>
+          <div class= "row" style="opacity: 0.5;">
+            <%= @hobby.how_long_ago %>
+          </div>
         </div>
       </div>
       <div class="row" style="width: 100%;">

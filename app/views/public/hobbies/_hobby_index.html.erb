@@ -19,7 +19,6 @@
       $(document).on('turbolinks:load', function() {
         let elem = document.querySelector('#star-rate<%= hobby.id %>');
         if (elem == null) return;
-
         elem.innerHTML = "";
         let opt = {
           starOn: "<%= asset_path('star-on.png') %>",
@@ -59,6 +58,9 @@
       </div>
       <div class="col-3" id="todo_buttons_<%= hobby.id %>">
         <%= render "public/to_does/to_do", hobby: hobby %>
+      </div>
+      <div class= "col-3 text-right" style="opacity: 0.5;">
+        <%= hobby.how_long_ago %>
       </div>
     </div>
   </div>

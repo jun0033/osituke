@@ -44,6 +44,15 @@
     transform:translate(-50%,0)
     }
 
+.bottom_btn {
+    position: fixed;
+    background-color: #7cd857;
+    padding: 4px;
+    bottom: 20%;
+    left: 50%;
+    transform:translate(-50%,0)
+    }
+
 .wall {
     background-image: url("/assets/wall.jpg");
     position: absolute;

@@ -20,8 +20,9 @@
         </td>
         <td><%= link_to "コメント一覧",hobby_comments_admin_user_path(@user.id) %></td>
         <td><%= link_to "ナイス趣味一覧",favorites_admin_user_path(@user.id) %></td>
+        <td><%= link_to "やってみた趣味",done_index_admin_user_path(@user.id) %></td>
         <td>
-          <%= link_to edit_admin_user_path(@user.id), class:"btn btn-outline-secondary btn-block col-4" do %>
+          <%= link_to edit_admin_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
           <i class="fas fa-user-cog"></i>
           <% end %>
         </td>
