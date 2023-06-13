@@ -21,9 +21,11 @@
           <strong><%= notification.hobby.user.name + 'さんの投稿' %></strong>
         <% end %>
       <% end %>にコメントしました
+      <% if notification.hobby_comment.present? %>
       <p style="backgroud-color: #000; opacity: 0.5;">
         <%= notification.hobby_comment.comment %>
       </p>
+      <% end %>
     <% end %>
     </tr>
     <tr>

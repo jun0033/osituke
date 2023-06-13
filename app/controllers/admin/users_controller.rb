@@ -1,7 +1,7 @@
 class Admin::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-    @hobbies = @user.hobbies
+    @hobbies = @user.hobbies.where(is_draft: false)
   end
 
   def edit

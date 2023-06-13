@@ -8,6 +8,12 @@ class Admin::HobbiesController < ApplicationController
                          .order('count(hobby_id) desc').limit(10).pluck(:hobby_id))
   end
 
+  def done_index
+    user = User.find(params[:id])
+    comments = HobbyComment.where(user_id: user.id).where(done_status: true)
+    @hobbies = Hobby.where(id: comments.pluck(:hobby_id))
+  end
+
   def show
     @hobby = Hobby.find(params[:id])
     @user = @hobby.user

@@ -37,6 +37,9 @@
         <div class="col-4" id="todo_buttons_<%= @hobby.id %>">
         <%= render "public/to_does/to_do", hobby: @hobby %>
         </div>
+        <div class= "col-2 text-right" style="opacity: 0.5;">
+          <%= @hobby.how_long_ago %>
+        </div>
         <% if @hobby.user.id == current_user.id %>
         <div class="col-1">
           <%= link_to edit_hobby_path(@hobby.id), style: "right: 5px;" do %>
