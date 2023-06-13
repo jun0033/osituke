@@ -93,6 +93,12 @@ class Public::HobbiesController < ApplicationController
     end
   end
 
+  def random
+    @comment = HobbyComment.where.not(user_id: current_user.id)
+    @hobbies = Hobby.where(is_draft: false).where.not(user_id: current_user).where.not(id: @comment.pluck(:hobby_id))
+    @hobby = @hobbies.random
+  end
+
   private
 
   def hobby_params
