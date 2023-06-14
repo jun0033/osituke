@@ -4,7 +4,7 @@
     <div class="col"></div>
     <div class="col search_form">
       <%= form_with url: searches_search_path, local: true, method: :get do |f| %>
-        <%= f.select :range, options_for_select([['ユーザー'], ['趣味']]) %>
+        <%= f.select :range, options_for_select([['趣味'], ['ユーザー']]) %>
         <%= f.text_field :word %>
         <%= f.submit "検索" %>
       <% end %>
@@ -18,7 +18,7 @@
     <div class="col"></div>
     <div class="col search_form">
       <%= form_with url: searches_search_path, local: true, method: :get do |f| %>
-        <%= f.select :range, options_for_select([['ユーザー'], ['趣味']]) %>
+        <%= f.select :range, options_for_select([['趣味'], ['ユーザー']]) %>
         <%= f.text_field :word %>
         <%= f.submit "検索" %>
       <% end %>

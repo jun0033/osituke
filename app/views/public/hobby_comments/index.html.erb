@@ -1,3 +1,4 @@
 <div class="container text-center">
   <%= render "public/hobby_comments/comments_index", comments: @comments %>
+  <%= paginate @comments, theme: 'twitter-bootstrap-4' %>
 </div>

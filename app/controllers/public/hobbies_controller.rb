@@ -3,7 +3,7 @@ class Public::HobbiesController < ApplicationController
     @hobby = Hobby.find(params[:id])
     @user = @hobby.user
     @comment = current_user.hobby_comments.new(hobby_id: @hobby.id)
-    @comments = @hobby.hobby_comments.all
+    @comments = @hobby.hobby_comments.all.page(params[:page])
     @favorite = Favorite.find_by(hobby_id: @hobby.id)
     @already_comment = @comments.find_by(user_id: current_user.id, done_status: true)
   end
@@ -35,11 +35,11 @@ class Public::HobbiesController < ApplicationController
 
   def index
     user = User.where(user_status: false)
-    @hobbies = Hobby.where(is_draft: false).where(user_id: user.pluck(:id))
+    @hobbies = Hobby.order(id: :desc).where(is_draft: false).where(user_id: user.pluck(:id)).page(params[:page])
   end
 
   def draft_index
-    @draft_hobbies = Hobby.where(is_draft: true,user_id: current_user.id)
+    @draft_hobbies = Hobby.order(id: :desc).where(is_draft: true,user_id: current_user.id).page(params[:page])
   end
 
   def rank_index
@@ -50,7 +50,7 @@ class Public::HobbiesController < ApplicationController
   def done_index
     @user = User.find(params[:id])
     comments = HobbyComment.where(user_id: @user.id).where(done_status: true)
-    @hobbies = Hobby.where(id: comments.pluck(:hobby_id))
+    @hobbies = Hobby.order(id: :desc).where(id: comments.pluck(:hobby_id)).page(params[:page])
   end
 
   def destroy

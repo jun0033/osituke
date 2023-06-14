@@ -6,12 +6,12 @@ class Admin::TagsController < ApplicationController
   end
 
   def index
-    @tags = Tag.all
+    @tags = Tag.all.page(params[:page]).per(50)
   end
 
   def show
     tag = Tag.find(params[:id])
-    @hobbies = tag.hobbies
+    @hobbies = tag.hobbies.order(id: :desc).page(params[:page])
   end
 
   def destroy

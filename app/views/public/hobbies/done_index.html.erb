@@ -22,7 +22,6 @@
           $(document).on('turbolinks:load', function() {
             let elem = document.querySelector('#star-rate<%= hobby.id %>');
             if (elem == null) return;
-
             elem.innerHTML = "";
             let opt = {
               starOn: "<%= asset_path('star-on.png') %>",
@@ -67,4 +66,5 @@
       </div>
     </div>
   <% end %>
+<%= paginate @hobbies, theme: 'twitter-bootstrap-4' %>
 </div>
