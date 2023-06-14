@@ -1,4 +1,5 @@
 <div class="container text-center">
   <%= flash[:notice] %>
 　<%= render "public/hobbies/hobby_index", hobbies: @draft_hobbies %>
+　<%= paginate @draft_hobbies, theme: 'twitter-bootstrap-4' %>
 </div>

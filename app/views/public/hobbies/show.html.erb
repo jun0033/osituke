@@ -57,6 +57,7 @@
   </div>
   <%= @hobby.hobby_comments.count %> コメント
   <%= render "public/hobby_comments/comments_index", comments: @comments %>
+  <%= paginate @comments, theme: 'twitter-bootstrap-4' %>
 </div>
 <script>
 $(document).on('turbolinks:load', function() {
