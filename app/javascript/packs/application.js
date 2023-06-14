@@ -18,9 +18,9 @@ global.$ = jQuery;
 window.$ = jQuery;
 
 window.raty = function(elem,opt) {
-let raty = new Raty(elem,opt)
-raty.init();
-return raty;
+  let raty = new Raty(elem,opt)
+  raty.init();
+  return raty;
 }
 
 Rails.start()

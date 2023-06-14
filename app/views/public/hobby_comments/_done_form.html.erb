@@ -4,34 +4,7 @@
 <div class="modal fade" id="done-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <%= form_with model: @comment, url: report_hobby_hobby_comments_path(@hobby), local: true do |f| %>
-      <div class="modal-body">
-        <div class="form-group" id="star">
-          <% f.label :star %>
-          <%= f.hidden_field :star, id: :review_star, class: 'form-control' %>
-          <div id="post_raty"></div>
-        </div>
-        <%= f.text_area :comment, placeholder: "完了報告", class: "form-control  mx-auto", required: true, rows: 3, cols: 60 %>
-      </div>
-      <div class="modal-footer">
-      <%= f.submit "やってみた！", class:"btn btn-primary", size:30 %>
-      </div>
-      <% end %>
+      <%= render "public/stars/star_form" %>
     </div>
-    <script>
-    $(document).on('turbolinks:load', function() {
-          let elem = document.querySelector('#post_raty');
-          if (elem == null) return;
-
-          elem.innerHTML = ""
-          let opt = {
-            starOn: "<%= asset_path('star-on.png') %>",
-            starOff: "<%= asset_path('star-off.png') %>",
-            starHalf: "<%= asset_path('star-half.png') %>",
-            scoreName: 'hobby_comment[star]',
-          };
-          raty(elem, opt);
-        });
-    </script>
   </div>
 </div>

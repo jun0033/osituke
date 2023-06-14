@@ -1,0 +1,19 @@
+<div id="star-rate<%= hobby.id %>"></div>
+(<%= hobby.hobby_comments.average(:star).to_f.round(1) %>)
+<script>
+$(document).on('turbolinks:load', function() {
+  let elem = document.querySelector('#star-rate<%= hobby.id %>');
+  if (elem == null) return;
+
+  elem.innerHTML = "";
+  let opt = {
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    score: "<%= hobby.hobby_comments.average(:star).to_f.round(1) %>",
+    readOnly: true,
+    half: true
+  };
+  raty(elem, opt);
+});
+</script>
