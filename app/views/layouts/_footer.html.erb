@@ -1,2 +1,4 @@
-<div class="row mh-10 footer-color" style="height: 100px;">
-</div>
+<% if admin_signed_in? || user_signed_in? %>
+  <div class="row mh-10 gradient-color" style="height: 100px;">
+  </div>
+<% end %>

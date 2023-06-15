@@ -23,24 +23,9 @@
         </div>
         <div class= "col-6 col-sm-6 text-right">
         <% if comment.done_status == "done" %>
-        <div id="star_<%= comment.id %>"></div>
+        <%= render "stars/star", comment: comment %>
         <% end %>
         </div>
-        <script>
-        $(document).on('turbolinks:load', function() {
-          let elem = document.querySelector('#star_<%= comment.id %>');
-          if (elem == null) return;
-          elem.innerHTML = "";
-          let opt = {
-            starOn: "<%= asset_path('star-on.png') %>",
-            starOff: "<%= asset_path('star-off.png') %>",
-            starHalf: "<%= asset_path('star-half.png') %>",
-            score: "<%= comment.star %>",
-            readOnly: true,
-          };
-          raty(elem, opt);
-        });
-        </script>
         <div class="col-2 col-sm-2">
           <div class= "row">
             <% if comment.user.id == current_user.id %>
