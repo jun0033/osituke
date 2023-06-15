@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_13_154057) do
+ActiveRecord::Schema.define(version: 2023_06_15_121011) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2023_06_13_154057) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.integer "blob_id", null: false
+    t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -59,9 +59,15 @@ ActiveRecord::Schema.define(version: 2023_06_13_154057) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "genres", force: :cascade do |t|
+    t.string "genre_name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "hobbies", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "tag_id", null: false
+    t.integer "genre_id", null: false
     t.string "title", null: false
     t.text "body", null: false
     t.boolean "is_draft", default: false, null: false
@@ -77,6 +83,16 @@ ActiveRecord::Schema.define(version: 2023_06_13_154057) do
     t.boolean "done_status", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "hobby_tags", force: :cascade do |t|
+    t.integer "hobby_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hobby_id", "tag_id"], name: "index_hobby_tags_on_hobby_id_and_tag_id", unique: true
+    t.index ["hobby_id"], name: "index_hobby_tags_on_hobby_id"
+    t.index ["tag_id"], name: "index_hobby_tags_on_tag_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -132,4 +148,6 @@ ActiveRecord::Schema.define(version: 2023_06_13_154057) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "hobby_tags", "hobbies"
+  add_foreign_key "hobby_tags", "tags"
 end

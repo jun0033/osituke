@@ -17,9 +17,9 @@
             <%= render "stars/star_average", hobby: hobby %>
           </div>
           <div class="col-3 text-center">
-            <%= link_to admin_tag_path(hobby.tag.id), class: "btn btn-outline-info rounded-pill" do %>
+            <%= link_to admin_genre_path(hobby.genre.id), class: "btn btn-outline-info rounded-pill" do %>
             <i class="fas fa-tag"></i>
-            <%= hobby.tag.tag_name %>
+            <%= hobby.genrre.genre_name %>
             <% end %>
           </div>
         </div>

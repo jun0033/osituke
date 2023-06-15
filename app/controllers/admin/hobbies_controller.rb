@@ -18,11 +18,12 @@ class Admin::HobbiesController < ApplicationController
     @hobby = Hobby.find(params[:id])
     @user = @hobby.user
     @comments = @hobby.hobby_comments.all.page(params[:page])
+    @tags = @hobby.tags
   end
 
   def destroy
     @hobby = Hobby.find(params[:id])
-    @hobby.delete
+    @hobby.destroy
     redirect_to admin_user_path(@hobby.user)
   end
 end

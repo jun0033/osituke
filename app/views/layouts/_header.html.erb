@@ -60,11 +60,13 @@
       <% if admin_signed_in? %>
         <li><%= link_to "趣味一覧",admin_hobbies_path, class: "nav-link white" %></li>
         <li><%= link_to "ランキング",rank_index_admin_hobbies_path, class: "nav-link white" %></li>
+        <li><%= link_to "ジャンル一覧",admin_genres_path, class: "nav-link white" %></li>
         <li><%= link_to "タグ一覧",admin_tags_path, class: "nav-link white" %></li>
       <!--ユーザーがログインしていたら-->
       <% elsif user_signed_in? %>
         <li><%= link_to "趣味一覧",hobbies_path, class: "nav-link white" %></li>
         <li><%= link_to "ランキング",rank_index_hobbies_path, class: "nav-link white" %></li>
+        <li><%= link_to "ジャンル一覧",genres_path, class: "nav-link white" %></li>
         <li><%= link_to "タグ一覧",tags_path, class: "nav-link white" %></li>
         <li><%= link_to "ToDoリスト",to_does_user_path(current_user), class: "nav-link white" %></li>
         <li><%= link_to "下書き",draft_index_hobbies_path, class: "nav-link white" %></li>

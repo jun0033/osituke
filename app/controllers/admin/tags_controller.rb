@@ -11,12 +11,12 @@ class Admin::TagsController < ApplicationController
 
   def show
     tag = Tag.find(params[:id])
-    @hobbies = tag.hobbies.order(id: :desc).page(params[:page])
+    @hobbies = tag.hobbies.order(id: :desc).where(is_draft: false).page(params[:page])
   end
 
   def destroy
     tag = Tag.find(params[:id])
-    tag.delete
+    tag.destroy
     redirect_to request.referer
   end
 
