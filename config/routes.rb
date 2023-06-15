@@ -30,7 +30,8 @@ Rails.application.routes.draw do
     end
 
     root to: 'homes#top'
-    resources :tags, only:[:create, :index, :show, :destroy]
+    resources :tags,   only:[:create, :index, :show, :destroy]
+    resources :genres, only:[:create, :index, :show, :destroy]
   end
 
   # 会員側のルーティング設定
@@ -68,7 +69,8 @@ Rails.application.routes.draw do
     end
 
     root to: 'homes#top'
-    resources :tags, only:[:create, :index, :show]
+    resources :tags,   only:[:create, :index, :show]
+    resources :genres, only:[:create, :index, :show]
     get 'random_hobby', to: 'hobbies#random'
   end
 

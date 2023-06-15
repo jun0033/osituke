@@ -1,0 +1,14 @@
+<!--ポップアップを消す-->
+$("#new-genre-form").fadeOut(300);
+<!--フォームの内容を削除-->
+const genre_name = $("#genre_genre_name").val();
+$("#genre_genre_name").val("");
+<!--同じ名前のタグがある場合それを選択-->
+const selecter = $("#genre-select")
+selecter.val("");
+selecter.children("option").each(function(){
+  if($(this).text()==genre_name){
+    $("#genre-select").val($(this).val());
+    return;
+  };
+});

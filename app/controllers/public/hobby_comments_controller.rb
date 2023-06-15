@@ -35,7 +35,7 @@ class Public::HobbyCommentsController < ApplicationController
 
   def destroy
     @comment = HobbyComment.find(params[:id])
-    @comment.delete
+    @comment.destroy
     redirect_to request.referer
   end
 

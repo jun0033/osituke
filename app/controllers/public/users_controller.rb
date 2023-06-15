@@ -5,7 +5,7 @@ class Public::UsersController < ApplicationController
   def show
     user = User.where(user_status: false)
     @user = User.find(params[:id])
-    @hobbies = @user.hobbies.where(is_draft: false).where(user_id: user.pluck(:id))
+    @hobbies = @user.hobbies.order(id: :desc).where(is_draft: false).where(user_id: user.pluck(:id))
   end
 
   def edit
