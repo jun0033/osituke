@@ -14,7 +14,8 @@ class Public::ToDoesController < ApplicationController
   def index
     @user = User.find(params[:id])
     to_does = ToDo.where(user_id: @user.id)
-    comment = HobbyComment.where(user_id: @user.id).where(done_status: false)
-    @hobbies = Hobby.where(id: to_does.pluck(:hobby_id)).where(id: comment.pluck(:hobby_id))
+    comment = HobbyComment.where(user_id: @user.id).where(done_status: true)
+    # 完了報告を既にしている投稿を排除しユーザーのToDoを
+    @hobbies = Hobby.where(id: to_does.pluck(:hobby_id)).where.not(id: comment.pluck(:hobby_id))
   end
 end

@@ -1,14 +1,12 @@
-<div class="container text-center">
+<div class= "container text-center wrap">
   <%= flash[:notice] %>
-  <div class="row my-3" style="background-color: #d4ecea;">
+  <div class= "row my-3 border-color-blue">
     <div class="col-4 text-right my-5">
       <%= image_tag @user.get_profile_image(100,100) %>
     </div>
-    <div class="col-5 ml-0 my-5">
-      <table class="table table-border">
-        <tr><h3><%= @user.name %></h3></tr>
-        <tr><%= @user.introduction %></tr>
-      </table>
+    <div class= "col-5 ml-0 my-5">
+      <h3><%= @user.name %></h3>
+      <%= @user.introduction %>
     </div>
     <table class="table">
       <tr>

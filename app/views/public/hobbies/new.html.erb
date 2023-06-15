@@ -26,6 +26,7 @@
         <%= f.text_area :body, placeholder: "内容の詳細(500文字以内)", rows: "4", required: true, class:"form-control" %>
       </div>
       <div>
+        <h4>タグ選択</h4>
         <%= f.select :tag_id, options_for_select([["新しくタグを作成する", "new"]].concat(Tag.all.map { |tag| [tag.tag_name, tag.id] })),
         { include_blank: "-- 選択してください --" }, {required: true, class: "form-control", id: "tag-select" } %>
       </div>

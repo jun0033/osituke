@@ -8,7 +8,7 @@
 // ロゴはみ出し
 .header_inner {
     position: absolute;
-    top: -80%;
+    top: -50%;
     }
 
 // 投稿ボタン固定
@@ -77,6 +77,11 @@
     background-color: #fff;
 }
 
+.border-color-blue {
+    border: 5px outset #317075;
+    background-color: #b6e7e4;
+}
+
 .top-color {
   background-color: #fff;
 }
@@ -85,11 +90,23 @@ a {
   color: #0097b0;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .white {
   color: #fff;
 }
 
 .white:hover {
+  color: #000;
+}
+
+.yellow {
+  color: #efa04c;
+}
+
+.yellow:hover {
   color: #000;
 }
 
