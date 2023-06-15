@@ -13,8 +13,8 @@
   </head>
 
   <body class="d-flex flex-column vh-100 wall">
-    <header id="header" style="position: fixed; z-index: 100; width: 100%;"><%= render 'layouts/header' %></header>
-    <main class= "mb-auto"><%= yield %></main>
+    <header class="fixed-top" id="header"><%= render 'layouts/header' %></header>
+    <main class= "mb-auto mt-5 pt-4"><%= yield %></main>
     <footer><%= render 'layouts/footer' %></footer>
   </body>
   <script>

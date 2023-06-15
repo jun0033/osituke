@@ -1,4 +1,4 @@
-<div class="top-color" style="height: 40%;">
+<div class="top-color">
   <% if admin_signed_in? %>
   <div class="row text-center">
     <div class="col"></div>
@@ -20,11 +20,11 @@
     <div class="col"></div>
     <div class="col search_form">
       <%= form_with url: searches_search_path, local: true, method: :get do |f| %>
-      <div class="input-group input-group-sm">
         <%= f.select :range, options_for_select([['趣味'], ['ユーザー']]) %>
-        <%= f.text_field :word, class: "form-control" %>
-        <button class="btn btn-sm btn-outline-success" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
-      </div>
+        <%= f.text_field :word %>
+        <%= f.button type: "submit", class: "btn btn-primary btn-sm", style: "vertical-align: top;" do %>
+          <i class="fas fa-search"></i>
+        <% end %>
       <% end %>
     </div>
     <div class="col">
@@ -34,13 +34,13 @@
   <% end %>
 </div>
 <% if admin_signed_in? || user_signed_in? %>
-<nav class="navbar navbar-expand-lg band-color" style="height: 40%;">
+<nav class="navbar navbar-expand-lg band-color p-0">
 <% else %>
-<nav class="navbar navbar-expand-lg" style="height: 40%;">
+<nav class="navbar navbar-expand-lg">
 <% end %>
 
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
+  <span class="navbar-toggler-icon white"></span>
 </button>
 
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
