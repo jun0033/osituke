@@ -1,5 +1,10 @@
 <div class="container text-center">
   <h2>ToDoリスト</h2>
-  <%= link_to "やってみた趣味一覧",done_index_user_path(@user) %>
+  <div class= "d-flex justify-content-end">
+  <%= link_to done_index_user_path(@user), class: "btn btn-outline-success rounded mt-1" do %>
+  やってみた趣味一覧
+  <i class="fas fa-arrow-right"></i>
+  <% end %>
+  </div>
   <%= render "public/hobbies/hobby_index", hobbies: @hobbies %>
 </div>

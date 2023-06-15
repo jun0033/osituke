@@ -13,29 +13,8 @@
   </head>
 
   <body class="d-flex flex-column vh-100 wall">
-    <header class="fixed-top" id="header"><%= render 'layouts/header' %></header>
-    <main class= "mb-auto mt-5 pt-4"><%= yield %></main>
+    <header class="sticky-top"><%= render 'layouts/header' %></header>
+    <main class= "mb-auto"><%= yield %></main>
     <footer><%= render 'layouts/footer' %></footer>
   </body>
-  <script>
-    function FixedAnime() {
-    var headerH = $('#header').outerHeight(true);
-    var scroll = $(window).scrollTop();
-    if (scroll >= headerH){
-        $('#header').addClass('fixed');
-      }else{
-        $('#header').removeClass('fixed');
-      }
-    }
-
-    // 画面をスクロールをしたら動かしたい場合の記述
-    $(window).scroll(function () {
-      FixedAnime();
-    });
-
-    // ページが読み込まれたらすぐに動かしたい場合の記述
-    $(window).on('load', function () {
-      FixedAnime();
-    });
-  </script>
 </html>
