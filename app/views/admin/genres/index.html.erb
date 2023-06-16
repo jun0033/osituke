@@ -11,8 +11,9 @@
     <% end %>
     <div class="bottom_btn">
     <h3>新規ジャンル作成</h3>
+    <p>(15文字以内)</p>
     <%= form_with model: Genre, url: admin_genres_path, class: "form-inline", local: true do |f| %>
-      <%= f.text_field :genre_name, placeholder: "ジャンル名(15文字)", class: "form-control mr-2" %>
+      <%= f.text_field :genre_name, placeholder: "ジャンル名", class: "form-control mr-2" %>
       <%= f.submit "追加する", class:"btn btn-primary", size:30 %><br>
     <% end %>
     </div>

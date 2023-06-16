@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   # 管理者側のルーティング設定
   namespace :admin do
     resources :hobbies, only:[:index, :destroy, :show] do
+      resources :hobby_comments, only:[:destroy]
       get 'rank_index', on: :collection
     end
 

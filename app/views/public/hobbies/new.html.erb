@@ -1,33 +1,20 @@
+<%= render "layouts/flash" %>
 <div class="container">
   <div class="row">
-    <%= flash[:notice] %>
-    <div class="col-8 mx-auto form-group" id="new-genre-form"
-           style="display: none; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.6); padding: 30px; z-index: 9999;">
-      <table class="table table-borderless">
-          <tr>
-            <td>
-              <%= form_with model: @genre, class: "form-inline", local: false do |f| %>
-                <%= f.text_field :genre_name, placeholder: "新規ジャンル名", class: "form-control mr-2", style: "width: 70%" %>
-                <%= f.submit "作成", class:"btn btn-primary", style: "width: 25%" %><br>
-              <% end %>
-            </td>
-          </tr>
-      </table>
-    </div>
-
+    <%= render "public/genres/new", genre: @genre %>
     <div class="col-8 px-5 mx-auto my-3" style="background-color: #d4ecea;">
       <%= form_with model: @hobby, url: hobbies_path, local: true do |f| %>
       <div class="form-group mt-3">
         <h4>タイトル</h4>
-        <%= f.text_field :title, placeholder: "趣味名(30文字以内)", required: true, autofocus: true, class:"form-control" %>
+        <%= f.text_field :title, placeholder: "趣味名(30文字以内)", autofocus: true, class:"form-control" %>
       </div>
       <div class="form-group">
         <h4>詳細</h4>
-        <%= f.text_area :body, placeholder: "内容の詳細(500文字以内)", rows: "4", required: true, class:"form-control" %>
+        <%= f.text_area :body, placeholder: "内容の詳細(500文字以内)", rows: "4", class:"form-control" %>
       </div>
       <div>
-        <h4>タグ追加</h4>
-        <%= f.text_area :tag_name, placeholder: "複数登録は空白で区切ってください", rows: "2", class:"form-control" %>
+        <h4>タグ追加(複数登録は空白で区切ってください)</h4>
+        <%= f.text_area :tag_name, placeholder: "タグ(１つにつき15文字以内)", rows: "2", class:"form-control" %>
       </div>
       <div>
         <h4>ジャンル選択</h4>
@@ -38,11 +25,7 @@
         <h4>画像を5枚まで追加</h4>
         <%= f.file_field :hobby_images, accept: "image/*", multiple: true %>
       </div>
-      <img id="preview_0" style="width:15%;">
-      <img id="preview_1" style="width:15%;">
-      <img id="preview_2" style="width:15%;">
-      <img id="preview_3" style="width:15%;">
-      <img id="preview_4" style="width:15%;">
+      <%= render "public/hobbies/hobby_images" %>
       <div class="form-group">
         <%= f.submit '押し付ける', :name => 'post', class: 'mr-5 btn btn-sm btn-warning text-white' %>
         <%= f.submit '下書きに保存', :name => 'draft', class: 'mr-5 btn btn-sm btn-outline-secondary' %>
@@ -51,67 +34,3 @@
     </div>
   </div>
 </div>
-<script>
-  // HTMLドキュメントが読み込まれた後に実行される関数
-  $(document).ready(function() {
-    var genreSelect = $("#genre-select");
-    var newGenreForm = $("#new-genre-form");
-
-    // tag選択の内容がチェンジされたときに実行する処理
-    genreSelect.on("change", function() {
-      if (genreSelect.val() === "new") {
-        slideDown(newGenreForm);
-      } else {
-        slideUp(newGenreForm);
-      }
-    });
-
-    // 引数で指定された要素をスライドダウンさせる処理
-    function slideDown(element) {
-      element.fadeIn(300);
-    }
-
-    //引数で指定された要素をスライドアップさせる処理
-    function slideUp(element) {
-      element.fadeOut(300);
-    }
-  });
-</script>
-<script>
-$('#hobby_hobby_images').on('change', function (e) {
-
-    if(e.target.files.length > 5){
-
-      alert('一度に投稿できるのは五枚までです。');
-      // 五枚以上の画像を選択していた場合、選択したファイルをリセット。
-      $('#hobby_hobby_images').val = "";
-
-      // 以前の画像のプレビューが残っていた場合は、
-      // まだ画像選択できていると勘違いを誘発するため初期化。
-      for( let i = 0; i < 5; i++) {
-        $(`#preview_${i}`).attr('src', "");
-      }
-
-    }else{
-      let reader = new Array(5);
-
-      // 画像選択を二回した時、一回目より数が少なかったりすると画面上に残るので初期化
-      for( let i = 0; i < 5; i++) {
-        $(`#preview_${i}`).attr('src', "");
-      }
-
-      for(let i = 0; i < e.target.files.length; i++) {
-        reader[i] = new FileReader();
-        reader[i].onload = finisher(i,e);
-        reader[i].readAsDataURL(e.target.files[i]);
-
-        // onloadは別関数で準備しないとfor文内では使用できないので、関数を準備。
-        function finisher(i,e){
-          return function(e){
-          $(`#preview_${i}`).attr('src', e.target.result);
-          }
-        }
-      }
-   }
-});
-</script>

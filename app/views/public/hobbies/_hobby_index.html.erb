@@ -10,7 +10,14 @@
   </div>
   <div class="col-8 text-left">
     <div class="row">
-      <h5 class="col-5"><%= link_to "#{hobby.title}", hobby_path(hobby.id) %></h5>
+      <h5 class="col-4"><%= link_to "#{hobby.title}", hobby_path(hobby.id) %></h5>
+      <% if hobby.user.id == current_user.id %>
+        <div class="col-1">
+          <%= link_to edit_hobby_path(hobby.id), style: "right: 5px;" do %>
+          <i class="fas fa-cogs"></i>
+          <% end %>
+        </div>
+      <% end %>
       <div class="col-4 d-flex">
         <%= render "stars/star_average", hobby: hobby %>
       </div>
@@ -22,7 +29,6 @@
       </div>
     </div>
     <div class="row" style="width: 100%;">
-      <!--ユーザーのつけた段落を反映-->
       <%= safe_join(hobby.body.split("\n"),tag(:br)) %>
     </div>
     <div class="row">

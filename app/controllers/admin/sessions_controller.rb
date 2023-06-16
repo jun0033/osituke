@@ -25,11 +25,11 @@ class Admin::SessionsController < Devise::SessionsController
   end
 
 
-  #管理者のログイン後の移管画面指定
+
   def after_sign_in_path_for(resource)
     admin_hobbies_path
   end
-  #管理者のログアウト後の移管画面指定
+
   def after_sign_out_path_for(resource)
     admin_root_path
   end

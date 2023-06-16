@@ -6,6 +6,7 @@ class Public::GenresController < ApplicationController
   def show
     genre = Genre.find(params[:id])
     user = User.where(user_status: false)
+    # ユーザーステータスが有効のデータのみ表示
     @hobbies = genre.hobbies.order(id: :desc).where(user_id: user.pluck(:id)).page(params[:page])
   end
 

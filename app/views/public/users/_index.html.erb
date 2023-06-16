@@ -1,5 +1,5 @@
-<% users.reverse.each do |user| %>
-<div class="row my-1 justify-content-center mx-5" style="background-color: #d4ecea;">
+<% users.each do |user| %>
+<div class="row my-1 justify-content-center mx-5 border-color-blue">
   <div class="col-8 media">
     <%= link_to user_path(user) do %>
     <%= image_tag user.get_profile_image(100,100), class: "mr-2 my-2" %>
