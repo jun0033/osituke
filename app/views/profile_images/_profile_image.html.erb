@@ -1,0 +1,12 @@
+
+<script>
+  // アイコンに変更があったら即実行
+  $('#user_profile_image').on('change', function (e) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+    // imgタグであるidがpreviewになっている場所を探し、画像表示のためのsrcを書き換える
+      $("#preview").attr('src', e.target.result);
+    }
+    reader.readAsDataURL(e.target.files[0]);
+});
+</script>

@@ -28,7 +28,7 @@ class Public::SessionsController < Devise::SessionsController
     ## 【処理内容2】 取得したアカウントのパスワードと入力されたパスワードが一致してるかを判別
     ## 【処理内容3】1と２がtrueならサインアップ画面に遷移する。
     if @user.valid_password?(params[:user][:password]) && @user.user_status == "withdraw"
-        flash[:notice] = "退会済のアカウントです。"
+        flash[:notice] = '退会済のアカウントです。'
         redirect_to new_user_registration_path
     end
   end

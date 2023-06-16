@@ -10,6 +10,7 @@
         <%= image_tag @user.get_profile_image(130,130), id: "preview" %>
         <%= f.file_field :profile_image, accept: "image/*", style: 'display:none;' %>
         <% end %>
+        <%= render "profile_images/profile_image" %>
       </div>
       <div class="form-group">
         <h4>ユーザーネーム(2文字以上15文字以内)</h4>
@@ -35,15 +36,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  // アイコンに変更があったら即実行
-  $('#user_profile_image').on('change', function (e) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
-    // imgタグであるidがpreviewになっている場所を探し、画像表示のためのsrcを書き換える
-      $("#preview").attr('src', e.target.result);
-    }
-    reader.readAsDataURL(e.target.files[0]);
-});
-</script>

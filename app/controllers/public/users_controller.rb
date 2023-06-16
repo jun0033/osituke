@@ -15,10 +15,10 @@ class Public::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice] = "プロフィールを変更しました。"
       redirect_to user_path
+      flash[:success] = 'プロフィールを変更しました。'
     else
-      flash[:notice] = "プロフィールの変更に失敗しました。"
+      flash[:danger] = 'プロフィールの変更に失敗しました。'
       render :edit
     end
   end
@@ -30,10 +30,10 @@ class Public::UsersController < ApplicationController
     @user = current_user
     if @user.update(user_status: true)
       reset_session
-      flash[:notice] = "退会しました。"
       redirect_to root_path
+      flash[:info] = '退会しました。'
     else
-      flash[:alert] = "編集に失敗しました"
+      flash[:danger] = '編集に失敗しました'
       render :edit
     end
   end
@@ -54,7 +54,8 @@ class Public::UsersController < ApplicationController
   def ensure_guest_user
     @user = User.find(params[:id])
     if @user.name == "guestuser"
-    redirect_to user_path(current_user), notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+    redirect_to user_path(current_user)
+    flash[:danger] = 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end
   end
 end

@@ -11,31 +11,33 @@ class Public::HobbyCommentsController < ApplicationController
     if @comment.save
       @comment.create_notification_comment(current_user, @hobby.id)
       redirect_to hobby_path(@hobby)
-      flash[:notice] = "コメントを送信しました"
+      flash[:success] = 'コメントを送信しました'
     else
       render 'public/hobbies/show'
-      flash.now[:alert] = "コメントの送信に失敗しました"
+      flash[:danger] = 'コメントの送信に失敗しました'
     end
   end
 
   def report
     @hobby = Hobby.find(params[:hobby_id])
     @comment = @hobby.hobby_comments.new(comment_params)
+    # このコメントで趣味をやったことにする
     @comment.done_status = true
     @comment.user_id = current_user.id
     if @comment.save
       @comment.create_notification_comment(current_user, @hobby.id)
       redirect_to hobby_path(@hobby)
-      flash[:notice] = "コメントを送信しました"
+      flash[:success] = 'コメントを送信しました'
     else
       render 'public/hobbies/show'
-      flash.now[:alert] = "コメントの送信に失敗しました"
+      flash[:danger] = 'コメントの送信に失敗しました'
     end
   end
 
   def destroy
     @comment = HobbyComment.find(params[:id])
     @comment.destroy
+    flash[:warning] = 'コメントを削除しました'
     redirect_to request.referer
   end
 
