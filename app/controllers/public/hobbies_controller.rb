@@ -22,7 +22,10 @@ class Public::HobbiesController < ApplicationController
     if params[:post]
       # 投稿の場合のみバリデーション
       if hobby.save(context: :publicize)
-        hobby.save_tag(tags)
+        # 保存内容が多い為タグの保存だけ遅延させる
+        Tag.transaction do
+          hobby.save_tag(tags)
+        end
         redirect_to hobbies_path, notice: "#{hobby.title}が誰かの元へ飛んでいきました"
       else
         flash[:danger] = '登録できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください'
@@ -86,12 +89,14 @@ class Public::HobbiesController < ApplicationController
       # updateメソッドにはcontextが使用できないため、公開処理にはattributesとsaveメソッドを使用する
       @hobby.attributes = hobby_params.merge(is_draft: false)
       if @hobby.save(context: :publicize)
-        # 紐づいていたタグを消す
-        @old_relations = HobbyTag.where(hobby_id: @hobby.id)
-        @old_relations.each do |relation|
-          relation.delete
+        Tag.transaction do
+          # 紐づいていたタグを消す
+          @old_relations = HobbyTag.where(hobby_id: @hobby.id)
+          @old_relations.each do |relation|
+            relation.delete
+          end
+          @hobby.save_tag(tags)
         end
-        @hobby.save_tag(tags)
         redirect_to hobbies_path(@hobby.id)
         flash[:success] = "#{@hobby.title}が誰かの元へ飛んでいきました！"
       else
@@ -103,11 +108,13 @@ class Public::HobbiesController < ApplicationController
     elsif params[:update_hobby]
       @hobby.attributes = hobby_params
       if @hobby.save(context: :publicize)
-        @old_relations = HobbyTag.where(hobby_id: @hobby.id)
-        @old_relations.each do |relation|
-          relation.delete
+        Tag.transaction do
+          @old_relations = HobbyTag.where(hobby_id: @hobby.id)
+          @old_relations.each do |relation|
+            relation.delete
+          end
+          @hobby.save_tag(tags)
         end
-        @hobby.save_tag(tags)
         redirect_to hobbies_path(@hobby.id)
         flash[:success] = "#{@hobby.title}を更新しました！"
       else
@@ -117,11 +124,13 @@ class Public::HobbiesController < ApplicationController
     # ③下書き趣味の更新（非公開）の場合
     else
       if @hobby.update(hobby_params)
-        @old_relations = HobbyTag.where(hobby_id: @hobby.id)
-        @old_relations.each do |relation|
-          relation.delete
+        Tag.transaction do
+          @old_relations = HobbyTag.where(hobby_id: @hobby.id)
+          @old_relations.each do |relation|
+            relation.delete
+          end
+          @hobby.save_tag(tags)
         end
-        @hobby.save_tag(tags)
         redirect_to hobbies_path(@hobby.id)
         flash[:success] = '下書きを更新しました！'
       else
