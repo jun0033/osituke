@@ -6,7 +6,9 @@
     </div>
     <div class= "col-5 ml-0 my-5">
       <h3><%= @user.name %></h3>
+      <div class= "text-left">
       <%= @user.introduction %>
+      </div>
     </div>
     <div class= "col-3 my-5">
       <% unless @user == current_user %>

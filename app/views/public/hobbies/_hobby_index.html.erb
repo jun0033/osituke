@@ -5,12 +5,12 @@
     <%= image_tag hobby.user.get_profile_image(80,80)%>
     <% end %>
     <div class="media-body text-left pl-2">
-      <h4><%= link_to hobby.user.name, user_path(hobby.user_id) %></h4>
+      <h5><%= link_to hobby.user.name, user_path(hobby.user_id) %></h5>
     </div>
   </div>
   <div class="col-8 text-left">
     <div class="row">
-      <h5 class="col-4"><%= link_to "#{hobby.title}", hobby_path(hobby.id) %></h5>
+      <h4 class="col-4"><%= link_to "#{hobby.title}", hobby_path(hobby.id) %></h4>
       <% if hobby.user.id == current_user.id %>
         <div class="col-1">
           <%= link_to edit_hobby_path(hobby.id), style: "right: 5px;" do %>

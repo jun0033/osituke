@@ -16,10 +16,10 @@
     <div class="col-sm-8 wrap">
       <div class="row">
         <div class="col-4 col-sm-4 text-left">
-            <%= link_to hobby_path(comment.hobby_id) do %>
-            <i class="fas fa-reply"></i>
-            <%= comment.hobby.title %>
-            <% end %>
+          <%= link_to hobby_path(comment.hobby_id) do %>
+          <i class="fas fa-reply"></i>
+          <%= comment.hobby.title %>
+          <% end %>
         </div>
         <div class= "col-6 col-sm-6 text-right">
         <% if comment.done_status == "done" %>
@@ -40,7 +40,7 @@
           </div>
         </div>
       </div>
-      <div class="row" style="width: 100%;">
+      <div class="row text-left" style="width: 100%;">
       <%= safe_join(comment.comment.split("\n"),tag(:br)) %>
       </div>
     </div>
