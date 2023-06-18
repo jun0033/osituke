@@ -9,6 +9,8 @@ class Hobby < ApplicationRecord
   has_many :notifications,  dependent: :destroy
 
   has_many_attached :hobby_images
+  # クラス外部からのインスタンス変数へのアクセスを許可
+  attr_accessor :tag_name
 
   with_options presence: true, on: :publicize do
     validates :title, length: { minimum: 1,maximum: 30 }
@@ -36,17 +38,20 @@ class Hobby < ApplicationRecord
       current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
       old_tags = current_tags - sent_tags
       new_tags = sent_tags - current_tags
+      
+      # タグの追加と削除を一連の操作としてまとめる
+      ActiveRecord::Base.transaction do
+        # 古いタグを消す
+        old_tags.each do |old|
+          self.tags.delete
+          Tag.find_by(tag_name: old)
+        end
 
-      # 古いタグを消す
-      old_tags.each do |old|
-        self.tags.delete
-        Tag.find_by(tag_name: old)
-      end
-
-      # 新しいタグを保存
-      new_tags.each do |new|
-        new_post_tag = Tag.find_or_create_by(tag_name: new)
-        self.tags << new_post_tag
+        # 新しいタグを保存
+        new_tags.each do |new|
+          new_post_tag = Tag.find_or_create_by(tag_name: new)
+          self.tags << new_post_tag
+       end
      end
   end
 end

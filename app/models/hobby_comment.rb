@@ -8,11 +8,7 @@ class HobbyComment < ApplicationRecord
   validates :comment, presence: true, length: { minimum: 1,maximum: 500 }
 
   def create_notification_comment(visitor, hobby_id)
-    user_id = Hobby.find(hobby_id).user.id
-    save_notification_comment(visitor, hobby_id, user_id)
-  end
-
-  def save_notification_comment(visitor, hobby_id, visited_id)
+    visited_id = Hobby.find(hobby_id).user.id
     # コメントは複数回することが考えられるため、１つの投稿に複数回通知する
     notification = visitor.active_notifications.new(
       hobby_id: hobby_id,

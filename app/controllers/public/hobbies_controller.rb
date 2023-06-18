@@ -1,6 +1,6 @@
 class Public::HobbiesController < ApplicationController
   def show
-    @hobby = Hobby.find(params[:id])
+    @hobby = Hobby.includes(:user, :hobby_comments, :tags).find(params[:id])
     @user = @hobby.user
     @comment = current_user.hobby_comments.new(hobby_id: @hobby.id)
     @comments = @hobby.hobby_comments.all.page(params[:page])
@@ -13,6 +13,7 @@ class Public::HobbiesController < ApplicationController
   def new
     @hobby = Hobby.new
     @genre = Genre.new
+    @genres = Genre.all
   end
 
   def create
@@ -22,11 +23,9 @@ class Public::HobbiesController < ApplicationController
     if params[:post]
       # 投稿の場合のみバリデーション
       if hobby.save(context: :publicize)
-        # 保存内容が多い為タグの保存だけ遅延させる
-        Tag.transaction do
-          hobby.save_tag(tags)
-        end
-        redirect_to hobbies_path, notice: "#{hobby.title}が誰かの元へ飛んでいきました"
+        hobby.save_tag(tags)
+        redirect_to hobbies_path
+        flash[:success] = "#{hobby.title}が誰かの元へ飛んでいきました"
       else
         flash[:danger] = '登録できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください'
         render :new
@@ -45,24 +44,25 @@ class Public::HobbiesController < ApplicationController
   end
 
   def index
-    user = User.where(user_status: false)
+    user = User.where(user_status: false).pluck(:id)
     # 退会ユーザーと下書きの投稿を排除して表示
-    @hobbies = Hobby.order(id: :desc).where(is_draft: false).where(user_id: user.pluck(:id)).page(params[:page])
+    @hobbies = Hobby.includes(:user).order(id: :desc).where(is_draft: false).where(user_id: user).page(params[:page])
   end
 
   def draft_index
-    @draft_hobbies = Hobby.order(id: :desc).where(is_draft: true).where(user_id: current_user.id).page(params[:page])
+    @draft_hobbies = Hobby.includes(:user).order(id: :desc).where(is_draft: true).where(user_id: current_user.id).page(params[:page])
   end
 
   def rank_index
-    @rank_hobbies = Hobby.find(Favorite.group(:hobby_id).where(created_at: Time.current.all_month)
-                         .order('count(hobby_id) desc').limit(10).pluck(:hobby_id))
+    hobbies = Favorite.group(:hobby_id).where(created_at: Time.current.all_month)
+                        .order('count(hobby_id) desc').limit(10).pluck(:hobby_id)
+    @rank_hobbies = Hobby.includes(:favorites).where(id: hobbies).order(id: :desc)
   end
 
   def done_index
     @user = User.find(params[:id])
     comments = HobbyComment.where(user_id: @user.id).where(done_status: true)
-    @hobbies = Hobby.order(id: :desc).where(id: comments.pluck(:hobby_id)).page(params[:page])
+    @hobbies = Hobby.includes(:hobby_comments).order(id: :desc).where(id: comments.pluck(:hobby_id)).page(params[:page])
   end
 
   def destroy
@@ -89,14 +89,12 @@ class Public::HobbiesController < ApplicationController
       # updateメソッドにはcontextが使用できないため、公開処理にはattributesとsaveメソッドを使用する
       @hobby.attributes = hobby_params.merge(is_draft: false)
       if @hobby.save(context: :publicize)
-        Tag.transaction do
           # 紐づいていたタグを消す
           @old_relations = HobbyTag.where(hobby_id: @hobby.id)
           @old_relations.each do |relation|
             relation.delete
           end
           @hobby.save_tag(tags)
-        end
         redirect_to hobbies_path(@hobby.id)
         flash[:success] = "#{@hobby.title}が誰かの元へ飛んでいきました！"
       else
@@ -108,13 +106,11 @@ class Public::HobbiesController < ApplicationController
     elsif params[:update_hobby]
       @hobby.attributes = hobby_params
       if @hobby.save(context: :publicize)
-        Tag.transaction do
           @old_relations = HobbyTag.where(hobby_id: @hobby.id)
           @old_relations.each do |relation|
             relation.delete
           end
           @hobby.save_tag(tags)
-        end
         redirect_to hobbies_path(@hobby.id)
         flash[:success] = "#{@hobby.title}を更新しました！"
       else
@@ -124,13 +120,11 @@ class Public::HobbiesController < ApplicationController
     # ③下書き趣味の更新（非公開）の場合
     else
       if @hobby.update(hobby_params)
-        Tag.transaction do
           @old_relations = HobbyTag.where(hobby_id: @hobby.id)
           @old_relations.each do |relation|
             relation.delete
           end
           @hobby.save_tag(tags)
-        end
         redirect_to hobbies_path(@hobby.id)
         flash[:success] = '下書きを更新しました！'
       else
@@ -161,6 +155,6 @@ class Public::HobbiesController < ApplicationController
 
   def hobby_params
     # 画像をハッシュで保存
-    params.require(:hobby).permit(:title, :body, :tag_id, :genre_id, :is_draft, hobby_images:[])
+    params.require(:hobby).permit(:title, :body, :tag_id, :genre_id, :is_draft, :tag_name, hobby_images: [])
   end
 end
