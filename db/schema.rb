@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 2023_06_15_121011) do
     t.string "encrypted_password", default: "", null: false
     t.string "name", null: false
     t.boolean "user_status", default: false, null: false
-    t.text "introduction", default: "自己紹介はまだありません。残念。", null: false
+    t.text "introduction"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
