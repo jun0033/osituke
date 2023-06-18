@@ -1,0 +1,23 @@
+<div class="container text-center gradient-color my-3">
+  <%= flash[:notice] %>
+  <div class="col">
+  <%= image_tag "osituke.png", size: '300x300', alt: "ositukeロゴ" %>
+  </div>
+  <div class= "col px-5">
+    <p class= "text-light py-3" style= "background-color: #00000060;">
+    ようこそ押し付けアプリへ！<br>
+    このサイトは自分の夢中になっている趣味をみんなに押し付け、またみんなから押し付けられるサイトです。<br>
+    積極的にみんなの趣味にチャレンジして、一緒に充実した毎日を送りましょう！
+    </p>
+  </div>
+  <div class="col">
+    <%= link_to "ログイン", new_user_session_path, class: "btn btn-success rounded-pill px-5 byn-sm mx-3 my-2" %>
+    <%= link_to "新規登録", new_user_registration_path, class: "btn btn-info rounded-pill px-5 byn-sm mx-3 my-2" %>
+  </div>
+  <div class="col">
+    <%= link_to 'ゲストログイン（閲覧用）', guests_guest_sign_in_path, class: "btn btn-secondary rounded-pill btn-sm my-2 px-5 py-2", method: :post %>
+  </div>
+  <div class="row m-2">
+    <%= link_to "管理者ページ", admin_root_path, class: "btn btn-secondary byn-sm mb-3" %>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<!--ポップアップを消す-->
+$("#new-tag-form").fadeOut(300);
+<!--フォームの内容を削除-->
+const tag_name = $("#tag_tag_name").val();
+$("#tag_tag_name").val("");
+<!--同じ名前のタグがある場合それを選択-->
+const selecter = $("#tag-select")
+selecter.val("");
+selecter.children("option").each(function(){
+  if($(this).text()==tag_name){
+    $("#tag-select").val($(this).val());
+    return;
+  };
+});

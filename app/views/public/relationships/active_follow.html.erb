@@ -1,0 +1,13 @@
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-12 ml-5 text-center">
+      <h3>フォロー中</h3>
+      <% if @users.exists? %>
+        <%= render 'follow_index', users: @users %>
+        <%= paginate @users, theme: 'twitter-bootstrap-4' %>
+      <% else %>
+        <p>ユーザーはまだいません</p>
+      <% end %>
+    </div>
+  </div>
+</div>

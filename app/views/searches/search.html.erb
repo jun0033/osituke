@@ -1,0 +1,19 @@
+<div class="container px-5">
+  <% if @range == "ユーザー" %>
+    <h2 class="text-center">"<%=@word %>"のユーザー検索結果</h2>
+    <% if admin_signed_in? %>
+    <%= render "admin/users/index", users: @users %>
+    <% else %>
+    <%= render "public/users/index", users: @users %>
+    <% end %>
+    <%= paginate @users, theme: 'twitter-bootstrap-4' %>
+  <% else %>
+    <h2 class="text-center">"<%=@word %>"の趣味検索結果</h2>
+    <% if admin_signed_in? %>
+    <%= render "admin/hobbies/hobby_index", hobbies: @hobbies %>
+    <% else %>
+    <%= render "public/hobbies/hobby_index", hobbies: @hobbies %>
+    <% end %>
+    <%= paginate @hobbies, theme: 'twitter-bootstrap-4' %>
+  <% end %>
+</div>

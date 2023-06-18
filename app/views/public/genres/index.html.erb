@@ -1,0 +1,13 @@
+<div class="container p-5 text-center">
+  <h2>ジャンル一覧</h2>
+  <div class="row px-5">
+  <% @genres.each do |genre|%>
+    <%= link_to genre_path(genre), class: "btn btn-outline-info rounded-pill mx-1" do %>
+    <i class="fas fa-tag"></i>
+    <%= genre.genre_name %>
+    <% end %>
+  <% end %>
+  </div>
+  <%= paginate @genres, theme: 'twitter-bootstrap-4' %>
+</div>
+<%= render "public/hobbies/create_btn" %>

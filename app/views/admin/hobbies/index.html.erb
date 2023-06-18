@@ -1,0 +1,5 @@
+<%= render "layouts/flash" %>
+<div class="container text-center">
+　<%= render "admin/hobbies/hobby_index", hobbies: @hobbies %>
+　<%= paginate @hobbies, theme: 'twitter-bootstrap-4' %>
+</div>

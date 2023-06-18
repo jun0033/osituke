@@ -1,0 +1,18 @@
+<button type="button" class="btn btn-primary bottom_btn_right" data-toggle="modal" data-target="#comment-modal" data-backdrop=true>
+  コメント
+</button>
+<div class="modal fade" id="comment-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <%= form_with model: @comment, url: hobby_hobby_comments_path(@hobby), local: true do |f| %>
+      　<div class="modal-body">
+          <%= f.text_area :comment, placeholder: "コメント", class: "form-control", required: true, rows: 3, cols: 60 %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "コメントする", class:"btn btn-primary", size:30 %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  </div>
+</div>

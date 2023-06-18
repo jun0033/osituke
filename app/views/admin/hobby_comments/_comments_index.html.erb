@@ -1,0 +1,46 @@
+<% comments.each do |comment| %>
+  <% if comment.done_status == "done" %>
+  <div class= "col-2 mx-5" style="background-color: #7cd857;">
+    [完了報告]
+  </div>
+  <% end %>
+  <div class="row my-1 mx-5 p-1" style="background-color: #b4e6df;">
+    <div class="col-sm-2 text-right">
+      <%= link_to admin_user_path(comment.user_id) do %>
+      <%= image_tag comment.user.get_profile_image(80,80)%>
+      <% end %>
+    </div>
+    <div class="col-sm-2">
+      <h4><%= link_to "#{comment.user.name}", admin_user_path(comment.user_id) %></h4>
+    </div>
+    <div class="col-sm-8 wrap">
+      <div class="row">
+        <div class="col-4 col-sm-4 text-left">
+          <%= link_to admin_hobby_path(comment.hobby_id) do %>
+          <i class="fas fa-reply"></i>
+          <%= comment.hobby.title %>
+          <% end %>
+        </div>
+        <div class= "col-6 col-sm-6 text-right">
+        <% if comment.done_status == "done" %>
+        <%= render "stars/star", comment: comment %>
+        <% end %>
+        </div>
+        <div class="col-2 col-sm-2">
+          <div class= "row">
+            <%= link_to admin_hobby_hobby_comment_path(comment.hobby_id, comment.id), method: :delete,
+            data: { confirm: "【確認】コメントを削除してもよろしいですか？" }, style: "right: 5px;" do %>
+            <i class="fas fa-trash fa-sm"></i>
+            <% end %>
+          </div>
+          <div class= "row" style="opacity: 0.5;">
+            <%= @hobby.how_long_ago %>
+          </div>
+        </div>
+      </div>
+      <div class="row text-left" style="width: 100%;">
+      <%= safe_join(comment.comment.split("\n"),tag(:br)) %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,36 @@
+<%= render "layouts/flash" %>
+<div class="container">
+  <div class="row">
+    <%= render "public/genres/new", genre: @genre %>
+    <div class="col-8 px-5 mx-auto my-3" style="background-color: #d4ecea;">
+      <%= form_with model: @hobby, url: hobbies_path, local: true do |f| %>
+      <div class="form-group mt-3">
+        <h4>タイトル</h4>
+        <%= f.text_field :title, placeholder: "趣味名(30文字以内)", autofocus: true, class:"form-control" %>
+      </div>
+      <div class="form-group">
+        <h4>詳細</h4>
+        <%= f.text_area :body, placeholder: "内容の詳細(500文字以内)", rows: "4", class:"form-control" %>
+      </div>
+      <div>
+        <h4>タグ追加(複数登録は空白で区切ってください)</h4>
+        <%= f.text_area :tag_name, placeholder: "タグ(１つにつき15文字以内)", rows: "2", class:"form-control" %>
+      </div>
+      <div>
+        <h4>ジャンル選択</h4>
+        <%= f.select :genre_id, options_for_select([["新しくジャンルを作成する", "new"]].concat(@genres.map { |genre| [genre.genre_name, genre.id] })),
+        { include_blank: "-- 選択してください --" }, {required: true, class: "form-control", id: "genre-select" } %>
+      </div>
+      <div class="form-group">
+        <h4>画像を5枚まで追加</h4>
+        <%= f.file_field :hobby_images, accept: "image/*", multiple: true %>
+      </div>
+      <%= render "public/hobbies/hobby_images" %>
+      <div class="form-group">
+        <%= f.submit '押し付ける', :name => 'post', class: 'mr-5 btn btn-sm btn-warning text-white' %>
+        <%= f.submit '下書きに保存', :name => 'draft', class: 'mr-5 btn btn-sm btn-outline-secondary' %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

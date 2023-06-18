@@ -1,0 +1,37 @@
+<%= render "layouts/flash" %>
+<div class= "container text-center wrap">
+  <div class= "row my-3 border-color-blue">
+    <div class="col-4 text-right my-5">
+      <%= image_tag @user.get_profile_image(100,100) %>
+    </div>
+    <div class= "col-5 ml-0 my-5">
+      <h3><%= @user.name %></h3>
+      <div class= "text-left">
+      <%= @user.introduction %>
+      </div>
+    </div>
+    <table class="table">
+      <tr>
+        <td class="pull-right">
+        <%= @user.active_follows.count %>
+        フォロー中
+        <%= @user.passive_follows.count %>
+        フォロワー
+        </td>
+        <td><%= link_to "コメント一覧",hobby_comments_admin_user_path(@user.id) %></td>
+        <td><%= link_to "ナイス趣味一覧",favorites_admin_user_path(@user.id) %></td>
+        <td><%= link_to "やってみた趣味",done_index_admin_user_path(@user.id) %></td>
+        <td>
+          <%= link_to edit_admin_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
+          <i class="fas fa-user-cog"></i>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <% if @hobbies.count == 0 %>
+  <strong>まだ趣味の投稿がありません。乞うご期待！</strong>
+  <% else %>
+  <%= render "admin/hobbies/hobby_index", hobbies: @hobbies, favorite: @favorite %>
+  <% end %>
+</div>

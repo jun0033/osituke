@@ -1,0 +1,125 @@
+@use '~bootstrap/scss/bootstrap';
+
+body { padding-top: 70px; }
+
+.navbar {
+    position:  relative;
+    width: 100%;
+}
+
+// ロゴはみ出し
+.header_inner {
+    position: absolute;
+    top: -50%;
+    }
+
+// 投稿ボタン固定
+.create_btn {
+    position: fixed;
+    bottom: 15%;
+    right: 50px;
+    }
+
+// プレビューサイズ指定
+#preview{
+    height: 130px;
+    width: auto;
+    }
+
+// 投稿内容がはみ出さないように指定
+.wrap {
+  word-break: break-all;
+}
+
+// ボタン固定
+.bottom_btn_right {
+    position: fixed;
+    bottom: 1%;
+    left: 60%;
+    transform:translate(-50%,0)
+    }
+
+.bottom_btn_left {
+    position: fixed;
+    bottom: 1%;
+    left: 40%;
+    transform:translate(-50%,0)
+    }
+
+.bottom_btn {
+    position: fixed;
+    background-color: #28a745;
+    padding: 4px;
+    bottom: 20%;
+    left: 50%;
+    transform:translate(-50%,0)
+    }
+
+.wall {
+    background-image: url("/assets/wall.jpg");
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: -5;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+}
+
+.band-color {
+    background-color: #0197b0;
+}
+
+.gradient-color{
+    background: linear-gradient(to bottom right, #0197b0,#7cd857);
+}
+
+.border-color {
+    border: 5px outset #6acf64;
+    background-color: #fff;
+}
+
+.border-color-blue {
+    border: 5px outset #317075;
+    background-color: #b6e7e4;
+}
+
+.top-color {
+  background-color: #fff;
+}
+
+a {
+  color: #0097b0;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.white {
+  color: #fff;
+}
+
+.white:hover {
+  color: #000;
+}
+
+.message {
+  color: #000;
+  background-color: #fff;
+}
+
+.yellow {
+  color: #efa04c;
+}
+
+.yellow:hover {
+  color: #000;
+}
+
+.n-circle {
+  position: absolute;
+  padding-left: 1.4rem;
+  padding-top: 0.6rem;
+  color: #efa04c;
+}

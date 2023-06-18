@@ -1,0 +1,22 @@
+<div class="container p-5">
+  <div class="row px-5">
+    <% @genres.each do |genre|%>
+      <%= link_to admin_genre_path(genre), class: "btn btn-outline-info rounded-pill m-1" do %>
+        <i class="fas fa-tag"></i>
+        <%= genre.genre_name %>
+      <% end %>
+      <%= link_to admin_genre_path(genre), method: :delete, class: "mr-2" do %>
+        <i class="fas fa-trash fa-sm"></i>
+      <% end %>
+    <% end %>
+    <div class="bottom_btn">
+    <h3>新規ジャンル作成</h3>
+    <p>(15文字以内)</p>
+    <%= form_with model: Genre, url: admin_genres_path, class: "form-inline", local: true do |f| %>
+      <%= f.text_field :genre_name, placeholder: "ジャンル名", class: "form-control mr-2" %>
+      <%= f.submit "追加する", class:"btn btn-primary", size:30 %><br>
+    <% end %>
+    </div>
+    <%= paginate @genres, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>

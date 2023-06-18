@@ -1,0 +1,56 @@
+<%= render "layouts/flash" %>
+<div class="container text-center wrap">
+  <div class="row my-3 mx-5 p-1" style="background-color: #d4ecea;">
+    <div class="col-2 text-right mt-1">
+      <%= image_tag @user.get_profile_image(80,80) %>
+    </div>
+    <div class="col-2 col-sm-2 text-left">
+     <h5><%= link_to @user.name, admin_user_path(@user.id) %></h5>
+    </div>
+    <div class="col-8 col-sm-8 text-left p-2">
+      <div class="row">
+        <h4 class="col-5"><%= @hobby.title %></h4>
+        <div class="col-4 d-flex">
+          <%= render "stars/star_average", hobby: @hobby %>
+        </div>
+        <div class="col-3 text-center">
+          <%= link_to admin_genre_path(@hobby.genre.id), class: "btn btn-outline-info rounded-pill" do %>
+          <i class="fas fa-tag"></i>
+          <%= @hobby.genre.genre_name %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row" style="width: 100%;">
+        <!--ユーザーのつけた段落を反映-->
+        <%= safe_join(@hobby.body.split("\n"),tag(:br)) %>
+      </div>
+      <div class="row">
+        <% @hobby.hobby_images.each do |hobby_image| %>
+        <%= image_tag(hobby_image, width:100, height:100 )%>
+        <% end %>
+      </div>
+      <div class="row mt-1">
+      <% @tags.each do |tag| %>
+        #<%= link_to tag.tag_name, admin_tag_path(tag) %>
+      <% end %>
+      </div>
+      <div class="row mt-1">
+        <div class="col-4">
+          <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+          <%= @hobby.favorites.count %>ナイス趣味
+        </div>
+        <div class= "col-4 text-right" style="opacity: 0.5;">
+          <%= @hobby.how_long_ago %>
+        </div>
+        <div class="col-4 text-right">
+          <%= link_to admin_hobby_path(@hobby.id), method: :delete, style: "right: 5px;", data: { confirm: "【確認】趣味を削除してもよろしいですか？" } do %>
+          <i class="fas fa-trash fa-lg"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= @hobby.hobby_comments.count %> コメント
+  <%= render "admin/hobby_comments/comments_index", comments: @comments %>
+  <%= paginate @comments, theme: 'twitter-bootstrap-4' %>
+</div>

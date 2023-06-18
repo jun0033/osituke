@@ -1,0 +1,23 @@
+<% users.each do |user| %>
+<div class="row my-1 justify-content-center mx-5 border-color-blue">
+  <div class="col-8 media">
+    <%= link_to admin_user_path(user) do %>
+    <%= image_tag user.get_profile_image(100,100), class: "mr-2 my-2" %>
+    <% end %>
+    <div class="media-body">
+      <p><h3><%= link_to user.name, admin_user_path(user) %></h3></p>
+      <p><%= user.introduction %></p>
+    </div>
+  </div>
+  <div class="col-4 my-auto text-left">
+    <div class="row mt-1">
+    <%= user.active_follows.count %>
+    フォロー中
+    </div>
+    <div class="row mt-1">
+    <%= user.passive_follows.count %>
+    フォロワー
+    </div>
+  </div>
+</div>
+<% end %>

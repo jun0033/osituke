@@ -1,0 +1,13 @@
+<div class="container p-5 text-center">
+  <h2>タグ一覧</h2>
+  <div class="row px-5">
+  <% @tags.each do |tag|%>
+    <%= link_to tag_path(tag), class: "btn btn-outline-info rounded-pill mx-1" do %>
+    <i class="fas fa-tag"></i>
+    <%= tag.tag_name %>
+    <% end %>
+  <% end %>
+  </div>
+  <%= paginate @tags, theme: 'twitter-bootstrap-4' %>
+</div>
+<%= render "public/hobbies/create_btn" %>
