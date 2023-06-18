@@ -138,7 +138,7 @@ class Public::HobbiesController < ApplicationController
     if current_user.can_display_random?
       current_user.update(last_random_displayed_at: Time.now)
       # ページの表示内容を設定
-      comments = HobbyComment.where.not(user_id: current_user.id)
+      comments = HobbyComment.includes(:hobby).where.not(user_id: current_user.id)
       hobbies = Hobby.where(is_draft: false).where.not(user_id: current_user.id).where.not(id: comments.pluck(:hobby_id))
       @hobby = hobbies.random
       unless @hobby == nil
