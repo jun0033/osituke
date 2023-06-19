@@ -30,7 +30,7 @@ class Hobby < ApplicationRecord
   end
 
   def self.random
-    offset( rand(Hobby.count) ).first
+    offset( rand(Hobby.all.size) ).first
   end
 
   def save_tag(sent_tags)
@@ -38,7 +38,7 @@ class Hobby < ApplicationRecord
       current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
       old_tags = current_tags - sent_tags
       new_tags = sent_tags - current_tags
-      
+
       # タグの追加と削除を一連の操作としてまとめる
       ActiveRecord::Base.transaction do
         # 古いタグを消す
