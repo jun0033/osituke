@@ -29,10 +29,6 @@ class Hobby < ApplicationRecord
     Hobby.where("title LIKE? OR body LIKE?", "%#{word}%","%#{word}%")
   end
 
-  def self.random
-    offset( rand(Hobby.all.size) ).first
-  end
-
   def save_tag(sent_tags)
     # タグが存在していれば、タグの名前を配列として全て取得
       current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
