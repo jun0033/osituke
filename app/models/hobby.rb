@@ -30,7 +30,7 @@ class Hobby < ApplicationRecord
   end
 
   def self.random
-    order('RANDOM()').first
+    offset( rand(Hobby.count) ).first
   end
 
   def save_tag(sent_tags)
