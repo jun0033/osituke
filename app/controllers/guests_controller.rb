@@ -5,7 +5,7 @@ class GuestsController < ApplicationController
     end
   sign_in user
   redirect_to random_hobby_path
-  flash[:info] = 'ゲストユーザーとしてログインしました。'
+  flash[:info] = 'ゲストユーザーとしてログインしました'
   end
 
   def admin_guest
@@ -14,6 +14,6 @@ class GuestsController < ApplicationController
     end
   sign_in admin
   redirect_to admin_hobbies_path
-  flash[:info] = 'ゲスト管理者としてログインしました。'
+  flash[:info] = 'ゲスト管理者としてログインしました'
   end
 end

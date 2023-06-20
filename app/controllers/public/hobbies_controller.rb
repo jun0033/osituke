@@ -147,6 +147,7 @@ class Public::HobbiesController < ApplicationController
         to_does.save
       end
     else
+      flash[:info] = 'ログインしました'
       redirect_to hobbies_path
     end
   end

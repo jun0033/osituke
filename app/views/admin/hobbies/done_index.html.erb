@@ -1,6 +1,6 @@
 <div class="container text-center">
   <h2>やってみた趣味一覧</h2>
-  <% @hobbies.reverse.each do |hobby| %>
+  <% @hobbies.each do |hobby| %>
     <div class="row py-1 my-1 wrap mx-5 border-color">
       <div class="col-4 media">
         <%= link_to admin_user_path(hobby.user_id) do %>
@@ -19,7 +19,7 @@
           <div class="col-3 text-center">
             <%= link_to admin_genre_path(hobby.genre.id), class: "btn btn-outline-info rounded-pill" do %>
             <i class="fas fa-tag"></i>
-            <%= hobby.genrre.genre_name %>
+            <%= hobby.genre.genre_name %>
             <% end %>
           </div>
         </div>
@@ -37,9 +37,7 @@
             <%= hobby.favorites.count %> ナイス趣味
           </div>
           <div class=col-3>
-          <%= link_to admin_hobby_path(hobby.id) do %>
           <%= hobby.hobby_comments.count %> コメント
-          <% end %>
           </div>
           <div class= "col-6 text-right" style="opacity: 0.5;">
             <%= hobby.how_long_ago %>

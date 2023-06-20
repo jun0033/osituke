@@ -40,9 +40,7 @@
               <%= hobby.favorites.count %> ナイス趣味
             </div>
             <div class=col-3>
-            <%= link_to hobby_path(hobby.id) do %>
             <%= hobby.hobby_comments.count %> コメント
-            <% end %>
             </div>
             <div class= "col-6 text-right" style="opacity: 0.5;">
               <%= hobby.how_long_ago %>

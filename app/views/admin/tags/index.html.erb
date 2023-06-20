@@ -2,8 +2,7 @@
   <div class="row px-5">
     <% @tags.each do |tag|%>
       <%= link_to admin_tag_path(tag), class: "btn btn-outline-info rounded-pill m-1" do %>
-        <i class="fas fa-tag"></i>
-        <%= tag.tag_name %>
+        #<%= tag.tag_name %>
       <% end %>
       <%= link_to admin_tag_path(tag), method: :delete, class: "mr-2" do %>
         <i class="fas fa-trash fa-sm"></i>
