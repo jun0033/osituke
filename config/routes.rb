@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       get 'rank_index', on: :collection
     end
 
-    resources :users, only:[:show, :edit, :update] do
+    resources :users, only:[:show, :edit, :update, :index] do
       member do
         get 'favorites'      =>'favorites#index'
         get 'hobby_comments' =>'hobby_comments#index'

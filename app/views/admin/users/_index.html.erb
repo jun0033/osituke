@@ -9,7 +9,17 @@
       <p><%= user.introduction %></p>
     </div>
   </div>
-  <div class="col-4 my-auto text-left">
+  <div class="col-3 my-auto text-left">
+    <div class="row mt-1">
+      ステータス
+      <% if user.user_status_i18n == "退会" %>
+        <div class= "text-danger">
+      <% else %>
+        <div class= "text-success">
+      <% end %>
+      <%= user.user_status_i18n %>
+      </div>
+    </div>
     <div class="row mt-1">
     <%= user.active_follows.count %>
     フォロー中
@@ -18,6 +28,11 @@
     <%= user.passive_follows.count %>
     フォロワー
     </div>
+  </div>
+  <div class="col-1 my-auto text-left">
+    <%= link_to edit_admin_user_path(user.id), class:"btn btn-outline-secondary btn-block" do %>
+      <i class="fas fa-user-cog"></i>
+    <% end %>
   </div>
 </div>
 <% end %>

@@ -140,8 +140,8 @@ class Public::HobbiesController < ApplicationController
       # ページの表示内容を設定
       comments = HobbyComment.includes(:hobby).where.not(user_id: current_user.id)
       hobbies = Hobby.where(is_draft: false).where.not(user_id: current_user.id).where.not(id: comments.pluck(:hobby_id))
-      @hobby = hobbies.offset( rand(Hobby.all.size) ).first
-      unless @hobby == nil
+      @hobby = hobbies.offset( rand(hobbies.size) ).first
+      if @hobby
         # ToDoに自動保存
         to_does = current_user.to_does.new(hobby_id: @hobby.id)
         to_does.save

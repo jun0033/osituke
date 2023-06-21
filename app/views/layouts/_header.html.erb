@@ -62,6 +62,7 @@
         <li><%= link_to "ランキング",rank_index_admin_hobbies_path, class: "nav-link white" %></li>
         <li><%= link_to "ジャンル一覧",admin_genres_path, class: "nav-link white" %></li>
         <li><%= link_to "タグ一覧",admin_tags_path, class: "nav-link white" %></li>
+        <li><%= link_to "ユーザ一覧",admin_users_path, class: "nav-link white" %></li>
       <!--ユーザーがログインしていたら-->
       <% elsif user_signed_in? %>
         <li><%= link_to "趣味一覧",hobbies_path, class: "nav-link white" %></li>

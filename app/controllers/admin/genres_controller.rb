@@ -16,6 +16,8 @@ class Admin::GenresController < ApplicationController
 
   def destroy
     genre = Genre.find(params[:id])
+    hobbies = Hobby.where(genre_id: genre.id)
+    hobbies.destroy_all
     genre.destroy
     redirect_to request.referer
   end
