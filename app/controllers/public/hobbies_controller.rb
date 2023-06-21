@@ -17,6 +17,9 @@ class Public::HobbiesController < ApplicationController
   end
 
   def create
+    @hobby = Hobby.new
+    @genre = Genre.new
+    @genres = Genre.all
     hobby = current_user.hobbies.new(hobby_params)
     tags = params[:hobby][:tag_name].split(/[　| ]/)
      # 投稿ボタンを押下した場合
@@ -81,6 +84,9 @@ class Public::HobbiesController < ApplicationController
 
   def update
     @hobby = Hobby.find(params[:id])
+    @genre = Genre.new
+    @genres = @hobby.genre
+    @tags = @hobby.tags.pluck(:tag_name).join(" ")
      # 受け取った値を空白で区切って配列にする
     tags = params[:hobby][:tag_name].split(/[　| ]/)
     # ①下書きの更新（公開）の場合

@@ -13,8 +13,8 @@ class Public::HobbyCommentsController < ApplicationController
       redirect_to hobby_path(@hobby)
       flash[:success] = 'コメントを送信しました'
     else
-      render 'public/hobbies/show'
       flash[:danger] = 'コメントの送信に失敗しました'
+      redirect_to hobby_path(@hobby)
     end
   end
 
@@ -29,8 +29,8 @@ class Public::HobbyCommentsController < ApplicationController
       redirect_to hobby_path(@hobby)
       flash[:success] = 'コメントを送信しました'
     else
-      render 'public/hobbies/show'
       flash[:danger] = 'コメントの送信に失敗しました'
+      redirect_to hobby_path(@hobby)
     end
   end
 
