@@ -29,16 +29,12 @@ class Hobby < ApplicationRecord
     Hobby.where("title LIKE? OR body LIKE?", "%#{word}%","%#{word}%")
   end
 
-  def self.random
-    order('RANDOM()').first
-  end
-
   def save_tag(sent_tags)
     # タグが存在していれば、タグの名前を配列として全て取得
       current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
       old_tags = current_tags - sent_tags
       new_tags = sent_tags - current_tags
-      
+
       # タグの追加と削除を一連の操作としてまとめる
       ActiveRecord::Base.transaction do
         # 古いタグを消す

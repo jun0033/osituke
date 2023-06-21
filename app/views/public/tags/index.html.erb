@@ -3,8 +3,7 @@
   <div class="row px-5">
   <% @tags.each do |tag|%>
     <%= link_to tag_path(tag), class: "btn btn-outline-info rounded-pill mx-1" do %>
-    <i class="fas fa-tag"></i>
-    <%= tag.tag_name %>
+    #<%= tag.tag_name %>
     <% end %>
   <% end %>
   </div>
