@@ -1,91 +1,17 @@
-<div class="top-color">
-  <% if admin_signed_in? %>
-  <div class="row text-center">
-    <div class="col"></div>
-    <div class="col search_form">
-      <%= form_with url: searches_search_path, local: true, method: :get do |f| %>
-        <%= f.select :range, options_for_select([['趣味'], ['ユーザー']]) %>
-        <%= f.text_field :word %>
-        <%= f.button type: "submit", class: "btn btn-primary btn-sm", style: "vertical-align: top;" do %>
-          <i class="fas fa-search"></i>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="col">
-    <%= link_to "ログアウト",destroy_admin_session_path, method: :delete %>
-    </div>
-  </div>
-  <% elsif user_signed_in? %>
-  <div class="row text-center">
-    <div class="col"></div>
-    <div class="col search_form">
-      <%= form_with url: searches_search_path, local: true, method: :get do |f| %>
-        <%= f.select :range, options_for_select([['趣味'], ['ユーザー']]) %>
-        <%= f.text_field :word %>
-        <%= f.button type: "submit", class: "btn btn-primary btn-sm", style: "vertical-align: top;" do %>
-          <i class="fas fa-search"></i>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="col">
-    <%= link_to "ログアウト",destroy_user_session_path, method: :delete %>
-    </div>
-  </div>
-  <% end %>
-</div>
-<% if admin_signed_in? || user_signed_in? %>
-<nav class="navbar navbar-expand-lg band-color p-0">
+<% if admin_signed_in? %>
+  <%= render "layouts/header_admin" %>
+<% elsif user_signed_in? %>
+  <%= render "layouts/header_public" %>
 <% else %>
-<nav class="navbar navbar-expand-lg">
-<% end %>
-
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon white"></span>
-</button>
-
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <div class = "header_inner">
-      <% if admin_signed_in? %>
-        <%= link_to image_tag("osituke2.png", size: '100x100', alt: "ositukeロゴ"),admin_hobbies_path %>
-      <% elsif user_signed_in? %>
-        <%= link_to image_tag("osituke2.png", size: '100x100', alt: "ositukeロゴ"),hobbies_path %>
-      <% elsif request.fullpath.include? ("/admin") %>
-        <%= link_to image_tag("osituke2.png", size: '100x100', alt: "ositukeロゴ"),admin_root_path %>
-      <% else %>
-        <%= link_to image_tag("osituke2.png", size: '100x100', alt: "ositukeロゴ"),root_path %>
-      <% end %>
+  <nav class="navbar navbar-expand-lg">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <div class = "header_inner">
+        <% if request.fullpath.include? ("/admin") %>
+          <%= link_to image_tag("osituke2.png", size: '100x100', alt: "ositukeロゴ"),admin_root_path %>
+        <% else %>
+          <%= link_to image_tag("osituke2.png", size: '100x100', alt: "ositukeロゴ"),root_path %>
+        <% end %>
+      </div>
     </div>
-    <ul class="navbar-nav mx-auto">
-      <!--管理者がログインしていたら-->
-      <% if admin_signed_in? %>
-        <li><%= link_to "趣味一覧",admin_hobbies_path, class: "nav-link white" %></li>
-        <li><%= link_to "ランキング",rank_index_admin_hobbies_path, class: "nav-link white" %></li>
-        <li><%= link_to "ジャンル一覧",admin_genres_path, class: "nav-link white" %></li>
-        <li><%= link_to "タグ一覧",admin_tags_path, class: "nav-link white" %></li>
-        <li><%= link_to "ユーザ一覧",admin_users_path, class: "nav-link white" %></li>
-      <!--ユーザーがログインしていたら-->
-      <% elsif user_signed_in? %>
-        <li><%= link_to "趣味一覧",hobbies_path, class: "nav-link white" %></li>
-        <li><%= link_to "ランキング",rank_index_hobbies_path, class: "nav-link white" %></li>
-        <li><%= link_to "ジャンル一覧",genres_path, class: "nav-link white" %></li>
-        <li><%= link_to "タグ一覧",tags_path, class: "nav-link white" %></li>
-        <li><%= link_to "ToDoリスト",to_does_user_path(current_user), class: "nav-link white" %></li>
-        <li><%= link_to "下書き",draft_index_hobbies_path, class: "nav-link white" %></li>
-        <li><%= link_to "マイページ",user_path(current_user), class: "nav-link white" %></li>
-        <li class= "my-auto">
-          <%= link_to notifications_path do %>
-            <% if unchecked_notifications.any? %>
-            <span class="fa-stack">
-              <i class="fa-regular fa-bell fa-stack-2x white"></i>
-              <i class="fas fa-circle n-circle fa-stack-1x"></i>
-            </span>
-            <span class= "yellow">new</span>
-            <% else %>
-              <i class="fa-regular fa-bell white"></i>
-            <% end %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</nav>
+  </nav>
+<% end %>

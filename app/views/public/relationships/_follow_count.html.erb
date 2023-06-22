@@ -1,0 +1,8 @@
+<%= link_to active_follow_user_relationships_path(user.id) do %>
+<%= user.active_follows.count %>
+<% end %>
+フォロー中
+<%= link_to passive_follow_user_relationships_path(user.id) do %>
+<%= user.passive_follows.count %>
+<% end %>
+フォロワー
