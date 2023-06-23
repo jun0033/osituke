@@ -1,3 +1,9 @@
 <div class="container text-center">
+  <h2>コメント一覧</h2>
+  <% if @comments.present? %>
   <%= render "admin/hobby_comments/comments_index", comments: @comments %>
+  <%= paginate @comments, theme: 'twitter-bootstrap-4' %>
+  <% else %>
+  <h5>まだコメントはありません</h5>
+  <% end %>
 </div>
