@@ -1,9 +1,11 @@
 <div class="container text-center">
   <h2>ナイス趣味一覧</h2>
   <% if @hobbies.present? %>
-  <%= render "public/hobbies/hobby_index", hobbies: @hobbies %>
-  <%= paginate @hobbies, theme: 'twitter-bootstrap-4' %>
+    <% @hobbies.each do |hobby| %>
+      <%= render "public/hobbies/hobby_display", hobby: hobby %>
+    <% end %>
+    <%= paginate @hobbies, theme: 'twitter-bootstrap-4' %>
   <% else %>
-  <h5>まだナイス趣味はありません</h5>
+    <h5>まだナイス趣味はありません</h5>
   <% end %>
 </div>

@@ -20,9 +20,7 @@ class Admin::HobbiesController < ApplicationController
 
   def show
     @hobby = Hobby.includes(:user, :hobby_comments, :tags).find(params[:id])
-    @user = @hobby.user
     @comments = @hobby.hobby_comments.all.page(params[:page])
-    @tags = @hobby.tags
   end
 
   def destroy

@@ -1,4 +1,6 @@
 <div class="container px-5">
-  <%= render "admin/hobbies/hobby_index", hobbies: @hobbies %>
+  <% @hobbies.each do |hobby| %>
+    <%= render "admin/hobbies/hobby_display", hobby: hobby %>
+  <% end %>
   <%= paginate @hobbies, theme: 'twitter-bootstrap-4' %>
 </div>

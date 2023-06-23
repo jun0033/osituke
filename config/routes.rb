@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'searches/search'
 
-  # 顧客用
+  # ユーザー用
   # URL /users/sign_in ...
   devise_for :users,skip: [:passwords], controllers: {
     registrations: "public/registrations",
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
-    # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   # 管理者側のルーティング設定
   namespace :admin do
@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
   # 会員側のルーティング設定
   scope module: :public do
+    get 'users' => 'users#dummy'
     resources :users, only:[:update, :edit, :show] do
 
       resource :relationships, only: [:create, :destroy] do

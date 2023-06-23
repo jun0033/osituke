@@ -6,5 +6,7 @@
   <i class="fas fa-arrow-right"></i>
   <% end %>
   </div>
-  <%= render "public/hobbies/hobby_index", hobbies: @hobbies %>
+  <% @hobbies.each do |hobby| %>
+    <%= render "public/hobbies/hobby_display", hobby: hobby %>
+  <% end %>
 </div>
