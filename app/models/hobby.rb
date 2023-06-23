@@ -16,6 +16,7 @@ class Hobby < ApplicationRecord
     validates :title, length: { minimum: 1,maximum: 30 }
     validates :body, length: { minimum: 1,maximum: 500 }
   end
+  validates :tag_name, length: { maximum: 15 }
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)

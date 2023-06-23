@@ -58,7 +58,7 @@ class Public::HobbiesController < ApplicationController
 
   def rank_index
     hobbies = Favorite.group(:hobby_id).where(created_at: Time.current.all_month)
-                        .order('count(hobby_id) desc').limit(10).pluck(:hobby_id)
+                      .order('count(hobby_id) desc').limit(10).pluck(:hobby_id)
     @rank_hobbies = Hobby.includes(:favorites).where(id: hobbies).order(id: :desc)
   end
 
@@ -141,21 +141,22 @@ class Public::HobbiesController < ApplicationController
   end
 
   def random
-    if current_user.can_display_random?
-      current_user.update(last_random_displayed_at: Time.now)
-      # ページの表示内容を設定
-      comments = HobbyComment.includes(:hobby).where.not(user_id: current_user.id)
-      hobbies = Hobby.where(is_draft: false).where.not(user_id: current_user.id).where.not(id: comments.pluck(:hobby_id))
-      @hobby = hobbies.offset( rand(hobbies.size) ).first
-      if @hobby
-        # ToDoに自動保存
-        to_does = current_user.to_does.new(hobby_id: @hobby.id)
-        to_does.save
-      end
-    else
-      flash[:info] = 'ログインしました'
-      redirect_to hobbies_path
-    end
+    flash[:info] = 'ログインしました'
+    return redirect_to hobbies_path unless current_user.can_display_random?
+    # ページの表示内容を設定
+    seen_hobby_ids = current_user.hobby_comments.pluck(:hobby_id)
+    todo_hobby_ids = current_user.to_does.pluck(:hobby_id)
+    undone_hobbies =
+    Hobby.where(is_draft: false)               # 公開設定の投稿
+         .where.not(user_id: current_user.id)  # ログインユーザーの投稿でない
+         .where.not(id: seen_hobby_ids)        # ログインユーザーがコメントを残してない
+         .where.not(id: todo_hobby_ids)        # ログインユーザーのToDoにない
+    @hobby = undone_hobbies.shuffle.first
+    return redirect_to hobbies_path unless @hobby.present?
+    current_user.update(last_random_displayed_at: Time.now)
+    # ToDoに自動保存
+    to_does = current_user.to_does.new(hobby_id: @hobby.id)
+    to_does.save
   end
 
   private
