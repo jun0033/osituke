@@ -51,4 +51,8 @@ class Hobby < ApplicationRecord
        end
      end
   end
+
+  def done_by?(user)
+    hobby_comments.done.exists?(user_id: user.id)
+  end
 end

@@ -1,7 +1,9 @@
 <%= form_with url: searches_search_path, local: true, method: :get do |f| %>
-  <%= f.select :range, options_for_select([['趣味'], ['ユーザー']]) %>
-  <%= f.text_field :word %>
-  <%= f.button type: "submit", class: "btn btn-primary btn-sm", style: "vertical-align: top;" do %>
-    <i class="fas fa-search"></i>
-  <% end %>
+  <div class="form-group">
+    <%= f.select :range, options_for_select([['趣味'], ['ユーザー']]) %>
+    <%= f.text_field :word %>
+    <%= f.button type: "submit", class: "btn btn-primary btn-sm", style: "vertical-align: top;" do %>
+      <i class="fas fa-search"></i>
+    <% end %>
+  </div>
 <% end %>

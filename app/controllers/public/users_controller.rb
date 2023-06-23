@@ -38,6 +38,11 @@ class Public::UsersController < ApplicationController
     end
   end
 
+  # 新規登録時バリデーションエラーが起きた際のリロード対策
+  def dummy
+    redirect_to new_user_registration_path
+  end
+
   private
 
   def user_params
