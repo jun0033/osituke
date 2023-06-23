@@ -10,12 +10,14 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
-      flash[:success] = 'プロフィールを変更しました。'
-      redirect_to admin_user_path
-    else
-      flash[:danger] = 'プロフィールの変更に失敗しました。'
-      render :edit
+    ActiveRecord::Base.transaction do
+      if @user.update(user_params)
+        flash[:success] = 'プロフィールを変更しました。'
+        redirect_to admin_user_path
+      else
+        flash[:danger] = 'プロフィールの変更に失敗しました。'
+        render :edit
+      end
     end
   end
 
