@@ -1,13 +1,8 @@
 class Public::HobbiesController < ApplicationController
   def show
     @hobby = Hobby.includes(:user, :hobby_comments, :tags).find(params[:id])
-    @user = @hobby.user
     @comment = current_user.hobby_comments.new(hobby_id: @hobby.id)
     @comments = @hobby.hobby_comments.all.page(params[:page])
-    @favorite = Favorite.find_by(hobby_id: @hobby.id)
-    # 自分の完了報告があるか調べる
-    @report_comment = @comments.find_by(user_id: current_user.id, done_status: true)
-    @tags = @hobby.tags
   end
 
   def new
@@ -141,7 +136,6 @@ class Public::HobbiesController < ApplicationController
   end
 
   def random
-    flash[:info] = 'ログインしました'
     return redirect_to hobbies_path unless current_user.can_display_random?
     # ページの表示内容を設定
     seen_hobby_ids = current_user.hobby_comments.pluck(:hobby_id)

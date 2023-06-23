@@ -14,6 +14,7 @@
 
   <body class="d-flex flex-column vh-100 wall">
     <header class="fixed-top"><%= render 'layouts/header' %></header>
+    <%= render "layouts/flash" %>
     <main class= "mb-auto"><%= yield %></main>
     <footer><%= render 'layouts/footer' %></footer>
   </body>

@@ -1,5 +1,7 @@
-<%= render "layouts/flash" %>
 <div class="container text-center">
-  <%= render "public/hobbies/hobby_index", hobbies: @hobbies %>
+  <% @hobbies.each do |hobby| %>
+    <%= render "public/hobbies/hobby_display", hobby: hobby %>
+  <% end %>
+  <%= render "public/hobbies/create_btn" %>
   <%= paginate @hobbies, theme: 'twitter-bootstrap-4' %>
 </div>
