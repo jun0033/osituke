@@ -10,7 +10,7 @@
 </div>
 
 <nav class="navbar navbar-expand-lg band-color p-0">
-  <div class = "header_inner">
+  <div class ="header_inner" data-toggle="tooltip" data-original-title="みんなの投稿一覧">
     <%= link_to image_tag("osituke2.png", size: '100x100', alt: "ositukeロゴ"),admin_hobbies_path %>
   </div>
   <button class="navbar-toggler col-1 offset-9 navbar-light" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,11 +18,11 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav mx-auto">
-      <li class="nav-item mx-auto"><%= link_to "趣味一覧",     admin_hobbies_path,            class: "nav-link white" %></li>
-      <li class="nav-item mx-auto"><%= link_to "ランキング",   rank_index_admin_hobbies_path, class: "nav-link white" %></li>
-      <li class="nav-item mx-auto"><%= link_to "ジャンル一覧", admin_genres_path,             class: "nav-link white" %></li>
-      <li class="nav-item mx-auto"><%= link_to "タグ一覧",     admin_tags_path,               class: "nav-link white" %></li>
-      <li class="nav-item mx-auto"><%= link_to "ユーザ一覧",   admin_users_path,              class: "nav-link white" %></li>
+      <li class="nav-item mx-auto" data-toggle="tooltip" data-original-title="みんなの投稿一覧"><%= link_to "趣味",          admin_hobbies_path,            class: "nav-link white" %></li>
+      <li class="nav-item mx-auto" data-toggle="tooltip" data-original-title="月間ナイス趣味ランキング"><%= link_to "ランキング",rank_index_admin_hobbies_path, class: "nav-link white" %></li>
+      <li class="nav-item mx-auto" data-toggle="tooltip" data-original-title="ジャンル絞り込み検索"><%= link_to "ジャンル",  admin_genres_path,             class: "nav-link white" %></li>
+      <li class="nav-item mx-auto" data-toggle="tooltip" data-original-title="タグ絞り込み検索"><%= link_to "タグ",          admin_tags_path,               class: "nav-link white" %></li>
+      <li class="nav-item mx-auto" data-toggle="tooltip" data-original-title="登録者一覧"><%= link_to "ユーザー",              admin_users_path,              class: "nav-link white" %></li>
     </ul>
   </div>
 </nav>

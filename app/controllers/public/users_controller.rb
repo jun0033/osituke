@@ -1,6 +1,5 @@
 class Public::UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
-  before_action :ensure_guest_user, only: [:edit]
 
   def show
     user = User.where(user_status: false)
@@ -19,7 +18,7 @@ class Public::UsersController < ApplicationController
       flash[:success] = 'プロフィールを変更しました。'
     else
       flash[:danger] = 'プロフィールの変更に失敗しました。'
-      render :edit
+      redirect_to user_path
     end
   end
 
@@ -38,11 +37,6 @@ class Public::UsersController < ApplicationController
     end
   end
 
-  # 新規登録時バリデーションエラーが起きた際のリロード対策
-  def dummy
-    redirect_to new_user_registration_path
-  end
-
   private
 
   def user_params
@@ -53,14 +47,6 @@ class Public::UsersController < ApplicationController
     user = current_user
     unless user.id == current_user.id
     redirect_to user_session_path
-    end
-  end
-
-  def ensure_guest_user
-    @user = User.find(params[:id])
-    if @user.name == "guestuser"
-    redirect_to user_path(current_user)
-    flash[:danger] = 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end
   end
 end

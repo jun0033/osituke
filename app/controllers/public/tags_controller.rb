@@ -4,9 +4,9 @@ class Public::TagsController < ApplicationController
   end
 
   def show
-    tag = Tag.find(params[:id])
+    @tag = Tag.find(params[:id])
     user = User.where(user_status: false)
-    @hobbies = tag.hobbies.order(id: :desc).where(user_id: user.pluck(:id)).where(is_draft: false).page(params[:page])
+    @hobbies = @tag.hobbies.order(id: :desc).where(user_id: user.pluck(:id)).where(is_draft: false).page(params[:page])
   end
 
   def create

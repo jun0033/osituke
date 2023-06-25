@@ -14,9 +14,12 @@ class Public::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+    if current_user.guest_user?
+      current_user.destroy
+    end
+    super
+  end
 
   protected
   # 退会しているかを判断するメソッド

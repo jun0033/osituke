@@ -15,7 +15,7 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_user_path
     else
       flash[:danger] = 'プロフィールの変更に失敗しました。'
-      render :edit
+      redirect_to admin_user_path
     end
   end
 

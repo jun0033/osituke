@@ -1,10 +1,9 @@
-
 <div class="container">
   <div class="row">
     <div class="col-8 px-5 mx-auto my-3" style="background-color: #d4ecea;">
       <%= form_with model: @user, url: admin_user_path, metod: :patch, local: true do |f| %>
-      <div class="form-group">
-        <h4>ユーザーアイコン</h4>
+      <h4>ユーザーアイコン</h4>
+      <div class="form-group" data-toggle="tooltip" data-original-title="アイコン変更">
         <!--imageをクリックで発火するようにラベルで包む-->
         <%= f.label :profile_image do %>
         <%= image_tag @user.get_profile_image(130,130), id: "preview" %>

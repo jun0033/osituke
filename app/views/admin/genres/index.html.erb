@@ -1,6 +1,8 @@
-<div class="container p-5">
+<div class="container text-center">
+  <h2>ジャンル一覧</h2>
   <div class="row px-5">
     <% @genres.each do |genre|%>
+    <div>
       <%= link_to admin_genre_path(genre), class: "btn btn-outline-info rounded-pill m-1" do %>
         <i class="fas fa-tag"></i>
         <%= genre.genre_name %>
@@ -8,6 +10,7 @@
       <%= link_to admin_genre_path(genre), method: :delete, class: "mr-2", data: { confirm: "【確認】関連する趣味が全て消えます。ジャンルを削除してもよろしいですか？" } do %>
         <i class="fas fa-trash fa-sm"></i>
       <% end %>
+    </div>
     <% end %>
     <div class="bottom_btn">
     <h3>新規ジャンル作成</h3>

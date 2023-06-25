@@ -1,4 +1,7 @@
 <div class="container px-5">
+  <h2 class="text-center">
+  ジャンル名[<%= @genre.genre_name %>]の一覧
+  </h2>
   <% @hobbies.each do |hobby| %>
     <%= render "public/hobbies/hobby_display", hobby: hobby %>
   <% end %>

@@ -10,8 +10,8 @@ class Admin::TagsController < ApplicationController
   end
 
   def show
-    tag = Tag.find(params[:id])
-    @hobbies = tag.hobbies.order(id: :desc).where(is_draft: false).page(params[:page])
+    @tag = Tag.find(params[:id])
+    @hobbies = @tag.hobbies.order(id: :desc).where(is_draft: false).page(params[:page])
   end
 
   def destroy

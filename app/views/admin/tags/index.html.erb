@@ -1,12 +1,15 @@
-<div class="container p-5">
+<div class="container text-center">
+  <h2>タグ一覧</h2>
   <div class="row px-5">
     <% @tags.each do |tag|%>
+    <div>
       <%= link_to admin_tag_path(tag), class: "btn btn-outline-info rounded-pill m-1" do %>
         #<%= tag.tag_name %>
       <% end %>
       <%= link_to admin_tag_path(tag), method: :delete, class: "mr-2" do %>
         <i class="fas fa-trash fa-sm"></i>
       <% end %>
+    </div>
     <% end %>
     <div class="bottom_btn">
     <h3>新規タグ作成</h3>
