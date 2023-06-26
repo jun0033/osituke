@@ -24,6 +24,11 @@
       <% end %>
     </div>
     <div class="row mt-1">
+      <% hobby.tags.each do |tag| %>
+        #<%= link_to tag.tag_name, tag_path(tag) %>
+      <% end %>
+    </div>
+    <div class="row mt-1">
       <div class="col-3" id="favorite_buttons_<%= hobby.id %>">
         <%= render "public/favorites/favorite", hobby: hobby %>
       </div>

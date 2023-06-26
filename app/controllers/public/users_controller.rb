@@ -44,9 +44,10 @@ class Public::UsersController < ApplicationController
   end
 
   def is_matching_login_user
-    user = current_user
+    user = User.find(params[:id])
     unless user.id == current_user.id
-    redirect_to user_session_path
+    redirect_to hobbies_path
+    flash[:danger] = '他のユーザーの編集はできません'
     end
   end
 end
