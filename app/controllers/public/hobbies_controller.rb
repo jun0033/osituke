@@ -17,7 +17,7 @@ class Public::HobbiesController < ApplicationController
     @genre = Genre.new
     @genres = Genre.all
     hobby = current_user.hobbies.new(hobby_params)
-    tags = params[:hobby][:tag_name].split(/[　| ]/)
+    tags = params[:hobby][:tag_name].split(/[　| ]+/)
      # 投稿ボタンを押下した場合
     if params[:post]
       # 投稿の場合のみバリデーション
@@ -84,7 +84,7 @@ class Public::HobbiesController < ApplicationController
     @genres = @hobby.genre
     @tags = @hobby.tags.pluck(:tag_name).join(" ")
      # 受け取った値を空白で区切って配列にする
-    tags = params[:hobby][:tag_name].split(/[　| ]/)
+    tags = params[:hobby][:tag_name].split(/[　| ]+/)
     # ①下書きの更新（公開）の場合
     if params[:publicize_draft]
       # 公開時にバリデーションを実施
@@ -162,8 +162,8 @@ class Public::HobbiesController < ApplicationController
   end
 
   def is_matching_login_user
-    user = User.find(params[:id])
-    unless user.id == current_user.id
+    hobby = Hobby.find(params[:id])
+    unless hobby.user.id == current_user.id
     redirect_to hobbies_path
     flash[:danger] = '他のユーザーの投稿の編集はできません'
     end
