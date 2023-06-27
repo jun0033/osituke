@@ -1,6 +1,11 @@
 <div class="container text-center">
-　<% @draft_hobbies.each do |hobby| %>
-  <%= render "public/hobbies/hobby_display", hobby: hobby %>
+  <% if @draft_hobbies.present? %>
+  　<% @draft_hobbies.each do |hobby| %>
+    <%= render "public/hobbies/hobby_display", hobby: hobby %>
+    <% end %>
+  　<%= paginate @draft_hobbies, theme: 'twitter-bootstrap-4' %>
+  <% else %>
+  <h5>下書きはありません</h5>
+  <h5>趣味投稿から下書きに保存できます</h5>
   <% end %>
-　<%= paginate @draft_hobbies, theme: 'twitter-bootstrap-4' %>
 </div>

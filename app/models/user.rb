@@ -60,6 +60,10 @@ class User < ApplicationRecord
     end
   end
 
+  def guest_user?
+    email == 'guest@example.com'
+  end
+
   def create_notification_follow(current_user)
     notification = current_user.active_notifications.new(
       visited_id: id,

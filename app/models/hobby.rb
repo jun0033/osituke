@@ -34,7 +34,7 @@ class Hobby < ApplicationRecord
     # タグが存在していれば、タグの名前を配列として全て取得
       current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
       old_tags = current_tags - sent_tags
-      new_tags = sent_tags - current_tags
+      new_tags = sent_tags.uniq - current_tags
 
       # タグの追加と削除を一連の操作としてまとめる
       ActiveRecord::Base.transaction do
@@ -48,7 +48,7 @@ class Hobby < ApplicationRecord
         new_tags.each do |new|
           new_post_tag = Tag.find_or_create_by(tag_name: new)
           self.tags << new_post_tag
-       end
+        end
      end
   end
 

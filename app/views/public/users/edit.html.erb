@@ -2,11 +2,11 @@
   <div class="row">
     <div class="col-8 px-5 mx-auto my-3" style="background-color: #d4ecea;">
       <%= form_with model: @user, url: user_path, metod: :patch, local: true do |f| %>
-      <div class="form-group">
-        <h4>ユーザーアイコン</h4>
+      <h4>ユーザーアイコン</h4>
+      <div class="form-group" data-toggle="tooltip" data-original-title="アイコン変更">
         <!--imageをクリックで発火するようにラベルで包む-->
         <%= f.label :profile_image do %>
-        <%= image_tag @user.get_profile_image(130,130), id: "preview" %>
+        <%= image_tag @user.get_profile_image(130,130), id: "preview", class: "profile_image" %>
         <%= f.file_field :profile_image, accept: "image/*", style: 'display:none;' %>
         <% end %>
         <%= render "profile_images/profile_image" %>
@@ -19,10 +19,12 @@
         <h4>紹介文(100文字以内)</h4>
         <%= f.text_area :introduction, placeholder: @user.introduction, class:"form-control" %>
       </div>
-      <div class="form-group">
-        <h4>メールアドレス</h4>
-        <%= f.email_field :email, placeholder: @user.email, class:"form-control" %>
-      </div>
+      <% unless @user.guest_user? %>
+        <div class="form-group">
+          <h4>メールアドレス</h4>
+          <%= f.email_field :email, placeholder: @user.email, class:"form-control" %>
+        </div>
+      <% end %>
       <div class="row">
         <div class="col-6 text-left">
         <%= link_to "退会する", confirm_users_path, data: { confirm: '退会しますか?' } , class:"btn btn-danger justify-content-left" %>

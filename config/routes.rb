@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
   # 会員側のルーティング設定
   scope module: :public do
-    get 'users' => 'users#dummy'
+    get 'users' => redirect("/users/sign_up")
     resources :users, only:[:update, :edit, :show] do
 
       resource :relationships, only: [:create, :destroy] do

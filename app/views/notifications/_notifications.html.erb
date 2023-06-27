@@ -1,38 +1,44 @@
-<div class="col border-color-blue">
-  <table class="table">
+<div class="row m-5">
   <% notifications_index.each do |notification| %>
-    <tr>
-      <%= link_to user_path(notification.visitor_id) do %>
-        <%= image_tag notification.visitor.get_profile_image(80,80) %>
-        <strong><%= notification.visitor.name %></strong>
-      <% end %>さんが
-    <% case notification.action %>
-    <% when 'follow' %>
-      あなたをフォローしました
-    <% when 'favorite' %>
-      <%= link_to 'あなたの投稿', notification.hobby, style: "font-weight: bold;" %>
-      にいいねしました
-    <% when 'comment' %>
-      <% if notification.hobby.user_id == notification.visited.id %>
-        <%= link_to "あなたの投稿", notification.hobby, style: "font-weight: bold;" %>
-      <% else %>
-        <%= link_to hobby_path(notification.hobby) do %>
-          <%= image_tag notification.hobby.user.get_profile_image(80,80) %>
-          <strong><%= notification.hobby.user.name + 'さんの投稿' %></strong>
-        <% end %>
-      <% end %>にコメントしました
-      <% if notification.hobby_comment.present? %>
-      <div style="backgroud-color: #000; opacity: 0.5;">
-        <%= notification.hobby_comment.comment %>
+    <div class="col-8 offset-2 border-color-blue pt-2 wrap">
+      <div class="row">
+        <div class="col-md-3">
+          <%= image_tag notification.visitor.get_profile_image(80,80), class: "rounded-circle border border-dark" %>
+        </div>
+        <div class="col-md-9">
+          <div class="row">
+            <%= link_to user_path(notification.visitor_id) do %>
+              <strong><%= notification.visitor.name %></strong>
+            <% end %>
+            さんが
+            <% case notification.action %>
+            <% when 'follow' %>
+              あなたをフォローしました
+            <% when 'favorite' %>
+              <%= link_to 'あなたの投稿', notification.hobby, style: "font-weight: bold;" %>
+              にいいねしました
+            <% when 'comment' %>
+              <% if notification.hobby.user_id == notification.visited.id %>
+                <%= link_to "あなたの投稿", notification.hobby, style: "font-weight: bold;" %>
+              <% else %>
+                <%= link_to hobby_path(notification.hobby) do %>
+                  <%= image_tag notification.hobby.user.get_profile_image(80,80) %>
+                  <strong><%= notification.hobby.user.name + 'さんの投稿' %></strong>
+                <% end %>
+              <% end %>にコメントしました
+            <% end %>
+          </div>
+          <div class="row opacity_half">
+            <% if notification.hobby_comment.present? %>
+              <%= notification.hobby_comment.comment %>
+            <% end %>
+          </div>
+        </div>
       </div>
-      <% end %>
-    <% end %>
-    </tr>
-    <tr>
-    <div class= "text-right" style="opacity: 0.5;">
-      <%= notification.how_long_ago %>
+      <div class="text-right opacity_half">
+        <i class="fas fa-history"></i>
+        <%= notification.how_long_ago %>
+      </div>
     </div>
-    </tr>
   <% end %>
-  </table>
 </div>

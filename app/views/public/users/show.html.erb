@@ -29,11 +29,9 @@
         <td><%= link_to "ナイス趣味一覧",favorites_user_path(@user.id) %></td>
         <td><%= link_to "やってみた趣味",done_index_user_path(@user.id) %></td>
         <td>
-          <% unless @user.name == "guestuser" %>
-            <% if @user == current_user %>
-              <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
-              <i class="fas fa-user-cog"></i>
-              <% end %>
+          <% if @user == current_user %>
+            <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
+            <i class="fas fa-user-cog"></i>
             <% end %>
           <% end %>
         </td>

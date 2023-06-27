@@ -18,4 +18,9 @@
     <main class= "mb-auto"><%= yield %></main>
     <footer><%= render 'layouts/footer' %></footer>
   </body>
+  <script type="text/javascript">
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    })
+  </script>
 </html>

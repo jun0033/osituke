@@ -1,6 +1,10 @@
 @use '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
 
-body { padding-top: 70px; }
+body {
+  padding-top: 70px;
+  font-family: 'Kiwi Maru', serif;
+}
 
 .navbar {
     position:  relative;
@@ -122,4 +126,20 @@ a:hover {
   padding-left: 1.4rem;
   padding-top: 0.6rem;
   color: #efa04c;
+}
+
+.profile_image:hover {
+  opacity: .5;
+}
+
+.opacity_half {
+  opacity: .5;
+}
+
+.done_comment {
+  background-color: #7cd857;
+}
+
+.comment_color {
+  background-color: #b4e6df;
 }

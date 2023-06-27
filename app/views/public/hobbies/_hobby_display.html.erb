@@ -24,6 +24,11 @@
       <% end %>
     </div>
     <div class="row mt-1">
+      <% hobby.tags.each do |tag| %>
+        #<%= link_to tag.tag_name, tag_path(tag) %>
+      <% end %>
+    </div>
+    <div class="row mt-1">
       <div class="col-3" id="favorite_buttons_<%= hobby.id %>">
         <%= render "public/favorites/favorite", hobby: hobby %>
       </div>
@@ -35,7 +40,8 @@
       <div class="col-3" id="todo_buttons_<%= hobby.id %>">
         <%= render "public/to_does/to_do", hobby: hobby %>
       </div>
-      <div class= "col-2 text-right" style="opacity: 0.5;">
+      <div class= "col-2 text-right opacity_half">
+        <i class="fas fa-history"></i>
         <%= hobby.how_long_ago %>
       </div>
       <% if hobby.user.id == current_user.id %>

@@ -1,4 +1,5 @@
 class Public::HobbiesController < ApplicationController
+  before_action :is_matching_login_user, only: [:edit, :update]
   def show
     @hobby = Hobby.includes(:user, :hobby_comments, :tags).find(params[:id])
     @comment = current_user.hobby_comments.new(hobby_id: @hobby.id)
@@ -158,5 +159,13 @@ class Public::HobbiesController < ApplicationController
   def hobby_params
     # 画像をハッシュで保存
     params.require(:hobby).permit(:title, :body, :tag_id, :genre_id, :is_draft, :tag_name, hobby_images: [])
+  end
+
+  def is_matching_login_user
+    user = User.find(params[:id])
+    unless user.id == current_user.id
+    redirect_to hobbies_path
+    flash[:danger] = '他のユーザーの投稿の編集はできません'
+    end
   end
 end

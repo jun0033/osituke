@@ -1,9 +1,7 @@
-<div class="container m-5">
-  <div class="row m-5">
-    <% if @notifications_index.present? %>
-      <%= render "notifications", notifications_index: @notifications_index %>
-    <% else %>
-      <p>通知はありません</p>
-    <% end %>
-  </div>
+<div class="container m-5 text-center">
+  <% if @notifications_index.present? %>
+    <%= render "notifications", notifications_index: @notifications_index %>
+  <% else %>
+    <h5>通知はありません</h5>
+  <% end %>
 </div>

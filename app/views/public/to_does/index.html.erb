@@ -6,7 +6,11 @@
   <i class="fas fa-arrow-right"></i>
   <% end %>
   </div>
-  <% @hobbies.each do |hobby| %>
-    <%= render "public/hobbies/hobby_display", hobby: hobby %>
+  <% if @hobbies.present? %>
+    <% @hobbies.each do |hobby| %>
+      <%= render "public/hobbies/hobby_display", hobby: hobby %>
+    <% end %>
+  <% else %>
+  <h5>他のユーザーの投稿にある<strong>[ToDoに追加]</strong>ボタンを押すとここに表示されます</h5>
   <% end %>
 </div>
