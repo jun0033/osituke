@@ -42,12 +42,14 @@
       <div class="col-md-3 col-sm-12" id="todo_buttons_<%= hobby.id %>">
         <%= render "public/to_does/to_do", hobby: hobby %>
       </div>
-      <div class= "col-md-2 col-sm-12 text-right opacity_half" style="opacity: 0.5;">
+      <div class= "col-md-3 col-sm-12 text-right opacity_half">
         <i class="fas fa-history"></i>
         <%= hobby.how_long_ago %>
       </div>
+    </div>
+    <div class="row">
       <% if hobby.user.id == current_user.id %>
-        <div class="col-md-1 col-sm-6">
+        <div class="col-md-1 offset-md-10 col-sm-6 offset-sm-0">
           <%= link_to edit_hobby_path(hobby), style: "right: 5px;" do %>
             <i class="fas fa-cogs"></i>
           <% end %>
