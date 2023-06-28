@@ -17,7 +17,8 @@ class Public::HobbiesController < ApplicationController
     @genre  = Genre.new
     @genres = Genre.all
     hobby = current_user.hobbies.new(hobby_params)
-    tags  = params[:hobby][:tag_name].split(/[　| ]+/)
+    # 受け取った値の全角空白を半角に変え左詰めし、空白で区切って配列にする
+    tags  = params[:hobby][:tag_name].gsub(/　/," ").strip.split(/[　| ]+/)
      # 投稿ボタンを押下した場合
     if params[:post]
       # 投稿の場合のみバリデーション
@@ -84,8 +85,7 @@ class Public::HobbiesController < ApplicationController
     @genre  = Genre.new
     @genres = @hobby.genre
     @tags   = @hobby.tags.pluck(:tag_name).join(" ")
-     # 受け取った値を空白で区切って配列にする
-    tags = params[:hobby][:tag_name].split(/[　| ]+/)
+    tags = params[:hobby][:tag_name].gsub(/　/," ").strip.split(/[　| ]+/)
     # ①下書きの更新（公開）の場合
     if params[:publicize_draft]
       # 公開時にバリデーションを実施
