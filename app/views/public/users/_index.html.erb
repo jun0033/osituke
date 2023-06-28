@@ -12,8 +12,8 @@
   <div class="col-4 my-auto text-left">
     <div class="row mt-1">
       <% unless user == current_user %>
-        <div id= "relationship_buttons_<%= @user.id %>">
-          <%= render "public/relationships/relationship", user: @user %>
+        <div id= "relationship_buttons_<%= user.id %>">
+          <%= render "public/relationships/relationship", user: user %>
         </div>
       <% end %>
     </div>
