@@ -1,54 +1,56 @@
 <div class="container text-center">
   <div class="row">
-    <div class="col-9 mx-auto">
+    <div class="col-8 mx-auto">
       <%= form_with model: resource, url: user_registration_path, id: 'new_public', class: 'new_public' do |f| %>
       <%= render "public/shared/error_messages", resource: resource %>
       <h2 class="mt-5">ユーザー登録</h2>
-      <style>table,td {width: 70%;}</style>
-        <table>
-          <tr>
-            <td>ユーザーネーム(2文字以上15文字以内)</td>
-            <td>
-              <div class="field">
-                <% f.label :name %>
-                <%= f.text_field :name, autofocus: true, size:30 %>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>メールアドレス</td>
-            <td>
-              <div class="field">
-                <% f.label :email %>
-                <%= f.email_field :email, placeholder: "sample@example.com", size:30 %>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>パスワード（６文字以上）</td>
-            <td>
-              <div class="field">
-                <% f.label :password %>
-                <%= f.password_field :password, autocomplete: "new-password", size:30 %>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>パスワード（確認用）</td>
-            <td>
-              <div class="field">
-                <% f.label :password_confirmation %>
-                <%= f.password_field :password_confirmation, autocomplete: "new-password", size:30 %>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="text-center">
-              <%= f.submit "登録", class:"my-3" %>
-            </td>
-          </tr>
-        </table>
+      <div class="col-sx-10 offset-sx-1">
+        <style>table,td {width: 70%;}</style>
+          <table class="user_table">
+            <tr>
+              <td>ユーザーネーム(2文字以上15文字以内)</td>
+              <td>
+                <div class="field">
+                  <% f.label :name %>
+                  <%= f.text_field :name, autofocus: true, size:30 %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>メールアドレス</td>
+              <td>
+                <div class="field">
+                  <% f.label :email %>
+                  <%= f.email_field :email, placeholder: "sample@example.com", size:30 %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>パスワード（６文字以上）</td>
+              <td>
+                <div class="field">
+                  <% f.label :password %>
+                  <%= f.password_field :password, autocomplete: "new-password", size:30 %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>パスワード（確認用）</td>
+              <td>
+                <div class="field">
+                  <% f.label :password_confirmation %>
+                  <%= f.password_field :password_confirmation, autocomplete: "new-password", size:30 %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="text-center">
+                <%= f.submit "登録", class:"my-3" %>
+              </td>
+            </tr>
+          </table>
+        </div>
       <% end %>
       <div class="col-md-12 text-center my-5">
         <h2>既に登録済みの方</h2>

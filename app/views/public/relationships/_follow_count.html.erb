@@ -1,7 +1,7 @@
 <%= link_to active_follow_user_relationships_path(user.id) do %>
 <%= user.active_follows.count %>
 <% end %>
-フォロー中
+フォロー中<br>
 <%= link_to passive_follow_user_relationships_path(user.id) do %>
 <%= user.passive_follows.count %>
 <% end %>

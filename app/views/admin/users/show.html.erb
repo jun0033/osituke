@@ -1,9 +1,9 @@
 <div class= "container text-center wrap">
   <div class= "row my-3 border-color-blue">
-    <div class="col-4 text-right my-5">
+    <div class="col-md-4 col-sm-2 mt-5">
       <%= image_tag @user.get_profile_image(100,100), class: "rounded-circle border border-dark" %>
     </div>
-    <div class= "col-5 ml-0 my-5">
+    <div class= "col-md-5 col-sm-8 ml-0 margin-5">
       <h3><%= @user.name %></h3>
       <div class= "text-left">
       <% if @user.introduction.present? %>
@@ -13,11 +13,11 @@
       <% end %>
       </div>
     </div>
-    <table class="table">
+    <table class="table user_table">
       <tr>
         <td class="pull-right">
         <%= @user.active_follows.count %>
-        フォロー中
+        フォロー中<br>
         <%= @user.passive_follows.count %>
         フォロワー
         </td>

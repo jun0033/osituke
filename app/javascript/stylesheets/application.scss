@@ -143,3 +143,33 @@ a:hover {
 .comment_color {
   background-color: #b4e6df;
 }
+
+.margin-5 {
+  margin: 20px;
+}
+
+.user_table br {
+  display: none;
+}
+
+@media screen and (max-width: 960px) {
+  body {
+  padding-top: 150px;
+  }
+
+  .user_table td {
+    display: block;
+    width: 100%;
+  }
+
+}
+
+@media screen and (max-width: 575px) {
+  .margin-5 {
+    margin: 0;
+  }
+
+  .user_table br {
+    display: inline;
+  }
+}
