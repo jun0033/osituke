@@ -1,11 +1,11 @@
 class Public::HobbyCommentsController < ApplicationController
   def index
-    @user = User.find(params[:id])
+    @user     = User.find(params[:id])
     @comments = HobbyComment.order(id: :desc).where(user_id: @user.id).page(params[:page])
   end
 
   def create
-    @hobby = Hobby.find(params[:hobby_id])
+    @hobby   = Hobby.find(params[:hobby_id])
     @comment = @hobby.hobby_comments.new(comment_params)
     @comment.user_id = current_user.id
     if @comment.save
@@ -19,7 +19,7 @@ class Public::HobbyCommentsController < ApplicationController
   end
 
   def report
-    @hobby = Hobby.find(params[:hobby_id])
+    @hobby   = Hobby.find(params[:hobby_id])
     @comment = @hobby.hobby_comments.new(comment_params)
     # このコメントで趣味をやったことにする
     @comment.done_status = true

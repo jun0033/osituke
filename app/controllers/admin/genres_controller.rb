@@ -10,12 +10,12 @@ class Admin::GenresController < ApplicationController
   end
 
   def show
-    @genre = Genre.includes(:hobbies).find(params[:id])
+    @genre   = Genre.includes(:hobbies).find(params[:id])
     @hobbies = @genre.hobbies.order(id: :desc).page(params[:page])
   end
 
   def destroy
-    genre = Genre.find(params[:id])
+    genre   = Genre.find(params[:id])
     hobbies = Hobby.where(genre_id: genre.id)
     hobbies.destroy_all
     genre.destroy

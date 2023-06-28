@@ -1,12 +1,12 @@
 class Hobby < ApplicationRecord
   belongs_to :user
   belongs_to :genre
-  has_many :hobby_tags,     dependent: :destroy
-  has_many :tags,           through:   :hobby_tags
-  has_many :hobby_comments, dependent: :destroy
-  has_many :favorites,      dependent: :destroy
-  has_many :to_does,        dependent: :destroy
-  has_many :notifications,  dependent: :destroy
+  has_many   :hobby_tags,     dependent: :destroy
+  has_many   :tags,           through:   :hobby_tags
+  has_many   :hobby_comments, dependent: :destroy
+  has_many   :favorites,      dependent: :destroy
+  has_many   :to_does,        dependent: :destroy
+  has_many   :notifications,  dependent: :destroy
 
   has_many_attached :hobby_images
   # クラス外部からのインスタンス変数へのアクセスを許可
@@ -14,7 +14,7 @@ class Hobby < ApplicationRecord
 
   with_options presence: true, on: :publicize do
     validates :title, length: { minimum: 1,maximum: 30 }
-    validates :body, length: { minimum: 1,maximum: 500 }
+    validates :body,  length: { minimum: 1,maximum: 500 }
   end
   validates :tag_name, length: { maximum: 100 }
 
@@ -33,14 +33,14 @@ class Hobby < ApplicationRecord
   def save_tag(sent_tags)
     # タグが存在していれば、タグの名前を配列として全て取得
       current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
-      old_tags = current_tags - sent_tags
-      new_tags = sent_tags.uniq - current_tags
+      old_tags     = current_tags   - sent_tags
+      new_tags     = sent_tags.uniq - current_tags
 
       # タグの追加と削除を一連の操作としてまとめる
       ActiveRecord::Base.transaction do
         # 古いタグを消す
         old_tags.each do |old|
-          self.tags.delete
+          self.tags.destroy
           Tag.find_by(tag_name: old)
         end
 

@@ -1,23 +1,23 @@
 class Public::HobbiesController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
   def show
-    @hobby = Hobby.includes(:user, :hobby_comments, :tags).find(params[:id])
-    @comment = current_user.hobby_comments.new(hobby_id: @hobby.id)
+    @hobby    = Hobby.includes(:user, :hobby_comments, :tags).find(params[:id])
+    @comment  = current_user.hobby_comments.new(hobby_id: @hobby.id)
     @comments = @hobby.hobby_comments.all.page(params[:page])
   end
 
   def new
-    @hobby = Hobby.new
-    @genre = Genre.new
+    @hobby  = Hobby.new
+    @genre  = Genre.new
     @genres = Genre.all
   end
 
   def create
-    @hobby = Hobby.new
-    @genre = Genre.new
+    @hobby  = Hobby.new
+    @genre  = Genre.new
     @genres = Genre.all
     hobby = current_user.hobbies.new(hobby_params)
-    tags = params[:hobby][:tag_name].split(/[　| ]+/)
+    tags  = params[:hobby][:tag_name].split(/[　| ]+/)
      # 投稿ボタンを押下した場合
     if params[:post]
       # 投稿の場合のみバリデーション
@@ -26,7 +26,7 @@ class Public::HobbiesController < ApplicationController
         redirect_to hobbies_path
         flash[:success] = "#{hobby.title}が誰かの元へ飛んでいきました"
       else
-        flash[:danger] = '登録できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください'
+        flash[:danger]  = '登録できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください'
         render :new
       end
     # 下書きボタンを押下した場合
@@ -36,7 +36,7 @@ class Public::HobbiesController < ApplicationController
         redirect_to user_path(current_user)
         flash[:success] = "#{hobby.title}を下書き保存しました！"
       else
-        flash[:danger] = '登録できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください'
+        flash[:danger]  = '登録できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください'
         render :new
       end
     end
@@ -53,13 +53,14 @@ class Public::HobbiesController < ApplicationController
   end
 
   def rank_index
-    hobbies = Favorite.group(:hobby_id).where(created_at: Time.current.all_month)
-                      .order('count(hobby_id) desc').limit(10).pluck(:hobby_id)
-    @rank_hobbies = Hobby.includes(:favorites).where(id: hobbies).order(id: :desc)
+    rank_ids = Favorite.group(:hobby_id)
+                       .where(created_at: Time.current.beginning_of_month..Time.current.end_of_month)
+                       .order('count(hobby_id) desc').pluck(:hobby_id)
+    @rank_hobbies = Hobby.find(rank_ids)
   end
 
   def done_index
-    @user = User.find(params[:id])
+    @user    = User.find(params[:id])
     comments = HobbyComment.where(user_id: @user.id).where(done_status: true)
     @hobbies = Hobby.includes(:hobby_comments).order(id: :desc).where(id: comments.pluck(:hobby_id)).page(params[:page])
   end
@@ -72,17 +73,17 @@ class Public::HobbiesController < ApplicationController
   end
 
   def edit
-    @hobby = Hobby.find(params[:id])
-    @genre = Genre.new
+    @hobby  = Hobby.find(params[:id])
+    @genre  = Genre.new
     @genres = @hobby.genre
-    @tags = @hobby.tags.pluck(:tag_name).join(" ")
+    @tags   = @hobby.tags.pluck(:tag_name).join(" ")
   end
 
   def update
-    @hobby = Hobby.find(params[:id])
-    @genre = Genre.new
+    @hobby  = Hobby.find(params[:id])
+    @genre  = Genre.new
     @genres = @hobby.genre
-    @tags = @hobby.tags.pluck(:tag_name).join(" ")
+    @tags   = @hobby.tags.pluck(:tag_name).join(" ")
      # 受け取った値を空白で区切って配列にする
     tags = params[:hobby][:tag_name].split(/[　| ]+/)
     # ①下書きの更新（公開）の場合
@@ -91,46 +92,40 @@ class Public::HobbiesController < ApplicationController
       # updateメソッドにはcontextが使用できないため、公開処理にはattributesとsaveメソッドを使用する
       @hobby.attributes = hobby_params.merge(is_draft: false)
       if @hobby.save(context: :publicize)
-          # 紐づいていたタグを消す
-          @old_relations = HobbyTag.where(hobby_id: @hobby.id)
-          @old_relations.each do |relation|
-            relation.delete
-          end
-          @hobby.save_tag(tags)
+        # 紐づいていたタグを消す
+        @old_relations = HobbyTag.where(hobby_id: @hobby.id)
+        @old_relations.destroy_all
+        @hobby.save_tag(tags)
         redirect_to hobbies_path(@hobby.id)
         flash[:success] = "#{@hobby.title}が誰かの元へ飛んでいきました！"
       else
         @hobby.is_draft = true
-        flash[:danger] = "#{@hobby.title}を公開できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
+        flash[:danger]  = "#{@hobby.title}を公開できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
         render :edit
       end
     # ②公開済み趣味の更新の場合
     elsif params[:update_hobby]
       @hobby.attributes = hobby_params
       if @hobby.save(context: :publicize)
-          @old_relations = HobbyTag.where(hobby_id: @hobby.id)
-          @old_relations.each do |relation|
-            relation.delete
-          end
-          @hobby.save_tag(tags)
+        @old_relations = HobbyTag.where(hobby_id: @hobby.id)
+        @old_relations.destroy_all
+        @hobby.save_tag(tags)
         redirect_to hobbies_path(@hobby.id)
         flash[:success] = "#{@hobby.title}を更新しました！"
       else
-        flash[:danger] = "#{@hobby.title}を更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
+        flash[:danger]  = "#{@hobby.title}を更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
         render :edit
       end
     # ③下書き趣味の更新（非公開）の場合
     else
       if @hobby.update(hobby_params)
-          @old_relations = HobbyTag.where(hobby_id: @hobby.id)
-          @old_relations.each do |relation|
-            relation.delete
-          end
-          @hobby.save_tag(tags)
+        @old_relations  = HobbyTag.where(hobby_id: @hobby.id)
+        @old_relations.destroy_all
+        @hobby.save_tag(tags)
         redirect_to hobbies_path(@hobby.id)
         flash[:success] = '下書きを更新しました！'
       else
-        flash[:danger] = '更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください'
+        flash[:danger]  = '更新できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください'
         render :edit
       end
     end

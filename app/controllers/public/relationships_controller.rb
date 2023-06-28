@@ -11,12 +11,12 @@ class Public::RelationshipsController < ApplicationController
   end
 
   def active_follow
-    user = User.find(params[:user_id])
+    user   = User.find(params[:user_id])
     @users = user.active_follows.page(params[:page])
   end
 
   def passive_follow
-    user = User.find(params[:user_id])
+    user   = User.find(params[:user_id])
     @users = user.passive_follows.page(params[:page])
   end
 end

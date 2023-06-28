@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   def show
-    @user = User.find(params[:id])
+    @user    = User.find(params[:id])
     @hobbies = @user.hobbies.order(id: :desc).where(is_draft: false)
   end
 
@@ -14,7 +14,7 @@ class Admin::UsersController < ApplicationController
       flash[:success] = 'プロフィールを変更しました。'
       redirect_to admin_user_path
     else
-      flash[:danger] = 'プロフィールの変更に失敗しました。'
+      flash[:danger]  = 'プロフィールの変更に失敗しました。'
       redirect_to admin_user_path
     end
   end

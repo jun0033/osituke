@@ -2,8 +2,8 @@ class Public::UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
 
   def show
-    user = User.where(user_status: false)
-    @user = User.find(params[:id])
+    user     = User.where(user_status: false)
+    @user    = User.find(params[:id])
     @hobbies = @user.hobbies.order(id: :desc).where(is_draft: false).where(user_id: user.pluck(:id))
   end
 
@@ -17,7 +17,7 @@ class Public::UsersController < ApplicationController
       redirect_to user_path
       flash[:success] = 'プロフィールを変更しました。'
     else
-      flash[:danger] = 'プロフィールの変更に失敗しました。'
+      flash[:danger]  = 'プロフィールの変更に失敗しました。'
       redirect_to user_path
     end
   end
@@ -30,7 +30,7 @@ class Public::UsersController < ApplicationController
     if @user.update(user_status: true)
       reset_session
       redirect_to root_path
-      flash[:info] = '退会しました。'
+      flash[:info]   = '退会しました。'
     else
       flash[:danger] = '編集に失敗しました'
       render :edit
