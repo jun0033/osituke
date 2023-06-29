@@ -10,8 +10,13 @@ class Admin::TagsController < ApplicationController
   end
 
   def show
-    @tag     = Tag.find(params[:id])
-    @hobbies = @tag.hobbies.order(id: :desc).where(is_draft: false).page(params[:page])
+    begin
+      @tag     = Tag.find(params[:id])
+      @hobbies = @tag.hobbies.order(id: :desc).where(is_draft: false).page(params[:page])
+    rescue
+      redirect_to admin_hobbies_path
+      flash[:danger] = "タグが見つかりませんでした"
+    end
   end
 
   def destroy

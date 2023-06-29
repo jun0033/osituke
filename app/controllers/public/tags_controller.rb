@@ -4,9 +4,14 @@ class Public::TagsController < ApplicationController
   end
 
   def show
-    @tag = Tag.find(params[:id])
-    user = User.where(user_status: false)
-    @hobbies = @tag.hobbies.order(id: :desc).where(user_id: user.pluck(:id)).where(is_draft: false).page(params[:page])
+    begin
+      @tag = Tag.find(params[:id])
+      user = User.where(user_status: false)
+      @hobbies = @tag.hobbies.order(id: :desc).where(user_id: user.pluck(:id)).where(is_draft: false).page(params[:page])
+    rescue
+      redirect_to hobbies_path
+      flash[:danger] = "タグが見つかりませんでした"
+    end
   end
 
   def create

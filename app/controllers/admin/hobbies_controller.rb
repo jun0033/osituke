@@ -21,8 +21,13 @@ class Admin::HobbiesController < ApplicationController
   end
 
   def show
-    @hobby    = Hobby.includes(:user, :hobby_comments, :tags).find(params[:id])
-    @comments = @hobby.hobby_comments.all.page(params[:page])
+    begin
+      @hobby    = Hobby.includes(:user, :hobby_comments, :tags).find(params[:id])
+      @comments = @hobby.hobby_comments.all.page(params[:page])
+    rescue
+      redirect_to admin_hobbies_path
+      flash[:danger] = "投稿が見つかりませんでした"
+    end
   end
 
   def destroy

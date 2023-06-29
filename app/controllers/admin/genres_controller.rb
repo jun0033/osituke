@@ -10,8 +10,13 @@ class Admin::GenresController < ApplicationController
   end
 
   def show
-    @genre   = Genre.includes(:hobbies).find(params[:id])
-    @hobbies = @genre.hobbies.order(id: :desc).page(params[:page])
+    begin
+      @genre   = Genre.includes(:hobbies).find(params[:id])
+      @hobbies = @genre.hobbies.order(id: :desc).page(params[:page])
+    rescue
+      redirect_to admin_hobbies_path
+      flash[:danger] = "ジャンルが見つかりませんでした"
+    end
   end
 
   def destroy

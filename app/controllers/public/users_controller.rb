@@ -2,9 +2,14 @@ class Public::UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
 
   def show
-    user     = User.where(user_status: false)
-    @user    = User.find(params[:id])
-    @hobbies = @user.hobbies.order(id: :desc).where(is_draft: false).where(user_id: user.pluck(:id))
+    begin
+      user     = User.where(user_status: false)
+      @user    = User.find(params[:id])
+      @hobbies = @user.hobbies.order(id: :desc).where(is_draft: false).where(user_id: user.pluck(:id))
+    rescue
+      redirect_to hobbies_path
+      flash[:danger] = "ユーザーが見つかりませんでした"
+    end
   end
 
   def edit

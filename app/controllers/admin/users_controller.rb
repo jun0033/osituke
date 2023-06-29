@@ -1,7 +1,12 @@
 class Admin::UsersController < ApplicationController
   def show
-    @user    = User.find(params[:id])
-    @hobbies = @user.hobbies.order(id: :desc).where(is_draft: false)
+    begin
+      @user    = User.find(params[:id])
+      @hobbies = @user.hobbies.order(id: :desc).where(is_draft: false)
+    rescue
+      redirect_to admin_hobbies_path
+      flash[:danger] = "ユーザーが見つかりませんでした"
+    end
   end
 
   def edit

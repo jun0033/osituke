@@ -1,9 +1,14 @@
 class Public::HobbiesController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
   def show
-    @hobby    = Hobby.includes(:user, :hobby_comments, :tags).find(params[:id])
-    @comment  = current_user.hobby_comments.new(hobby_id: @hobby.id)
-    @comments = @hobby.hobby_comments.all.page(params[:page])
+    begin
+      @hobby    = Hobby.includes(:user, :hobby_comments, :tags).find(params[:id])
+      @comment  = current_user.hobby_comments.new(hobby_id: @hobby.id)
+      @comments = @hobby.hobby_comments.all.page(params[:page])
+    rescue
+      redirect_to hobbies_path
+      flash[:danger] = "投稿が見つかりませんでした"
+    end
   end
 
   def new
